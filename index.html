@@ -3,1319 +3,1424 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexaLearn Solutions — LMS & Technical Documentation Experts</title>
+<title>NexaLearn Solutions — LMS Development & Technical Documentation</title>
 <link rel="icon" type="image/svg+xml" href="logo.svg">
-<meta name="description" content="NexaLearn Solutions delivers enterprise-grade LMS platforms, technical manuals, user guides, and training materials.">
-<meta property="og:title" content="NexaLearn Solutions">
-<meta property="og:description" content="Elevate Learning. Empower Knowledge.">
-<meta property="og:image" content="logo.svg">
+<meta name="description" content="NexaLearn Solutions delivers enterprise-grade LMS platforms, technical manuals, user guides, and training materials that transform how organizations learn.">
 <style>
+/* =========================================
+   RESET & TOKENS
+   ========================================= */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#04091e;
-  --bg2:#070d28;
-  --card:rgba(255,255,255,0.04);
-  --border:rgba(255,255,255,0.08);
-  --blue:#3b82f6;
-  --cyan:#06b6d4;
-  --violet:#7c3aed;
-  --green:#10b981;
-  --orange:#f59e0b;
-  --text:#e2e8f0;
-  --muted:#94a3b8;
-  --nav-h:70px;
+  --navy:#0c1f3f;
+  --navy-mid:#14305a;
+  --blue:#1a56db;
+  --blue-light:#2563eb;
+  --teal:#0891b2;
+  --slate-50:#f8fafc;
+  --slate-100:#f1f5f9;
+  --slate-200:#e2e8f0;
+  --slate-300:#cbd5e1;
+  --slate-400:#94a3b8;
+  --slate-600:#475569;
+  --slate-700:#334155;
+  --slate-900:#0f172a;
+  --white:#ffffff;
+  --green:#059669;
+  --amber:#d97706;
+  --red:#dc2626;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+  --shadow:0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.06);
+  --shadow-xl:0 24px 64px rgba(0,0,0,.12),0 8px 20px rgba(0,0,0,.07);
+  --radius:8px;
+  --radius-lg:12px;
+  --radius-xl:16px;
+  --nav-h:68px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden}
+body{background:var(--white);color:var(--slate-900);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* SCROLLBAR */
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--slate-100)}
 ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
 
-/* ===================== NAV ===================== */
-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;
-  background:rgba(4,9,30,0.85);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 5%;transition:.3s}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo-icon{width:42px;height:42px}
-.logo-text{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#3b82f6,#06b6d4);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.logo-sub{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:-4px}
-.nav-links{display:flex;gap:2rem;margin-left:auto;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;
-  transition:.2s;position:relative;padding-bottom:4px}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;
-  background:linear-gradient(90deg,var(--blue),var(--cyan));transition:.3s}
-.nav-links a:hover{color:#fff}
-.nav-links a:hover::after{width:100%}
-.nav-cta{background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff!important;
-  padding:8px 20px!important;border-radius:25px;font-weight:600!important}
-.nav-cta::after{display:none!important}
-.nav-cta:hover{opacity:.9;transform:translateY(-1px)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
-.hamburger span{width:24px;height:2px;background:#fff;transition:.3s;border-radius:2px}
+/* =========================================
+   TYPOGRAPHY SYSTEM
+   ========================================= */
+h1,h2,h3,h4,h5{line-height:1.2;font-weight:700;color:var(--slate-900)}
+h1{font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.015em}
+h3{font-size:1.2rem}
+h4{font-size:1rem;font-weight:600}
+p{color:var(--slate-600)}
 
-/* ===================== HERO ===================== */
-#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:var(--nav-h)}
-#hero-canvas{position:absolute;inset:0;z-index:0}
-.hero-content{position:relative;z-index:2;padding:0 5%;max-width:660px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,.15);
-  border:1px solid rgba(59,130,246,.3);padding:6px 16px;border-radius:20px;
-  font-size:.8rem;color:var(--cyan);margin-bottom:1.5rem;animation:fadeSlideUp .6s ease both}
-.hero-badge .dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;animation:pulse 2s infinite}
-h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:900;line-height:1.1;
-  animation:fadeSlideUp .7s .1s ease both}
-h1 .gradient{background:linear-gradient(135deg,#3b82f6,#06b6d4,#7c3aed);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{margin:1.5rem 0 2.5rem;font-size:1.1rem;color:var(--muted);line-height:1.8;
-  animation:fadeSlideUp .7s .2s ease both}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeSlideUp .7s .3s ease both}
-.btn-primary{background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;
-  padding:14px 32px;border-radius:50px;font-weight:700;text-decoration:none;
-  transition:.3s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-size:1rem}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(59,130,246,.4)}
-.btn-secondary{background:transparent;color:#fff;padding:14px 32px;border-radius:50px;
-  font-weight:600;text-decoration:none;border:1px solid var(--border);transition:.3s;
-  display:inline-flex;align-items:center;gap:8px;font-size:1rem;cursor:pointer}
-.btn-secondary:hover{border-color:var(--blue);background:rgba(59,130,246,.1)}
-.hero-stats{display:flex;gap:3rem;margin-top:4rem;animation:fadeSlideUp .7s .4s ease both}
-.stat-item{text-align:center}
-.stat-num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-
-/* LMS LIVE PREVIEW */
-.hero-visual{position:absolute;right:5%;top:50%;transform:translateY(-50%);
-  width:min(520px,45%);z-index:2;display:flex;flex-direction:column;gap:1rem}
-@media(max-width:900px){.hero-visual{display:none}}
-.lms-preview{background:rgba(10,20,60,0.85);backdrop-filter:blur(20px);
-  border:1px solid rgba(59,130,246,.25);border-radius:16px;overflow:hidden;
-  box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(59,130,246,.1);
-  animation:floatY 6s ease-in-out infinite}
-.lms-topbar{background:rgba(59,130,246,.1);padding:10px 16px;display:flex;
-  align-items:center;gap:8px;border-bottom:1px solid var(--border)}
-.lms-dot{width:10px;height:10px;border-radius:50%}
-.lms-title-bar{flex:1;background:rgba(255,255,255,.05);height:20px;border-radius:4px;margin:0 8px}
-.lms-body{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.lms-module{background:rgba(255,255,255,.04);border:1px solid var(--border);
-  border-radius:10px;padding:12px;transition:.3s;cursor:pointer;position:relative;overflow:hidden}
-.lms-module::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(59,130,246,.08));
-  opacity:0;transition:.3s}
-.lms-module:hover::before{opacity:1}
-.lms-module.active{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.08)}
-.mod-icon{font-size:1.4rem;margin-bottom:6px}
-.mod-name{font-size:.75rem;font-weight:600;color:#fff;margin-bottom:4px}
-.mod-prog{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
-.mod-fill{height:100%;border-radius:2px;transition:width 2s ease}
-.mod-pct{font-size:.65rem;color:var(--muted);margin-top:3px}
-.lms-sidebar-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);
-  border-radius:8px;padding:8px 12px;border:1px solid var(--border)}
-.avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));
-  display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
-.user-info{flex:1}
-.user-name{font-size:.7rem;font-weight:600}
-.user-prog{font-size:.6rem;color:var(--muted)}
-.mini-bar{width:50px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
-.mini-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:2px}
-
-/* ===================== SECTIONS ===================== */
-section{padding:100px 5%}
-.section-tag{display:inline-block;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);
-  color:var(--cyan);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;
-  padding:5px 14px;border-radius:20px;margin-bottom:1rem}
-.section-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:1rem;line-height:1.2}
-.section-sub{color:var(--muted);font-size:1.05rem;max-width:600px;line-height:1.7}
+/* =========================================
+   LAYOUT UTILITIES
+   ========================================= */
+.container{max-width:1180px;margin:0 auto;padding:0 5%}
+.section-py{padding:88px 0}
+.section-py-sm{padding:60px 0}
 .text-center{text-align:center}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-bottom:.9rem;
+  background:rgba(26,86,219,.1);color:var(--blue);border:1px solid rgba(26,86,219,.18)}
+.tag.teal{background:rgba(8,145,178,.1);color:var(--teal);border-color:rgba(8,145,178,.2)}
+.tag.green{background:rgba(5,150,105,.1);color:var(--green);border-color:rgba(5,150,105,.2)}
+.section-sub{font-size:1.05rem;color:var(--slate-600);max-width:580px;line-height:1.75;margin-top:.5rem}
 .text-center .section-sub{margin:0 auto}
+.blue-text{color:var(--blue)}
+.underline-accent{position:relative;display:inline-block}
+.underline-accent::after{content:'';position:absolute;left:0;bottom:-.08em;width:100%;
+  height:.12em;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;opacity:.7}
 
-/* ===================== SERVICES ===================== */
-#services{background:var(--bg2)}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
-.service-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:2rem;transition:.4s;position:relative;overflow:hidden;cursor:default}
-.service-card::before{content:'';position:absolute;inset:0;opacity:0;transition:.4s;
-  background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(124,58,237,.06))}
-.service-card:hover{transform:translateY(-6px);border-color:rgba(59,130,246,.3)}
+/* =========================================
+   BUTTONS
+   ========================================= */
+.btn{display:inline-flex;align-items:center;gap:.45rem;font-weight:600;font-size:.95rem;
+  text-decoration:none;border:none;cursor:pointer;transition:all .2s;border-radius:6px;
+  padding:12px 24px;white-space:nowrap}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#1648c0;box-shadow:0 4px 16px rgba(26,86,219,.35);transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+.btn-secondary:hover{background:rgba(26,86,219,.06)}
+.btn-white{background:#fff;color:var(--navy);box-shadow:var(--shadow)}
+.btn-white:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.25)}
+.btn-ghost:hover{background:rgba(255,255,255,.22)}
+.btn-lg{padding:15px 32px;font-size:1rem}
+.btn-sm{padding:8px 18px;font-size:.85rem}
+.arrow{display:inline-block;transition:transform .2s}
+.btn:hover .arrow{transform:translateX(3px)}
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--slate-200);transition:.3s}
+nav.scrolled{box-shadow:var(--shadow)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 5%;height:100%;
+  display:flex;align-items:center;gap:2rem}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-mark{width:36px;height:36px;background:var(--blue);border-radius:8px;
+  display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:20px;height:20px}
+.logo-name{font-size:1.15rem;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+.logo-name span{color:var(--blue)}
+.nav-links{display:flex;list-style:none;gap:.2rem;margin-left:auto}
+.nav-links a{color:var(--slate-700);text-decoration:none;font-size:.9rem;font-weight:500;
+  padding:6px 12px;border-radius:6px;transition:.15s}
+.nav-links a:hover{color:var(--blue);background:rgba(26,86,219,.06)}
+.nav-links a.active{color:var(--blue)}
+.nav-actions{display:flex;align-items:center;gap:.75rem;margin-left:1rem;flex-shrink:0}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--slate-700);border-radius:2px;transition:.3s}
+
+/* =========================================
+   HERO
+   ========================================= */
+#hero{background:var(--navy);padding-top:calc(var(--nav-h) + 60px);padding-bottom:80px}
+.hero-inner{max-width:1180px;margin:0 auto;padding:0 5%;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+@media(max-width:860px){.hero-inner{grid-template-columns:1fr}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:600;
+  color:rgba(255,255,255,.8);letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.5rem}
+.hero-tag .dot{width:6px;height:6px;background:#4ade80;border-radius:50%;
+  animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+#hero h1{color:#fff;margin-bottom:1.25rem;font-size:clamp(2rem,4vw,3.2rem)}
+#hero h1 span{color:#60a5fa}
+#hero .hero-sub{color:rgba(255,255,255,.65);font-size:1.05rem;line-height:1.75;
+  max-width:480px;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-trust{display:flex;align-items:center;gap:1rem;margin-top:2.5rem}
+.hero-trust-text{font-size:.8rem;color:rgba(255,255,255,.45);text-transform:uppercase;
+  letter-spacing:.08em}
+.trust-logos{display:flex;align-items:center;gap:.75rem}
+.trust-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600;
+  color:rgba(255,255,255,.55)}
+
+/* HERO DASHBOARD MOCKUP */
+.hero-visual{position:relative}
+@media(max-width:860px){.hero-visual{display:none}}
+.mockup-window{background:#fff;border-radius:12px;box-shadow:var(--shadow-xl);overflow:hidden;
+  animation:floatUp 6s ease-in-out infinite}
+@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.mw-bar{background:var(--slate-100);padding:10px 14px;display:flex;align-items:center;
+  gap:6px;border-bottom:1px solid var(--slate-200)}
+.mw-dot{width:10px;height:10px;border-radius:50%}
+.mw-url{flex:1;background:var(--slate-200);height:18px;border-radius:4px;margin:0 10px}
+.mw-body{display:grid;grid-template-columns:160px 1fr;height:340px}
+.mw-sidebar{background:var(--navy);padding:16px 0}
+.mw-logo-row{padding:0 16px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px}
+.mw-logo-label{font-size:11px;font-weight:800;color:#fff;letter-spacing:.05em}
+.mw-logo-sub{font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.08em}
+.mw-nav-item{padding:7px 16px;font-size:11px;color:rgba(255,255,255,.5);display:flex;
+  align-items:center;gap:8px;transition:.2s;cursor:pointer}
+.mw-nav-item.act{background:rgba(255,255,255,.1);color:#fff;border-right:2px solid #60a5fa}
+.mw-nav-item:hover:not(.act){color:rgba(255,255,255,.8);background:rgba(255,255,255,.05)}
+.mw-nav-icon{width:14px;text-align:center;font-size:12px}
+.mw-content{padding:16px;overflow:hidden;background:var(--slate-50)}
+.mw-page-title{font-size:13px;font-weight:700;color:var(--slate-900);margin-bottom:12px}
+.mw-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.mw-stat{background:#fff;border:1px solid var(--slate-200);border-radius:8px;padding:10px}
+.mw-stat-val{font-size:18px;font-weight:800;color:var(--navy)}
+.mw-stat-label{font-size:9px;color:var(--slate-400);text-transform:uppercase;letter-spacing:.05em}
+.mw-stat-delta{font-size:9px;color:var(--green);margin-top:1px}
+.mw-chart-label{font-size:10px;font-weight:600;color:var(--slate-700);margin-bottom:6px}
+.mw-chart{height:60px;background:#fff;border-radius:8px;border:1px solid var(--slate-200);
+  padding:10px;display:flex;align-items:flex-end;gap:4px}
+.mw-bar-c{flex:1;border-radius:3px 3px 0 0;transition:height .5s}
+.mw-course-section{margin-top:10px}
+.mw-course-label{font-size:10px;font-weight:600;color:var(--slate-700);margin-bottom:6px}
+.mw-course-row{display:flex;align-items:center;gap:8px;background:#fff;
+  border:1px solid var(--slate-200);border-radius:6px;padding:7px 10px;margin-bottom:4px}
+.mw-course-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mw-course-name{font-size:10px;flex:1;color:var(--slate-700)}
+.mw-course-prog{width:60px;height:4px;background:var(--slate-200);border-radius:2px;overflow:hidden}
+.mw-course-fill{height:100%;border-radius:2px}
+.mw-course-pct{font-size:9px;color:var(--slate-400);width:26px;text-align:right}
+.badge-float{position:absolute;background:#fff;border-radius:10px;box-shadow:var(--shadow-lg);
+  padding:10px 14px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.badge-float-1{bottom:-16px;left:-30px;animation:floatBadge1 5s ease-in-out infinite}
+.badge-float-2{top:30px;right:-36px;animation:floatBadge2 5s 1s ease-in-out infinite}
+@keyframes floatBadge1{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes floatBadge2{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.badge-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:14px;flex-shrink:0}
+.badge-text{font-size:11px}
+.badge-text strong{display:block;font-size:12px;font-weight:700;color:var(--slate-900)}
+.badge-text span{color:var(--slate-500)}
+
+/* =========================================
+   SOCIAL PROOF BAR
+   ========================================= */
+#proof-bar{border-top:1px solid var(--slate-200);border-bottom:1px solid var(--slate-200);
+  background:var(--white);padding:20px 0;overflow:hidden}
+.proof-inner{max-width:1180px;margin:0 auto;padding:0 5%;
+  display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.proof-label{font-size:.75rem;font-weight:700;color:var(--slate-400);text-transform:uppercase;
+  letter-spacing:.1em;white-space:nowrap;flex-shrink:0}
+.proof-divider{width:1px;height:24px;background:var(--slate-200);flex-shrink:0}
+.proof-logos{display:flex;gap:2rem;align-items:center;overflow:hidden;flex:1}
+.proof-logo{font-size:.85rem;font-weight:700;color:var(--slate-300);letter-spacing:.05em;
+  white-space:nowrap;transition:.2s}
+.proof-logo:hover{color:var(--slate-500)}
+
+/* =========================================
+   SERVICES
+   ========================================= */
+#services{padding:88px 0;background:var(--slate-50)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;margin-top:3rem}
+.service-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-xl);
+  padding:2rem;transition:.25s;cursor:default;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--teal));opacity:0;transition:.25s}
+.service-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:transparent}
 .service-card:hover::before{opacity:1}
-.service-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;
-  justify-content:center;font-size:1.6rem;margin-bottom:1.5rem}
-.service-card h3{font-size:1.15rem;font-weight:700;margin-bottom:.75rem}
-.service-card p{color:var(--muted);font-size:.9rem;line-height:1.7}
-.service-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
-.tag{font-size:.7rem;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.07);
-  color:var(--muted);border:1px solid var(--border)}
-.service-arrow{position:absolute;bottom:1.5rem;right:1.5rem;width:32px;height:32px;
-  border-radius:50%;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);
-  display:flex;align-items:center;justify-content:center;font-size:.8rem;
-  transition:.3s;color:var(--blue)}
-.service-card:hover .service-arrow{background:var(--blue);color:#fff;transform:rotate(45deg)}
+.svc-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;margin-bottom:1.25rem}
+.svc-icon svg{width:24px;height:24px}
+.service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.6rem;color:var(--slate-900)}
+.service-card p{font-size:.9rem;color:var(--slate-600);line-height:1.7}
+.svc-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.85rem;font-weight:600;
+  color:var(--blue);text-decoration:none;margin-top:1.2rem;transition:.15s}
+.svc-link:hover{gap:.5rem}
+.svc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.svc-tag{font-size:.7rem;padding:3px 9px;border-radius:4px;background:var(--slate-100);
+  color:var(--slate-600);font-weight:500}
 
-/* ===================== LMS DEMO ===================== */
-#lms-demo{background:var(--bg);overflow:hidden}
-.demo-container{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem}
-@media(max-width:800px){.demo-container{grid-template-columns:1fr}}
-.demo-info{display:flex;flex-direction:column;gap:1.5rem}
-.demo-feature{display:flex;gap:1rem;align-items:flex-start}
-.feat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;
-  justify-content:center;font-size:1.2rem;flex-shrink:0}
-.feat-text h4{font-size:.95rem;font-weight:700;margin-bottom:.3rem}
-.feat-text p{font-size:.85rem;color:var(--muted);line-height:1.6}
+/* =========================================
+   PLATFORM (LMS DEMO)
+   ========================================= */
+#platform{padding:88px 0;background:var(--white)}
+.platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+@media(max-width:860px){.platform-grid{grid-template-columns:1fr}}
+.feature-list{display:flex;flex-direction:column;gap:1.75rem}
+.feature-item{display:flex;gap:1rem}
+.feat-num{width:32px;height:32px;border-radius:8px;background:var(--blue);color:#fff;
+  font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:.1rem}
+.feat-body h4{font-size:.95rem;font-weight:700;color:var(--slate-900);margin-bottom:.3rem}
+.feat-body p{font-size:.88rem;color:var(--slate-600);line-height:1.65}
 
-/* INTERACTIVE LMS CANVAS */
-.lms-canvas-wrap{position:relative;background:rgba(6,12,40,0.9);border-radius:20px;
-  border:1px solid rgba(59,130,246,.2);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.4)}
-.lms-header{padding:12px 20px;background:rgba(59,130,246,.08);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px}
-.lms-controls{display:flex;gap:6px}
-.ctrl{width:12px;height:12px;border-radius:50%}
-.lms-tab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);overflow:hidden}
-.lms-tab{padding:10px 20px;font-size:.8rem;color:var(--muted);cursor:pointer;
-  transition:.2s;border-bottom:2px solid transparent;white-space:nowrap}
-.lms-tab.act{color:var(--blue);border-bottom-color:var(--blue);background:rgba(59,130,246,.06)}
-.lms-dashboard{padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;gap:10px}
-.dash-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:12px}
-.dash-card.wide{grid-column:span 2}
-.dash-card.full{grid-column:span 3}
-.dash-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.dash-value{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.dash-delta{font-size:.7rem;color:var(--green)}
-.mini-chart{height:40px;display:flex;align-items:flex-end;gap:3px;margin-top:8px}
-.bar{width:100%;border-radius:3px 3px 0 0;transition:height 1s ease;min-height:4px}
-.course-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border)}
-.course-row:last-child{border:0}
-.course-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.course-name{font-size:.7rem;flex:1}
-.course-pct{font-size:.7rem;color:var(--muted)}
-.prog-bar-sm{width:60px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
-.prog-fill-sm{height:100%;border-radius:2px}
-.activity-feed{display:flex;flex-direction:column;gap:6px}
-.activity-item{display:flex;align-items:center;gap:8px;font-size:.7rem;color:var(--muted);
-  padding:5px 8px;background:rgba(255,255,255,.03);border-radius:6px}
-.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+/* Full LMS admin mockup */
+.platform-mockup{background:var(--slate-50);border:1px solid var(--slate-200);
+  border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-xl)}
+.pm-topbar{background:var(--white);border-bottom:1px solid var(--slate-200);
+  padding:12px 20px;display:flex;align-items:center;gap:10px}
+.pm-ctrl{width:11px;height:11px;border-radius:50%}
+.pm-title{font-size:.8rem;font-weight:600;color:var(--slate-400);margin-left:8px}
+.pm-main{display:grid;grid-template-columns:180px 1fr;min-height:380px}
+.pm-side{background:var(--navy);padding:0}
+.pm-side-hdr{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.pm-side-brand{font-size:.8rem;font-weight:800;color:#fff}
+.pm-side-brand small{display:block;font-size:.6rem;color:rgba(255,255,255,.35);font-weight:500;letter-spacing:.08em}
+.pm-nav{padding:8px 0}
+.pm-nav-item{padding:8px 16px;font-size:.75rem;color:rgba(255,255,255,.5);
+  display:flex;align-items:center;gap:8px;cursor:pointer;transition:.15s}
+.pm-nav-item.on{background:rgba(255,255,255,.09);color:#fff;border-right:2px solid #60a5fa}
+.pm-nav-item:hover:not(.on){color:rgba(255,255,255,.8)}
+.pm-page{padding:18px;background:var(--slate-50);overflow:auto}
+.pm-page-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.pm-page-title{font-size:.85rem;font-weight:700;color:var(--slate-900)}
+.pm-badge-btn{font-size:.7rem;background:var(--blue);color:#fff;padding:4px 10px;
+  border-radius:5px;font-weight:600}
+.pm-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.pm-kpi{background:#fff;border:1px solid var(--slate-200);border-radius:8px;padding:10px 12px}
+.pm-kpi-val{font-size:20px;font-weight:800;color:var(--navy)}
+.pm-kpi-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--slate-400);margin-top:1px}
+.pm-kpi-chg{font-size:.68rem;color:var(--green);margin-top:2px;font-weight:600}
+.pm-section-title{font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--slate-500);margin-bottom:8px}
+.pm-courses{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.pm-course-row{display:flex;align-items:center;gap:10px;background:#fff;
+  border:1px solid var(--slate-200);border-radius:7px;padding:8px 12px}
+.pm-c-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pm-c-name{font-size:.72rem;font-weight:600;flex:1;color:var(--slate-800)}
+.pm-c-bar{width:70px;height:5px;background:var(--slate-200);border-radius:3px;overflow:hidden}
+.pm-c-fill{height:100%;border-radius:3px}
+.pm-c-pct{font-size:.68rem;color:var(--slate-500);width:28px;text-align:right}
+.pm-activity{background:#fff;border:1px solid var(--slate-200);border-radius:8px;padding:10px 12px}
+.pm-act-row{display:flex;align-items:center;gap:8px;padding:5px 0;
+  border-bottom:1px solid var(--slate-100);font-size:.7rem;color:var(--slate-600)}
+.pm-act-row:last-child{border:0;padding-bottom:0}
+.pm-act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.pm-act-time{font-size:.65rem;color:var(--slate-400);margin-left:auto}
 
-/* ===================== MANUALS ===================== */
-#manuals{background:var(--bg2)}
-.manuals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:3rem}
-.manual-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:1.5rem;transition:.4s;text-align:center;position:relative;overflow:hidden}
-.manual-card:hover{transform:translateY(-6px);border-color:rgba(6,182,212,.3)}
-.manual-cover{width:80px;height:100px;margin:0 auto 1.2rem;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative}
-.manual-cover::after{content:'';position:absolute;inset:0;border-radius:8px;
-  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0));pointer-events:none}
-.manual-card h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
-.manual-card p{font-size:.85rem;color:var(--muted);line-height:1.6}
-.manual-card .badge{display:inline-block;margin-top:.8rem;font-size:.7rem;padding:3px 10px;
-  border-radius:20px;border:1px solid}
+/* =========================================
+   HOW IT WORKS (Module Assembly — Professional)
+   ========================================= */
+#how-it-works{padding:88px 0;background:var(--slate-50)}
+.hiw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:0;margin-top:3.5rem;position:relative}
+.hiw-connector{position:absolute;top:36px;left:calc(1/8*100% + 36px/2);
+  right:calc(1/8*100% + 36px/2);height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--teal));opacity:.25;z-index:0}
+@media(max-width:700px){.hiw-connector{display:none}}
+.hiw-step{display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:0 1rem;position:relative;z-index:1}
+.hiw-icon-wrap{width:72px;height:72px;border-radius:50%;background:#fff;
+  border:2px solid var(--slate-200);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.2rem;transition:.3s;box-shadow:var(--shadow-sm)}
+.hiw-step:hover .hiw-icon-wrap{border-color:var(--blue);box-shadow:0 0 0 4px rgba(26,86,219,.1)}
+.hiw-icon{font-size:1.5rem}
+.hiw-num{position:absolute;top:-6px;right:calc(50% - 42px);width:20px;height:20px;
+  background:var(--blue);color:#fff;border-radius:50%;font-size:.65rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center}
+.hiw-step h4{font-size:.9rem;font-weight:700;color:var(--slate-900);margin-bottom:.3rem}
+.hiw-step p{font-size:.8rem;color:var(--slate-500);line-height:1.55}
 
-/* ===================== PROCESS ===================== */
-#process{background:var(--bg)}
-.process-track{position:relative;margin-top:4rem}
-.process-line{position:absolute;top:28px;left:calc(12.5% + 0px);right:calc(12.5% + 0px);
-  height:2px;background:linear-gradient(90deg,var(--blue),var(--violet));z-index:0}
-@media(max-width:700px){.process-line{display:none}}
-.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;position:relative;z-index:1}
-.process-step{text-align:center}
-.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));
-  display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;
-  margin:0 auto 1rem;box-shadow:0 8px 24px rgba(59,130,246,.4)}
-.step-name{font-size:.9rem;font-weight:700;margin-bottom:.3rem}
-.step-desc{font-size:.8rem;color:var(--muted);line-height:1.5}
+/* LMS PLATFORM MODULES visual */
+.modules-visual{margin-top:4rem}
+.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
+@media(max-width:600px){.modules-grid{grid-template-columns:repeat(2,1fr)}}
+.module-tile{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-lg);
+  padding:1.25rem;transition:.25s;cursor:default;text-align:center}
+.module-tile:hover{box-shadow:var(--shadow);border-color:var(--blue);transform:translateY(-2px)}
+.mt-icon{font-size:1.8rem;margin-bottom:.6rem}
+.mt-name{font-size:.82rem;font-weight:700;color:var(--slate-900);margin-bottom:.25rem}
+.mt-desc{font-size:.72rem;color:var(--slate-500)}
+.mt-status{display:inline-block;font-size:.65rem;font-weight:600;padding:2px 8px;
+  border-radius:20px;margin-top:.5rem}
+.mt-status.core{background:rgba(26,86,219,.1);color:var(--blue)}
+.mt-status.ext{background:rgba(5,150,105,.1);color:var(--green)}
 
-/* ===================== TESTIMONIALS ===================== */
-#testimonials{background:var(--bg2)}
-.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
-.testimonial-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:2rem;transition:.3s}
-.testimonial-card:hover{border-color:rgba(59,130,246,.3);transform:translateY(-4px)}
-.stars{color:#f59e0b;font-size:1rem;letter-spacing:2px;margin-bottom:1rem}
-.testimonial-text{font-size:.9rem;color:var(--muted);line-height:1.8;font-style:italic;margin-bottom:1.5rem}
-.testimonial-author{display:flex;align-items:center;gap:.75rem}
-.author-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-weight:700;font-size:.9rem}
-.author-name{font-size:.9rem;font-weight:700}
-.author-role{font-size:.75rem;color:var(--muted)}
+/* =========================================
+   DOCUMENTATION / MANUALS
+   ========================================= */
+#documentation{padding:88px 0;background:var(--white)}
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;margin-top:3rem}
+@media(max-width:860px){.doc-grid{grid-template-columns:1fr}}
+.doc-types{display:flex;flex-direction:column;gap:1rem}
+.doc-type-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-lg);
+  padding:1.25rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;transition:.2s;cursor:default}
+.doc-type-card:hover{box-shadow:var(--shadow);border-color:var(--slate-300)}
+.dt-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:1.1rem;flex-shrink:0}
+.dt-body h4{font-size:.9rem;font-weight:700;margin-bottom:.2rem;color:var(--slate-900)}
+.dt-body p{font-size:.82rem;color:var(--slate-500);line-height:1.55}
+.doc-highlight{background:var(--navy);border-radius:var(--radius-xl);padding:2.5rem;color:#fff}
+.doc-highlight h3{color:#fff;font-size:1.3rem;margin-bottom:1rem}
+.doc-highlight p{color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7;margin-bottom:1.5rem}
+.doc-standards{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.std-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  padding:4px 12px;border-radius:4px;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.8)}
 
-/* ===================== PRICING ===================== */
-#pricing{background:var(--bg)}
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem}
-.pricing-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:2rem;transition:.4s;position:relative;overflow:hidden}
-.pricing-card.featured{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.07)}
-.pricing-card.featured::before{content:'Most Popular';position:absolute;top:16px;right:16px;
-  background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;
-  font-size:.7rem;font-weight:700;padding:4px 12px;border-radius:20px}
-.price-tier{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:.5rem}
-.price-amount{font-size:2.5rem;font-weight:900;margin-bottom:.5rem}
-.price-amount sup{font-size:1.2rem;vertical-align:super}
-.price-period{font-size:.8rem;color:var(--muted)}
-.price-desc{font-size:.85rem;color:var(--muted);margin:1rem 0}
-.price-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
-.price-features li{font-size:.85rem;display:flex;align-items:center;gap:.5rem}
-.price-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
-.price-features li.no::before{content:'✕';color:rgba(255,255,255,.2)}
-.price-features li.no{color:rgba(255,255,255,.3)}
+/* =========================================
+   PROCESS
+   ========================================= */
+#process{padding:88px 0;background:var(--slate-50)}
+.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1.5rem;margin-top:3.5rem;position:relative}
+.process-step{text-align:center;padding:0 .5rem}
+.ps-circle{width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;
+  font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;box-shadow:0 4px 12px rgba(26,86,219,.3)}
+.ps-name{font-size:.92rem;font-weight:700;color:var(--slate-900);margin-bottom:.4rem}
+.ps-desc{font-size:.8rem;color:var(--slate-500);line-height:1.55}
 
-/* ===================== CONTACT ===================== */
-#contact{background:var(--bg2)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start}
-@media(max-width:800px){.contact-grid{grid-template-columns:1fr}}
-.contact-info{display:flex;flex-direction:column;gap:1.5rem}
-.contact-item{display:flex;gap:1rem;align-items:flex-start}
-.contact-icon{width:44px;height:44px;border-radius:12px;background:rgba(59,130,246,.15);
-  border:1px solid rgba(59,130,246,.2);display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;flex-shrink:0}
-.contact-item h4{font-size:.9rem;font-weight:700;margin-bottom:.2rem}
-.contact-item p{font-size:.85rem;color:var(--muted)}
-.contact-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem}
-.form-group{margin-bottom:1.2rem}
+/* =========================================
+   CASE STUDIES
+   ========================================= */
+#case-studies{padding:88px 0;background:var(--white)}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:3rem}
+.case-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-xl);
+  overflow:hidden;transition:.25s;cursor:default}
+.case-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:transparent}
+.case-header{padding:1.5rem;border-bottom:1px solid var(--slate-100)}
+.case-industry{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
+.ci-dot{width:8px;height:8px;border-radius:50%}
+.ci-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate-500)}
+.case-card h3{font-size:1rem;font-weight:700;color:var(--slate-900);line-height:1.35}
+.case-body{padding:1.5rem}
+.case-card p{font-size:.87rem;color:var(--slate-600);line-height:1.7;margin-bottom:1.25rem}
+.case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;
+  padding-top:1.25rem;border-top:1px solid var(--slate-100)}
+.cm{text-align:center}
+.cm-val{font-size:1.35rem;font-weight:800;color:var(--navy)}
+.cm-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;color:var(--slate-400);margin-top:2px}
+.case-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem}
+.case-tag{font-size:.7rem;padding:3px 9px;border-radius:4px;background:var(--slate-100);
+  color:var(--slate-600);font-weight:500}
+
+/* =========================================
+   TESTIMONIALS
+   ========================================= */
+#testimonials{padding:88px 0;background:var(--slate-50)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.testi-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-xl);
+  padding:2rem;transition:.2s}
+.testi-card:hover{box-shadow:var(--shadow)}
+.stars{display:flex;gap:2px;margin-bottom:1.2rem}
+.star{color:#f59e0b;font-size:14px}
+.testi-quote{font-size:.92rem;color:var(--slate-700);line-height:1.8;
+  font-style:italic;margin-bottom:1.5rem;position:relative;padding-left:1.2rem}
+.testi-quote::before{content:'"';position:absolute;left:0;top:-.2rem;font-size:2rem;
+  color:var(--blue);opacity:.25;font-style:normal;line-height:1}
+.testi-author{display:flex;align-items:center;gap:.75rem;padding-top:1.25rem;
+  border-top:1px solid var(--slate-100)}
+.ta-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:.85rem;color:#fff;flex-shrink:0}
+.ta-name{font-size:.9rem;font-weight:700;color:var(--slate-900)}
+.ta-role{font-size:.78rem;color:var(--slate-500)}
+.testi-results{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;
+  color:var(--green);background:rgba(5,150,105,.08);padding:3px 10px;border-radius:20px;
+  margin-bottom:1rem}
+.testi-results::before{content:'↑';font-weight:800}
+
+/* =========================================
+   ABOUT
+   ========================================= */
+#about{padding:88px 0;background:var(--white)}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem}
+@media(max-width:860px){.about-layout{grid-template-columns:1fr}}
+.about-text p{font-size:.95rem;color:var(--slate-600);line-height:1.8;margin-bottom:1rem}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+@media(max-width:500px){.about-values{grid-template-columns:1fr}}
+.value-item{padding:1.25rem;background:var(--slate-50);border-radius:var(--radius-lg);
+  border:1px solid var(--slate-200);transition:.2s}
+.value-item:hover{border-color:var(--blue)}
+.value-item h4{font-size:.88rem;font-weight:700;margin-bottom:.3rem;color:var(--slate-900)}
+.value-item p{font-size:.8rem;color:var(--slate-500);line-height:1.55}
+.about-sidebar{display:flex;flex-direction:column;gap:1.5rem}
+.about-stat-block{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.about-stat{background:var(--navy);color:#fff;border-radius:var(--radius-lg);
+  padding:1.5rem;text-align:center}
+.as-val{font-size:2rem;font-weight:800;color:#fff}
+.as-label{font-size:.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.team-strip{border:1px solid var(--slate-200);border-radius:var(--radius-xl);overflow:hidden}
+.team-hdr{background:var(--slate-50);padding:14px 16px;border-bottom:1px solid var(--slate-200)}
+.team-hdr-label{font-size:.75rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--slate-500)}
+.team-list{padding:8px 0}
+.team-row{display:flex;align-items:center;gap:.75rem;padding:10px 16px;
+  border-bottom:1px solid var(--slate-100);transition:.15s}
+.team-row:last-child{border:0}
+.team-row:hover{background:var(--slate-50)}
+.tr-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:.8rem;color:#fff;flex-shrink:0}
+.tr-name{font-size:.87rem;font-weight:600;color:var(--slate-900)}
+.tr-role{font-size:.75rem;color:var(--slate-500)}
+.tr-badge{margin-left:auto;font-size:.65rem;font-weight:600;padding:2px 8px;
+  background:rgba(26,86,219,.1);color:var(--blue);border-radius:20px;white-space:nowrap}
+
+/* =========================================
+   TECH STACK
+   ========================================= */
+.tech-section{border-top:1px solid var(--slate-200);margin-top:4rem;padding-top:2.5rem}
+.tech-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--slate-400);text-align:center;margin-bottom:1.25rem}
+.tech-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem}
+.tech-pill{padding:6px 16px;border-radius:6px;font-size:.8rem;font-weight:600;
+  background:var(--slate-100);color:var(--slate-600);border:1px solid var(--slate-200);transition:.2s}
+.tech-pill:hover{border-color:var(--blue);color:var(--blue);background:rgba(26,86,219,.05)}
+
+/* =========================================
+   PRICING
+   ========================================= */
+#pricing{padding:88px 0;background:var(--slate-50)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:3rem;align-items:start}
+.pricing-card{background:var(--white);border:1px solid var(--slate-200);
+  border-radius:var(--radius-xl);padding:2rem;position:relative;transition:.25s}
+.pricing-card:hover{box-shadow:var(--shadow-lg)}
+.pricing-card.featured{border-color:var(--blue);box-shadow:0 0 0 2px rgba(26,86,219,.15)}
+.pc-popular{position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:#fff;font-size:.7rem;font-weight:700;padding:4px 14px;
+  border-radius:20px;white-space:nowrap;letter-spacing:.04em}
+.pc-tier{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--slate-500);margin-bottom:.6rem}
+.pc-price{font-size:2.4rem;font-weight:800;color:var(--navy);margin-bottom:.2rem}
+.pc-price sup{font-size:1.2rem;vertical-align:super;font-weight:700}
+.pc-cycle{font-size:.82rem;color:var(--slate-400)}
+.pc-desc{font-size:.87rem;color:var(--slate-500);margin:.8rem 0 1.25rem;line-height:1.6}
+.pc-divider{height:1px;background:var(--slate-100);margin:.75rem 0 1rem}
+.pc-features{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.75rem}
+.pc-features li{font-size:.87rem;color:var(--slate-700);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4}
+.pc-features li::before{content:'✓';color:var(--green);font-weight:800;flex-shrink:0;margin-top:.05rem}
+.pc-features li.no{color:var(--slate-300)}
+.pc-features li.no::before{content:'–';color:var(--slate-300)}
+
+/* =========================================
+   CONTACT
+   ========================================= */
+#contact{padding:88px 0;background:var(--white)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;margin-top:3rem;align-items:start}
+@media(max-width:860px){.contact-grid{grid-template-columns:1fr}}
+.contact-info-list{display:flex;flex-direction:column;gap:1.25rem;margin-top:1.5rem}
+.ci-item{display:flex;gap:.9rem;align-items:flex-start}
+.ci-ico{width:40px;height:40px;border-radius:8px;background:rgba(26,86,219,.08);
+  border:1px solid rgba(26,86,219,.12);display:flex;align-items:center;
+  justify-content:center;font-size:1rem;flex-shrink:0}
+.ci-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;
+  font-weight:700;color:var(--slate-400);margin-bottom:.2rem}
+.ci-val{font-size:.92rem;font-weight:600;color:var(--slate-800)}
+.contact-form-card{background:var(--slate-50);border:1px solid var(--slate-200);
+  border-radius:var(--radius-xl);padding:2.5rem}
+.contact-form-card h3{font-size:1.15rem;font-weight:700;margin-bottom:1.5rem;color:var(--slate-900)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-label{font-size:.8rem;color:var(--muted);display:block;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:1px}
-input,textarea,select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);
-  color:#fff;padding:12px 14px;border-radius:10px;font-size:.9rem;outline:none;transition:.3s;font-family:inherit}
-input:focus,textarea:focus,select:focus{border-color:var(--blue);background:rgba(59,130,246,.07)}
-textarea{resize:vertical;min-height:120px}
-select option{background:#070d28}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+label{font-size:.78rem;font-weight:600;color:var(--slate-700);
+  text-transform:uppercase;letter-spacing:.05em}
+input,textarea,select{width:100%;background:var(--white);border:1px solid var(--slate-300);
+  color:var(--slate-900);padding:10px 13px;border-radius:6px;font-size:.9rem;
+  outline:none;transition:.2s;font-family:inherit;appearance:none}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+textarea{resize:vertical;min-height:110px}
+select option{background:#fff}
 
-/* ===================== FOOTER ===================== */
-footer{background:rgba(2,5,15,1);border-top:1px solid var(--border);padding:4rem 5% 2rem}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+/* =========================================
+   CTA BAND
+   ========================================= */
+#cta-band{background:var(--navy);padding:72px 0}
+.cta-inner{max-width:700px;margin:0 auto;padding:0 5%;text-align:center}
+#cta-band h2{color:#fff;font-size:clamp(1.6rem,3.5vw,2.4rem);margin-bottom:.9rem}
+#cta-band p{color:rgba(255,255,255,.6);font-size:1rem;margin-bottom:2rem}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1.5rem}
+.footer-grid{max-width:1180px;margin:0 auto;padding:0 5%;
+  display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+@media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
-.footer-brand .logo-text{font-size:1.6rem}
-.footer-brand p{color:var(--muted);font-size:.85rem;line-height:1.7;margin:.75rem 0 1.5rem}
-.social-links{display:flex;gap:.75rem}
-.social-link{width:38px;height:38px;border-radius:10px;background:var(--card);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;
-  transition:.3s}
-.social-link:hover{border-color:var(--blue);background:rgba(59,130,246,.15)}
-.footer-col h4{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;color:#fff}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.footer-col ul a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:.2s}
-.footer-col ul a:hover{color:var(--blue)}
-.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;
-  justify-content:space-between;align-items:center;flex-wrap:gap;gap:1rem}
-.footer-bottom p{font-size:.8rem;color:var(--muted)}
+.footer-brand .logo-name{color:#fff;font-size:1.1rem}
+.footer-brand p{font-size:.85rem;color:rgba(255,255,255,.45);line-height:1.7;margin:.75rem 0 1.2rem}
+.footer-col h5{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(255,255,255,.7);margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.footer-col ul a{font-size:.85rem;color:rgba(255,255,255,.45);text-decoration:none;transition:.15s}
+.footer-col ul a:hover{color:#fff}
+.footer-bottom{max-width:1180px;margin:0 auto;padding:1.5rem 5% 0;
+  border-top:1px solid rgba(255,255,255,.08);display:flex;
+  justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.footer-bottom p{font-size:.78rem;color:rgba(255,255,255,.3)}
 .footer-links{display:flex;gap:1.5rem}
-.footer-links a{font-size:.8rem;color:var(--muted);text-decoration:none;transition:.2s}
-.footer-links a:hover{color:var(--blue)}
+.footer-links a{font-size:.78rem;color:rgba(255,255,255,.3);text-decoration:none;transition:.15s}
+.footer-links a:hover{color:rgba(255,255,255,.7)}
+.social-row{display:flex;gap:.5rem}
+.social-btn{width:32px;height:32px;border-radius:6px;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;color:rgba(255,255,255,.4);text-decoration:none;transition:.2s}
+.social-btn:hover{background:rgba(255,255,255,.14);color:#fff}
 
-/* ===================== ANIMATIONS ===================== */
-@keyframes fadeSlideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes floatY{0%,100%{transform:translateY(-50%) translateY(0)}50%{transform:translateY(-50%) translateY(-12px)}}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes barGrow{from{height:4px}to{}}
-@keyframes countUp{from{opacity:0}to{opacity:1}}
+/* =========================================
+   ANIMATIONS & SCROLL REVEAL
+   ========================================= */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease}
+.reveal.vis{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .55s ease,transform .55s ease}
+.reveal-l.vis{opacity:1;transform:none}
+.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .55s ease,transform .55s ease}
+.reveal-r.vis{opacity:1;transform:none}
+[class*='reveal'].delay-1{transition-delay:.08s}
+[class*='reveal'].delay-2{transition-delay:.16s}
+[class*='reveal'].delay-3{transition-delay:.24s}
+[class*='reveal'].delay-4{transition-delay:.32s}
+[class*='reveal'].delay-5{transition-delay:.40s}
+[class*='reveal'].delay-6{transition-delay:.48s}
 
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-l{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
-.reveal-l.visible{opacity:1;transform:translateX(0)}
-.reveal-r{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
-.reveal-r.visible{opacity:1;transform:translateX(0)}
-
-/* ===================== GLOWS ===================== */
-.glow-blue{box-shadow:0 0 60px rgba(59,130,246,.15)}
-.gradient-text{background:linear-gradient(135deg,#3b82f6,#06b6d4,#7c3aed);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-/* ===================== CLIENTS ===================== */
-#clients{padding:60px 5%;background:var(--bg);border-bottom:1px solid var(--border)}
-.clients-track{overflow:hidden;position:relative}
-.clients-track::before,.clients-track::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2}
-.clients-track::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-.clients-track::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
-.clients-scroll{display:flex;gap:3rem;animation:scrollLeft 25s linear infinite;width:max-content;align-items:center}
-.clients-scroll:hover{animation-play-state:paused}
-@keyframes scrollLeft{to{transform:translateX(-50%)}}
-.client-logo{display:flex;align-items:center;gap.5rem;color:var(--muted);font-size:.95rem;
-  font-weight:700;white-space:nowrap;opacity:.6;transition:.2s;letter-spacing:1px}
-.client-logo:hover{opacity:1;color:#fff}
-.client-logo span{font-size:1.2rem}
-
-/* ===================== MOBILE NAV ===================== */
-@media(max-width:768px){
-  .nav-links{display:none;position:fixed;top:var(--nav-h);left:0;right:0;
-    flex-direction:column;background:rgba(4,9,30,.98);backdrop-filter:blur(20px);
-    padding:2rem;gap:1.5rem;border-bottom:1px solid var(--border)}
-  .nav-links.open{display:flex}
-  .hamburger{display:flex}
-  .hero-stats{gap:1.5rem}
-  .hero-stats .stat-num{font-size:1.5rem}
-  .contact-grid{grid-template-columns:1fr}
-  .form-row{grid-template-columns:1fr}
-}
-
-/* Toast */
-.toast{position:fixed;bottom:2rem;right:2rem;background:linear-gradient(135deg,var(--blue),var(--violet));
-  color:#fff;padding:1rem 1.5rem;border-radius:12px;font-size:.9rem;font-weight:600;
-  transform:translateY(100px);opacity:0;transition:.4s;z-index:9999;max-width:320px}
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--navy);color:#fff;
+  padding:.9rem 1.4rem;border-radius:var(--radius-lg);font-size:.88rem;font-weight:600;
+  box-shadow:var(--shadow-xl);transform:translateY(100px);opacity:0;transition:.4s;
+  z-index:9999;max-width:340px;border-left:4px solid var(--green)}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* Back to top */
-.back-top{position:fixed;bottom:2rem;left:2rem;width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--violet));border:none;color:#fff;
-  font-size:1.2rem;cursor:pointer;opacity:0;transition:.3s;z-index:999;
-  display:flex;align-items:center;justify-content:center}
-.back-top.visible{opacity:1}
-.back-top:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(59,130,246,.5)}
+/* BACK TOP */
+.back-top{position:fixed;bottom:2rem;left:2rem;width:40px;height:40px;border-radius:8px;
+  background:var(--blue);border:none;color:#fff;cursor:pointer;opacity:0;transition:.3s;
+  z-index:999;display:flex;align-items:center;justify-content:center;font-size:1rem;
+  box-shadow:var(--shadow)}
+.back-top.show{opacity:1}
+.back-top:hover{background:#1648c0;box-shadow:var(--shadow-lg)}
 
-/* ===================== MODULE ASSEMBLY ===================== */
-#module-assembly{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);overflow:hidden}
-#assembly-canvas{display:block;margin:2.5rem auto 0;border-radius:20px;
-  border:1px solid rgba(59,130,246,.2);max-width:100%;cursor:crosshair;
-  box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 80px rgba(59,130,246,.05)}
-.assembly-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:1.2rem;margin-top:1.5rem}
-.leg-item{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted)}
-.leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
-.assembly-cta{display:flex;justify-content:center;gap:1rem;margin-top:2rem;flex-wrap:wrap}
-
-/* ===================== ABOUT ===================== */
-#about{background:var(--bg2)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem}
-@media(max-width:800px){.about-grid{grid-template-columns:1fr}}
-.about-values{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
-@media(max-width:480px){.about-values{grid-template-columns:1fr}}
-.value-card{background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:1.2rem;transition:.3s}
-.value-card:hover{border-color:rgba(59,130,246,.3)}
-.value-card .vi{font-size:1.4rem;margin-bottom:.5rem}
-.value-card h4{font-size:.9rem;font-weight:700;margin-bottom:.3rem}
-.value-card p{font-size:.8rem;color:var(--muted);line-height:1.6}
-.about-visual{position:relative}
-.about-card-main{background:rgba(10,20,60,.9);border:1px solid rgba(59,130,246,.25);
-  border-radius:20px;padding:2rem;backdrop-filter:blur(12px)}
-.about-ring{width:140px;height:140px;border-radius:50%;margin:0 auto 1.5rem;
-  background:linear-gradient(135deg,var(--blue),var(--violet));
-  display:flex;align-items:center;justify-content:center;font-size:3.5rem;
-  box-shadow:0 0 0 12px rgba(59,130,246,.1),0 0 0 24px rgba(59,130,246,.05)}
-.about-mission{font-size:1rem;text-align:center;color:var(--muted);line-height:1.7;font-style:italic}
-.about-since{text-align:center;margin-top:1rem;font-size:.8rem;color:var(--cyan);text-transform:uppercase;letter-spacing:2px}
-.team-section{margin-top:5rem}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.2rem;margin-top:2rem}
-.team-card{text-align:center;background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:1.5rem 1rem;transition:.4s;cursor:default}
-.team-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,.3);
-  box-shadow:0 20px 40px rgba(59,130,246,.1)}
-.team-avatar{width:68px;height:68px;border-radius:50%;margin:0 auto .75rem;
-  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.3rem}
-.team-name{font-size:.9rem;font-weight:700;margin-bottom:.2rem}
-.team-role{font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
-.team-social{font-size:.75rem;color:var(--blue);text-decoration:none}
-
-/* ===================== CASE STUDIES ===================== */
-#case-studies{background:var(--bg)}
-.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
-.case-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  overflow:hidden;transition:.4s;cursor:default}
-.case-card:hover{transform:translateY(-6px);border-color:rgba(59,130,246,.3);
-  box-shadow:0 30px 60px rgba(0,0,0,.3)}
-.case-img{height:150px;display:flex;align-items:center;justify-content:center;
-  font-size:4rem;position:relative;overflow:hidden}
-.case-img::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 30%,rgba(4,9,30,.9))}
-.case-body{padding:1.5rem}
-.case-badge{display:inline-block;font-size:.7rem;padding:3px 10px;border-radius:20px;
-  margin-bottom:.75rem;font-weight:600;letter-spacing:.5px}
-.case-card h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
-.case-card p{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1.2rem}
-.case-metrics{display:flex;gap:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
-.metric{text-align:center;flex:1}
-.metric-val{font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.metric-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-
-/* ===================== TECH STRIP ===================== */
-.tech-strip{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:3rem;justify-content:center}
-.tech-badge{padding:7px 18px;border-radius:20px;font-size:.8rem;font-weight:600;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);
-  transition:.3s;cursor:default}
-.tech-badge:hover{border-color:var(--blue);color:var(--blue);background:rgba(59,130,246,.08)}
+/* MOBILE NAV */
+@media(max-width:820px){
+  .nav-links{display:none;position:fixed;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;background:#fff;padding:1rem;gap:.2rem;
+    border-bottom:1px solid var(--slate-200);box-shadow:var(--shadow-lg)}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  .nav-actions .btn{display:none}
+  .nav-actions .btn:last-child{display:inline-flex}
+}
 </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- ===================== NAV ===================== -->
 <nav id="navbar">
-  <a href="#hero" class="logo">
-    <svg class="logo-icon" viewBox="0 0 42 42" fill="none">
-      <defs>
-        <linearGradient id="lg1" x1="0" y1="0" x2="42" y2="42" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#3b82f6"/>
-          <stop offset="100%" stop-color="#7c3aed"/>
-        </linearGradient>
-        <linearGradient id="lg2" x1="0" y1="0" x2="42" y2="42" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#06b6d4"/>
-          <stop offset="100%" stop-color="#3b82f6"/>
-        </linearGradient>
-      </defs>
-      <rect width="42" height="42" rx="10" fill="url(#lg1)"/>
-      <path d="M8 30 L21 12 L34 30" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <circle cx="21" cy="12" r="3.5" fill="#06b6d4"/>
-      <circle cx="8" cy="30" r="3" fill="white" opacity=".7"/>
-      <circle cx="34" cy="30" r="3" fill="white" opacity=".7"/>
-      <line x1="8" y1="30" x2="34" y2="30" stroke="white" stroke-width="2" opacity=".4"/>
-    </svg>
-    <div>
-      <div class="logo-text">NexaLearn</div>
-      <div class="logo-sub">Solutions</div>
+  <div class="nav-inner">
+    <a href="#hero" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 15 L10 4 L17 15" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="4" r="2.2" fill="#60a5fa"/>
+          <line x1="3" y1="15" x2="17" y2="15" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity=".45"/>
+        </svg>
+      </div>
+      <span class="logo-name">Nexa<span>Learn</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#platform">Platform</a></li>
+      <li><a href="#documentation">Documentation</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#contact" class="btn btn-secondary btn-sm">Contact</a>
+      <a href="#contact" class="btn btn-primary btn-sm">Get a Quote</a>
     </div>
-  </a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#lms-demo">Platform</a></li>
-    <li><a href="#module-assembly">How It Works</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#case-studies">Case Studies</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#contact" class="nav-cta">Get Started</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" onclick="toggleNav()">
-    <span></span><span></span><span></span>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ===================== HERO ===================== -->
 <section id="hero">
-  <canvas id="hero-canvas"></canvas>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      Trusted by 200+ Organizations Worldwide
-    </div>
-    <h1>Build Smarter <span class="gradient">Learning Systems</span> & Documentation</h1>
-    <p class="hero-desc">NexaLearn Solutions delivers enterprise-grade LMS platforms, technical manuals, user guides, and training materials that transform how your teams learn and grow.</p>
-    <div class="hero-btns">
-      <a href="#services" class="btn-primary">Explore Services ↗</a>
-      <a href="#lms-demo" class="btn-secondary">▶ See LMS Demo</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num" data-count="200">0</div>
-        <div class="stat-label">Projects Done</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag"><span class="dot"></span>Enterprise Learning Solutions</div>
+      <h1>Build Smarter <span>Learning Systems</span> &amp; Documentation</h1>
+      <p class="hero-sub">NexaLearn Solutions designs custom LMS platforms, technical manuals, training materials, and knowledge management systems for organizations that demand precision and performance.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn btn-white btn-lg">Explore Services <span class="arrow">→</span></a>
+        <a href="#contact" class="btn btn-ghost btn-lg">Schedule a Call</a>
       </div>
-      <div class="stat-item">
-        <div class="stat-num" data-count="98">0</div>
-        <div class="stat-label">% Satisfaction</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" data-count="50">0</div>
-        <div class="stat-label">Industries Served</div>
+      <div class="hero-trust">
+        <span class="hero-trust-text">Trusted by</span>
+        <div class="trust-logos">
+          <div class="trust-pill">Healthcare</div>
+          <div class="trust-pill">Finance</div>
+          <div class="trust-pill">Manufacturing</div>
+          <div class="trust-pill">Technology</div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- LMS Live Preview Widget -->
-  <div class="hero-visual">
-    <div class="lms-preview">
-      <div class="lms-topbar">
-        <div class="lms-dot" style="background:#ef4444"></div>
-        <div class="lms-dot" style="background:#f59e0b"></div>
-        <div class="lms-dot" style="background:#10b981"></div>
-        <div class="lms-title-bar"></div>
-        <span style="font-size:.7rem;color:var(--muted)">NexaLearn LMS</span>
-      </div>
-      <div class="lms-body">
-        <div class="lms-module active" id="mod1">
-          <div class="mod-icon">📚</div>
-          <div class="mod-name">Onboarding Course</div>
-          <div class="mod-prog"><div class="mod-fill" style="width:78%;background:linear-gradient(90deg,#3b82f6,#06b6d4)"></div></div>
-          <div class="mod-pct">78% complete</div>
-        </div>
-        <div class="lms-module" id="mod2">
-          <div class="mod-icon">🎥</div>
-          <div class="mod-name">Video Training</div>
-          <div class="mod-prog"><div class="mod-fill" style="width:45%;background:linear-gradient(90deg,#7c3aed,#3b82f6)"></div></div>
-          <div class="mod-pct">45% complete</div>
-        </div>
-        <div class="lms-module" id="mod3">
-          <div class="mod-icon">📝</div>
-          <div class="mod-name">Assessments</div>
-          <div class="mod-prog"><div class="mod-fill" style="width:92%;background:linear-gradient(90deg,#10b981,#06b6d4)"></div></div>
-          <div class="mod-pct">92% complete</div>
-        </div>
-        <div class="lms-module" id="mod4">
-          <div class="mod-icon">🏆</div>
-          <div class="mod-name">Certifications</div>
-          <div class="mod-prog"><div class="mod-fill" style="width:30%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div>
-          <div class="mod-pct">3 of 10 earned</div>
-        </div>
-      </div>
-      <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:6px">
-        <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Active Learners</div>
-        <div class="lms-sidebar-row">
-          <div class="avatar">AK</div>
-          <div class="user-info">
-            <div class="user-name">Arjun Kumar</div>
-            <div class="user-prog">SQL Mastery · 67%</div>
+    <div class="hero-visual">
+      <div style="position:relative">
+        <div class="mockup-window">
+          <div class="mw-bar">
+            <div class="mw-dot" style="background:#ef4444"></div>
+            <div class="mw-dot" style="background:#f59e0b"></div>
+            <div class="mw-dot" style="background:#22c55e"></div>
+            <div class="mw-url"></div>
           </div>
-          <div class="mini-bar"><div class="mini-fill" style="width:67%"></div></div>
-        </div>
-        <div class="lms-sidebar-row">
-          <div class="avatar" style="background:linear-gradient(135deg,#10b981,#06b6d4)">SP</div>
-          <div class="user-info">
-            <div class="user-name">Sara Patel</div>
-            <div class="user-prog">UX Design · 89%</div>
+          <div class="mw-body">
+            <div class="mw-sidebar">
+              <div class="mw-logo-row">
+                <div class="mw-logo-label">NexaLearn</div>
+                <div class="mw-logo-sub">ADMIN PORTAL</div>
+              </div>
+              <div class="pm-nav" style="margin-top:4px">
+                <div class="mw-nav-item on"><span class="mw-nav-icon">◼</span> Dashboard</div>
+                <div class="mw-nav-item"><span class="mw-nav-icon">📚</span> Courses</div>
+                <div class="mw-nav-item"><span class="mw-nav-icon">👥</span> Learners</div>
+                <div class="mw-nav-item"><span class="mw-nav-icon">📊</span> Reports</div>
+                <div class="mw-nav-item"><span class="mw-nav-icon">🏆</span> Certificates</div>
+                <div class="mw-nav-item"><span class="mw-nav-icon">⚙️</span> Settings</div>
+              </div>
+            </div>
+            <div class="mw-content">
+              <div class="mw-page-title">Learning Overview — Q3 2025</div>
+              <div class="mw-stats">
+                <div class="mw-stat"><div class="mw-stat-val">1,248</div><div class="mw-stat-label">Active Learners</div><div class="mw-stat-delta">↑ 12%</div></div>
+                <div class="mw-stat"><div class="mw-stat-val">84%</div><div class="mw-stat-label">Avg. Completion</div><div class="mw-stat-delta">↑ 6%</div></div>
+                <div class="mw-stat"><div class="mw-stat-val">382</div><div class="mw-stat-label">Certs Issued</div><div class="mw-stat-delta">↑ 23%</div></div>
+              </div>
+              <div class="mw-chart-label">Weekly Enrollments</div>
+              <div class="mw-chart">
+                <div class="mw-bar-c" style="background:#dbeafe;height:35%"></div>
+                <div class="mw-bar-c" style="background:#bfdbfe;height:55%"></div>
+                <div class="mw-bar-c" style="background:#93c5fd;height:42%"></div>
+                <div class="mw-bar-c" style="background:#60a5fa;height:68%"></div>
+                <div class="mw-bar-c" style="background:#3b82f6;height:58%"></div>
+                <div class="mw-bar-c" style="background:#2563eb;height:80%"></div>
+                <div class="mw-bar-c" style="background:#1d4ed8;height:90%"></div>
+              </div>
+              <div class="mw-course-section">
+                <div class="mw-course-label" style="margin-top:10px">Top Courses</div>
+                <div class="mw-course-row">
+                  <div class="mw-course-dot" style="background:#1d4ed8"></div>
+                  <div class="mw-course-name">Safety &amp; Compliance 2025</div>
+                  <div class="mw-course-prog"><div class="mw-course-fill" style="width:97%;background:#1d4ed8"></div></div>
+                  <div class="mw-course-pct">97%</div>
+                </div>
+                <div class="mw-course-row">
+                  <div class="mw-course-dot" style="background:#059669"></div>
+                  <div class="mw-course-name">Product Onboarding v3</div>
+                  <div class="mw-course-prog"><div class="mw-course-fill" style="width:89%;background:#059669"></div></div>
+                  <div class="mw-course-pct">89%</div>
+                </div>
+                <div class="mw-course-row">
+                  <div class="mw-course-dot" style="background:#0891b2"></div>
+                  <div class="mw-course-name">Leadership Essentials</div>
+                  <div class="mw-course-prog"><div class="mw-course-fill" style="width:76%;background:#0891b2"></div></div>
+                  <div class="mw-course-pct">76%</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mini-bar"><div class="mini-fill" style="width:89%"></div></div>
         </div>
-        <div class="lms-sidebar-row">
-          <div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">MR</div>
-          <div class="user-info">
-            <div class="user-name">Mike Ross</div>
-            <div class="user-prog">Leadership · 43%</div>
-          </div>
-          <div class="mini-bar"><div class="mini-fill" style="width:43%"></div></div>
+        <div class="badge-float badge-float-1">
+          <div class="badge-icon" style="background:rgba(5,150,105,.1)">✅</div>
+          <div class="badge-text"><strong>382 Certificates</strong><span>Issued this quarter</span></div>
+        </div>
+        <div class="badge-float badge-float-2">
+          <div class="badge-icon" style="background:rgba(26,86,219,.1)">📈</div>
+          <div class="badge-text"><strong>98% Satisfaction</strong><span>From 1,102 reviews</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CLIENTS MARQUEE -->
-<div id="clients">
-  <div class="clients-track">
-    <div class="clients-scroll" id="clientsScroll">
-      <div class="client-logo"><span>🏢</span> TechCorp Global</div>
-      <div class="client-logo"><span>🏥</span> MedLearn Institute</div>
-      <div class="client-logo"><span>🏦</span> FinanceAcademy</div>
-      <div class="client-logo"><span>🏭</span> Manuf. Plus</div>
-      <div class="client-logo"><span>✈️</span> AeroTrain Systems</div>
-      <div class="client-logo"><span>🎓</span> EduNation</div>
-      <div class="client-logo"><span>💻</span> DevSkills Co.</div>
-      <div class="client-logo"><span>🔬</span> BioLearn Labs</div>
-      <div class="client-logo"><span>🌐</span> GlobalEd Group</div>
-      <div class="client-logo"><span>⚡</span> PowerTrain Inc.</div>
-      <!-- Duplicated for seamless loop -->
-      <div class="client-logo"><span>🏢</span> TechCorp Global</div>
-      <div class="client-logo"><span>🏥</span> MedLearn Institute</div>
-      <div class="client-logo"><span>🏦</span> FinanceAcademy</div>
-      <div class="client-logo"><span>🏭</span> Manuf. Plus</div>
-      <div class="client-logo"><span>✈️</span> AeroTrain Systems</div>
-      <div class="client-logo"><span>🎓</span> EduNation</div>
-      <div class="client-logo"><span>💻</span> DevSkills Co.</div>
-      <div class="client-logo"><span>🔬</span> BioLearn Labs</div>
-      <div class="client-logo"><span>🌐</span> GlobalEd Group</div>
-      <div class="client-logo"><span>⚡</span> PowerTrain Inc.</div>
+<!-- ===================== PROOF BAR ===================== -->
+<div id="proof-bar">
+  <div class="proof-inner">
+    <span class="proof-label">Trusted by 200+ organizations</span>
+    <div class="proof-divider"></div>
+    <div class="proof-logos">
+      <span class="proof-logo">TECHCORP</span>
+      <span class="proof-logo">MEDLEARN</span>
+      <span class="proof-logo">FINANCEACADEMY</span>
+      <span class="proof-logo">AEROLEARN</span>
+      <span class="proof-logo">DEVSKILLS</span>
+      <span class="proof-logo">BIOLEARN</span>
+      <span class="proof-logo">GLOBALED</span>
+      <span class="proof-logo">POWERTRAIN</span>
     </div>
   </div>
 </div>
 
-<!-- SERVICES -->
+<!-- ===================== SERVICES ===================== -->
 <section id="services">
-  <div class="text-center reveal">
-    <div class="section-tag">What We Do</div>
-    <h2 class="section-title">Complete <span class="gradient-text">Learning Ecosystem</span></h2>
-    <p class="section-sub">From custom LMS platforms to comprehensive documentation — we cover every aspect of organizational knowledge management.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-icon" style="background:rgba(59,130,246,.15)">🎯</div>
-      <h3>Custom LMS Development</h3>
-      <p>End-to-end Learning Management Systems built for your organization — SCORM/xAPI compliant, mobile-ready, with analytics dashboards and gamification.</p>
-      <div class="service-tags">
-        <span class="tag">SCORM</span><span class="tag">xAPI</span><span class="tag">Gamification</span><span class="tag">Analytics</span>
-      </div>
-      <div class="service-arrow">↗</div>
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">What We Offer</div>
+      <h2>End-to-End Learning &amp; <span class="underline-accent">Documentation</span> Services</h2>
+      <p class="section-sub" style="margin-top:.75rem">From custom LMS platforms to compliance-ready technical documents — we handle every layer of your organization's knowledge ecosystem.</p>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon" style="background:rgba(6,182,212,.15)">📖</div>
-      <h3>User Manuals & Guides</h3>
-      <p>Clear, intuitive user documentation for software, hardware, and processes. Step-by-step guides with screenshots, diagrams, and video embeds.</p>
-      <div class="service-tags">
-        <span class="tag">Software Docs</span><span class="tag">Quick Start</span><span class="tag">Help Centers</span>
-      </div>
-      <div class="service-arrow">↗</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon" style="background:rgba(124,58,237,.15)">🔧</div>
-      <h3>Technical Manuals</h3>
-      <p>Industry-standard technical documentation — maintenance guides, SOPs, API references, engineering specifications, and compliance documents.</p>
-      <div class="service-tags">
-        <span class="tag">SOP</span><span class="tag">API Docs</span><span class="tag">Engineering</span>
-      </div>
-      <div class="service-arrow">↗</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon" style="background:rgba(16,185,129,.15)">🎓</div>
-      <h3>Training Materials</h3>
-      <p>Interactive e-learning modules, instructor-led training kits, workbooks, and assessment tools aligned with your business objectives and KPIs.</p>
-      <div class="service-tags">
-        <span class="tag">eLearning</span><span class="tag">ILT Kits</span><span class="tag">Assessments</span>
-      </div>
-      <div class="service-arrow">↗</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon" style="background:rgba(245,158,11,.15)">📊</div>
-      <h3>Document Management</h3>
-      <p>Structured document repositories, version control systems, and knowledge bases. Organize, search, and distribute organizational knowledge at scale.</p>
-      <div class="service-tags">
-        <span class="tag">Knowledge Base</span><span class="tag">Version Control</span><span class="tag">Search</span>
-      </div>
-      <div class="service-arrow">↗</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon" style="background:rgba(239,68,68,.15)">🚀</div>
-      <h3>Consulting & Strategy</h3>
-      <p>Learning strategy consulting, needs analysis, content audits, and implementation roadmaps. Transform how your organization captures and shares knowledge.</p>
-      <div class="service-tags">
-        <span class="tag">L&D Strategy</span><span class="tag">Needs Analysis</span><span class="tag">Roadmap</span>
-      </div>
-      <div class="service-arrow">↗</div>
-    </div>
-  </div>
-</section>
-
-<!-- LMS DEMO -->
-<section id="lms-demo">
-  <div class="text-center reveal">
-    <div class="section-tag">Platform</div>
-    <h2 class="section-title">The <span class="gradient-text">NexaLearn LMS</span> Platform</h2>
-    <p class="section-sub">A complete learning ecosystem with real-time analytics, course builder, and learner management — all in one unified platform.</p>
-  </div>
-  <div class="demo-container">
-    <div class="demo-info reveal-l">
-      <div class="demo-feature">
-        <div class="feat-icon" style="background:rgba(59,130,246,.15)">📈</div>
-        <div class="feat-text">
-          <h4>Real-Time Analytics Dashboard</h4>
-          <p>Track learner progress, completion rates, assessment scores, and engagement metrics with live dashboards and exportable reports.</p>
+    <div class="services-grid">
+      <div class="service-card reveal delay-1">
+        <div class="svc-icon" style="background:rgba(26,86,219,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
         </div>
+        <h3>Custom LMS Development</h3>
+        <p>Enterprise-grade Learning Management Systems built to your specification — SCORM/xAPI compliant, mobile-first, with role-based access and analytics dashboards.</p>
+        <div class="svc-tags"><span class="svc-tag">SCORM</span><span class="svc-tag">xAPI</span><span class="svc-tag">SSO</span><span class="svc-tag">Gamification</span></div>
+        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
       </div>
-      <div class="demo-feature">
-        <div class="feat-icon" style="background:rgba(16,185,129,.15)">🧩</div>
-        <div class="feat-text">
-          <h4>Drag-and-Drop Course Builder</h4>
-          <p>Create rich interactive courses with video, SCORM packages, quizzes, assignments, and discussion boards — no coding required.</p>
+      <div class="service-card reveal delay-2">
+        <div class="svc-icon" style="background:rgba(8,145,178,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
         </div>
+        <h3>User Manuals &amp; Guides</h3>
+        <p>Clear, intuitive user documentation for software, hardware, and processes — illustrated step-by-step guides, quick-reference cards, and embedded video walkthroughs.</p>
+        <div class="svc-tags"><span class="svc-tag">Software Docs</span><span class="svc-tag">Quick Start</span><span class="svc-tag">Help Centers</span></div>
+        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
       </div>
-      <div class="demo-feature">
-        <div class="feat-icon" style="background:rgba(124,58,237,.15)">🏅</div>
-        <div class="feat-text">
-          <h4>Certification & Badging Engine</h4>
-          <p>Automated certificate issuance, digital badges, and compliance tracking with expiry reminders and renewal workflows.</p>
+      <div class="service-card reveal delay-3">
+        <div class="svc-icon" style="background:rgba(5,150,105,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
         </div>
+        <h3>Technical Manuals</h3>
+        <p>Industry-standard technical documentation — maintenance guides, SOPs, engineering specifications, API references, and audit-ready compliance documents.</p>
+        <div class="svc-tags"><span class="svc-tag">SOP</span><span class="svc-tag">API Docs</span><span class="svc-tag">ISO</span><span class="svc-tag">Compliance</span></div>
+        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
       </div>
-      <div class="demo-feature">
-        <div class="feat-icon" style="background:rgba(245,158,11,.15)">🔗</div>
-        <div class="feat-text">
-          <h4>Seamless Integrations</h4>
-          <p>Connect with HRMS, Slack, Teams, Zoom, Salesforce, and 50+ enterprise tools via native integrations and REST APIs.</p>
+      <div class="service-card reveal delay-4">
+        <div class="svc-icon" style="background:rgba(217,119,6,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
         </div>
+        <h3>Training Materials</h3>
+        <p>Interactive e-learning modules, instructor-led training kits, assessment tools, and workbooks aligned with your business objectives and measurable KPIs.</p>
+        <div class="svc-tags"><span class="svc-tag">eLearning</span><span class="svc-tag">ILT Kits</span><span class="svc-tag">Assessments</span></div>
+        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
       </div>
-      <a href="#contact" class="btn-primary" style="width:fit-content;margin-top:.5rem">Request Live Demo →</a>
-    </div>
-    <div class="reveal-r">
-      <div class="lms-canvas-wrap">
-        <div class="lms-header">
-          <div class="lms-controls">
-            <div class="ctrl" style="background:#ef4444"></div>
-            <div class="ctrl" style="background:#f59e0b"></div>
-            <div class="ctrl" style="background:#10b981"></div>
-          </div>
-          <span style="font-size:.75rem;color:var(--muted);margin-left:10px">NexaLearn Admin Dashboard</span>
+      <div class="service-card reveal delay-5">
+        <div class="svc-icon" style="background:rgba(124,58,237,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
         </div>
-        <div class="lms-tab-bar">
-          <div class="lms-tab act">📊 Overview</div>
-          <div class="lms-tab">📚 Courses</div>
-          <div class="lms-tab">👥 Users</div>
-          <div class="lms-tab">📋 Reports</div>
+        <h3>Knowledge Management</h3>
+        <p>Structured document repositories, searchable knowledge bases, version control systems, and self-service help portals that scale with your organization.</p>
+        <div class="svc-tags"><span class="svc-tag">Knowledge Base</span><span class="svc-tag">Version Control</span><span class="svc-tag">Search</span></div>
+        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+      </div>
+      <div class="service-card reveal delay-6">
+        <div class="svc-icon" style="background:rgba(220,38,38,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
         </div>
-        <div class="lms-dashboard">
-          <div class="dash-card">
-            <div class="dash-label">Total Learners</div>
-            <div class="dash-value" id="dc1">1,248</div>
-            <div class="dash-delta">↑ 12% this month</div>
-          </div>
-          <div class="dash-card">
-            <div class="dash-label">Active Courses</div>
-            <div class="dash-value">47</div>
-            <div class="dash-delta">↑ 8 new this week</div>
-          </div>
-          <div class="dash-card">
-            <div class="dash-label">Avg. Completion</div>
-            <div class="dash-value">84%</div>
-            <div class="dash-delta">↑ 6% vs last month</div>
-          </div>
-          <div class="dash-card wide">
-            <div class="dash-label">Weekly Enrollments</div>
-            <div class="mini-chart" id="miniChart">
-              <div class="bar" style="background:linear-gradient(to top,#3b82f6,#06b6d4);height:30%" ></div>
-              <div class="bar" style="background:linear-gradient(to top,#3b82f6,#06b6d4);height:55%"></div>
-              <div class="bar" style="background:linear-gradient(to top,#3b82f6,#06b6d4);height:40%"></div>
-              <div class="bar" style="background:linear-gradient(to top,#3b82f6,#06b6d4);height:70%"></div>
-              <div class="bar" style="background:linear-gradient(to top,#7c3aed,#3b82f6);height:60%"></div>
-              <div class="bar" style="background:linear-gradient(to top,#7c3aed,#3b82f6);height:85%"></div>
-              <div class="bar" style="background:linear-gradient(to top,#10b981,#06b6d4);height:90%"></div>
-            </div>
-          </div>
-          <div class="dash-card">
-            <div class="dash-label">Certs Issued</div>
-            <div class="dash-value">382</div>
-            <div class="dash-delta">↑ 23% this Q</div>
-          </div>
-          <div class="dash-card full">
-            <div class="dash-label" style="margin-bottom:8px">Top Courses by Completion</div>
-            <div class="course-row">
-              <div class="course-dot" style="background:#3b82f6"></div>
-              <div class="course-name">Safety & Compliance 2025</div>
-              <div class="prog-bar-sm"><div class="prog-fill-sm" style="width:97%;background:linear-gradient(90deg,#3b82f6,#06b6d4)"></div></div>
-              <div class="course-pct">97%</div>
-            </div>
-            <div class="course-row">
-              <div class="course-dot" style="background:#10b981"></div>
-              <div class="course-name">Product Onboarding v3</div>
-              <div class="prog-bar-sm"><div class="prog-fill-sm" style="width:89%;background:linear-gradient(90deg,#10b981,#06b6d4)"></div></div>
-              <div class="course-pct">89%</div>
-            </div>
-            <div class="course-row">
-              <div class="course-dot" style="background:#7c3aed"></div>
-              <div class="course-name">Leadership Essentials</div>
-              <div class="prog-bar-sm"><div class="prog-fill-sm" style="width:76%;background:linear-gradient(90deg,#7c3aed,#3b82f6)"></div></div>
-              <div class="course-pct">76%</div>
-            </div>
-          </div>
-          <div class="dash-card wide">
-            <div class="dash-label" style="margin-bottom:8px">Live Activity Feed</div>
-            <div class="activity-feed" id="actFeed">
-              <div class="activity-item"><div class="act-dot" style="background:#10b981"></div>Priya S. completed "Data Security Module"</div>
-              <div class="activity-item"><div class="act-dot" style="background:#3b82f6"></div>James K. earned "SQL Expert" certificate</div>
-              <div class="activity-item"><div class="act-dot" style="background:#f59e0b"></div>Team Alpha started "Leadership Bootcamp"</div>
-            </div>
-          </div>
-          <div class="dash-card">
-            <div class="dash-label">Satisfaction</div>
-            <div class="dash-value">4.8★</div>
-            <div class="dash-delta">Based on 1,102 reviews</div>
-          </div>
-        </div>
+        <h3>L&amp;D Consulting</h3>
+        <p>Learning strategy assessments, content audits, needs analysis, and implementation roadmaps. We identify gaps and design a learning architecture that delivers ROI.</p>
+        <div class="svc-tags"><span class="svc-tag">L&D Strategy</span><span class="svc-tag">Needs Analysis</span><span class="svc-tag">Roadmap</span></div>
+        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MANUALS & DOCS -->
-<section id="manuals">
-  <div class="text-center reveal">
-    <div class="section-tag">Documentation</div>
-    <h2 class="section-title">Every Type of <span class="gradient-text">Document Covered</span></h2>
-    <p class="section-sub">Professional documentation crafted by subject-matter experts — clear, structured, and maintained to the highest standards.</p>
-  </div>
-  <div class="manuals-grid">
-    <div class="manual-card reveal">
-      <div class="manual-cover" style="background:rgba(59,130,246,.15)">📘</div>
-      <h3>User Manuals</h3>
-      <p>End-user documentation for software and hardware products — intuitive, illustrated, and localized for global audiences.</p>
-      <span class="badge" style="color:#3b82f6;border-color:rgba(59,130,246,.3)">Software · Hardware · SaaS</span>
+<!-- ===================== PLATFORM ===================== -->
+<section id="platform">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="tag teal">LMS Platform</div>
+      <h2>A Complete Learning Platform, <span class="blue-text">Built for Enterprise</span></h2>
+      <p class="section-sub">Our proprietary NexaLearn LMS combines course delivery, learner management, assessments, and reporting in a single, unified platform.</p>
     </div>
-    <div class="manual-card reveal">
-      <div class="manual-cover" style="background:rgba(124,58,237,.15)">🔧</div>
-      <h3>Technical Manuals</h3>
-      <p>In-depth technical references, maintenance guides, and engineering specifications for industrial and enterprise systems.</p>
-      <span class="badge" style="color:#7c3aed;border-color:rgba(124,58,237,.3)">Industrial · Engineering · MRO</span>
+    <div class="platform-grid">
+      <div class="feature-list reveal-l">
+        <div class="feature-item">
+          <div class="feat-num">1</div>
+          <div class="feat-body">
+            <h4>Drag-and-Drop Course Builder</h4>
+            <p>Create rich interactive courses with video, SCORM packages, quizzes, assignments, and discussions — no coding required. Publish in minutes.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feat-num">2</div>
+          <div class="feat-body">
+            <h4>Real-Time Analytics &amp; Reporting</h4>
+            <p>Track learner progress, completion rates, assessment scores, and engagement metrics with live dashboards, custom reports, and CSV exports.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feat-num">3</div>
+          <div class="feat-body">
+            <h4>Automated Certification Engine</h4>
+            <p>Issue certificates automatically on course completion, manage expiry reminders, and track regulatory compliance across your organization.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feat-num">4</div>
+          <div class="feat-body">
+            <h4>Enterprise Integrations</h4>
+            <p>Native integrations with Salesforce, Workday, SAP, Slack, Teams, Zoom, and 50+ enterprise tools. Full REST API for custom workflows.</p>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-primary" style="width:fit-content;margin-top:.5rem">Request a Live Demo <span class="arrow">→</span></a>
+      </div>
+      <div class="reveal-r">
+        <div class="platform-mockup">
+          <div class="pm-topbar">
+            <div class="pm-ctrl" style="background:#ef4444"></div>
+            <div class="pm-ctrl" style="background:#f59e0b"></div>
+            <div class="pm-ctrl" style="background:#22c55e"></div>
+            <span class="pm-title">NexaLearn Admin · Dashboard</span>
+          </div>
+          <div class="pm-main">
+            <div class="pm-side">
+              <div class="pm-side-hdr">
+                <div class="pm-side-brand">NexaLearn<small>ADMIN</small></div>
+              </div>
+              <div class="pm-nav">
+                <div class="pm-nav-item on">◼ &nbsp;Dashboard</div>
+                <div class="pm-nav-item">📚 &nbsp;Courses</div>
+                <div class="pm-nav-item">👥 &nbsp;Learners</div>
+                <div class="pm-nav-item">📝 &nbsp;Assessments</div>
+                <div class="pm-nav-item">📊 &nbsp;Analytics</div>
+                <div class="pm-nav-item">🏆 &nbsp;Certificates</div>
+                <div class="pm-nav-item">🔗 &nbsp;Integrations</div>
+                <div class="pm-nav-item">⚙️ &nbsp;Settings</div>
+              </div>
+            </div>
+            <div class="pm-page">
+              <div class="pm-page-hdr">
+                <div class="pm-page-title">Q3 2025 Overview</div>
+                <div class="pm-badge-btn">+ New Course</div>
+              </div>
+              <div class="pm-kpis">
+                <div class="pm-kpi"><div class="pm-kpi-val">1,248</div><div class="pm-kpi-lbl">Active Learners</div><div class="pm-kpi-chg">↑ 12% vs last month</div></div>
+                <div class="pm-kpi"><div class="pm-kpi-val">84%</div><div class="pm-kpi-lbl">Avg Completion</div><div class="pm-kpi-chg">↑ 6% vs last month</div></div>
+                <div class="pm-kpi"><div class="pm-kpi-val">382</div><div class="pm-kpi-lbl">Certs Issued</div><div class="pm-kpi-chg">↑ 23% this quarter</div></div>
+              </div>
+              <div class="pm-section-title">Top Courses by Completion</div>
+              <div class="pm-courses">
+                <div class="pm-course-row">
+                  <div class="pm-c-dot" style="background:#1d4ed8"></div>
+                  <div class="pm-c-name">Safety &amp; Compliance 2025</div>
+                  <div class="pm-c-bar"><div class="pm-c-fill" style="width:97%;background:#1d4ed8"></div></div>
+                  <div class="pm-c-pct">97%</div>
+                </div>
+                <div class="pm-course-row">
+                  <div class="pm-c-dot" style="background:#059669"></div>
+                  <div class="pm-c-name">Product Onboarding v3</div>
+                  <div class="pm-c-bar"><div class="pm-c-fill" style="width:89%;background:#059669"></div></div>
+                  <div class="pm-c-pct">89%</div>
+                </div>
+                <div class="pm-course-row">
+                  <div class="pm-c-dot" style="background:#0891b2"></div>
+                  <div class="pm-c-name">Leadership Essentials</div>
+                  <div class="pm-c-bar"><div class="pm-c-fill" style="width:76%;background:#0891b2"></div></div>
+                  <div class="pm-c-pct">76%</div>
+                </div>
+              </div>
+              <div class="pm-section-title">Live Activity</div>
+              <div class="pm-activity" id="liveActivity">
+                <div class="pm-act-row"><div class="pm-act-dot" style="background:#059669"></div>Priya S. completed "Data Security Module"<span class="pm-act-time">2m ago</span></div>
+                <div class="pm-act-row"><div class="pm-act-dot" style="background:#1d4ed8"></div>James K. earned SQL Expert certificate<span class="pm-act-time">5m ago</span></div>
+                <div class="pm-act-row"><div class="pm-act-dot" style="background:#d97706"></div>Team Alpha started Leadership Bootcamp<span class="pm-act-time">9m ago</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="manual-card reveal">
-      <div class="manual-cover" style="background:rgba(16,185,129,.15)">📋</div>
-      <h3>SOPs & Procedures</h3>
-      <p>Standard Operating Procedures that ensure consistency, compliance, and quality across all organizational workflows.</p>
-      <span class="badge" style="color:#10b981;border-color:rgba(16,185,129,.3)">ISO · GMP · OSHA</span>
-    </div>
-    <div class="manual-card reveal">
-      <div class="manual-cover" style="background:rgba(245,158,11,.15)">📡</div>
-      <h3>API Documentation</h3>
-      <p>Developer-friendly API references, integration guides, SDK documentation, and interactive code examples.</p>
-      <span class="badge" style="color:#f59e0b;border-color:rgba(245,158,11,.3)">REST · GraphQL · OpenAPI</span>
-    </div>
-    <div class="manual-card reveal">
-      <div class="manual-cover" style="background:rgba(239,68,68,.15)">🛡️</div>
-      <h3>Compliance Docs</h3>
-      <p>Regulatory compliance documentation, audit trails, policy manuals, and risk assessment frameworks.</p>
-      <span class="badge" style="color:#ef4444;border-color:rgba(239,68,68,.3)">GDPR · HIPAA · SOC 2</span>
-    </div>
-    <div class="manual-card reveal">
-      <div class="manual-cover" style="background:rgba(6,182,212,.15)">🌐</div>
-      <h3>Knowledge Bases</h3>
-      <p>Searchable online help centers, FAQ portals, and self-service knowledge repositories for customers and employees.</p>
-      <span class="badge" style="color:#06b6d4;border-color:rgba(6,182,212,.3)">Searchable · SEO · Multi-lang</span>
+
+    <!-- LMS Modules -->
+    <div class="modules-visual reveal" style="margin-top:4rem">
+      <div class="text-center" style="margin-bottom:1.5rem">
+        <div class="tag">Platform Modules</div>
+        <h3 style="font-size:1.4rem;margin-bottom:.4rem">All Core Modules, Fully Integrated</h3>
+        <p style="font-size:.9rem;color:var(--slate-500)">Every module is available out-of-the-box or as an add-on — mix and match to fit your exact needs.</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-tile"><div class="mt-icon">📚</div><div class="mt-name">Course Builder</div><div class="mt-desc">SCORM, video, quizzes</div><span class="mt-status core">Core</span></div>
+        <div class="module-tile"><div class="mt-icon">👥</div><div class="mt-name">User Management</div><div class="mt-desc">Roles, groups, SSO</div><span class="mt-status core">Core</span></div>
+        <div class="module-tile"><div class="mt-icon">📊</div><div class="mt-name">Analytics</div><div class="mt-desc">Live dashboards, exports</div><span class="mt-status core">Core</span></div>
+        <div class="module-tile"><div class="mt-icon">🏆</div><div class="mt-name">Certifications</div><div class="mt-desc">Auto-issue, expiry alerts</div><span class="mt-status core">Core</span></div>
+        <div class="module-tile"><div class="mt-icon">📝</div><div class="mt-name">Assessments</div><div class="mt-desc">Quizzes, surveys, rubrics</div><span class="mt-status core">Core</span></div>
+        <div class="module-tile"><div class="mt-icon">🔗</div><div class="mt-name">Integrations</div><div class="mt-desc">HRMS, CRM, REST API</div><span class="mt-status ext">Add-on</span></div>
+        <div class="module-tile"><div class="mt-icon">📱</div><div class="mt-name">Mobile App</div><div class="mt-desc">iOS & Android, offline</div><span class="mt-status ext">Add-on</span></div>
+        <div class="module-tile"><div class="mt-icon">🗂️</div><div class="mt-name">Content Library</div><div class="mt-desc">Shared assets, versioning</div><span class="mt-status ext">Add-on</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MODULE ASSEMBLY VISUALIZATION -->
-<section id="module-assembly">
-  <div class="text-center reveal">
-    <div class="section-tag">Platform Architecture</div>
-    <h2 class="section-title">Watch Your <span class="gradient-text">LMS Come Together</span></h2>
-    <p class="section-sub">All core modules assemble in real time into a unified, enterprise-ready learning platform. Click any module to explore it.</p>
-  </div>
-  <canvas id="assembly-canvas" width="900" height="520"></canvas>
-  <div class="assembly-legend">
-    <div class="leg-item"><div class="leg-dot" style="background:#3b82f6"></div>Course Builder</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#10b981"></div>User Management</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#7c3aed"></div>Quiz & Assessments</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#f59e0b"></div>Reporting & Analytics</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#06b6d4"></div>Certificates</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#ef4444"></div>Integrations</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#a855f7"></div>Mobile App</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#14b8a6"></div>Content Library</div>
-  </div>
-  <div class="assembly-cta">
-    <a href="#contact" class="btn-primary">Build Your LMS →</a>
-    <a href="#lms-demo" class="btn-secondary">See Full Platform</a>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="text-center reveal">
-    <div class="section-tag">Our Process</div>
-    <h2 class="section-title">How We <span class="gradient-text">Deliver Excellence</span></h2>
-    <p class="section-sub">A proven 6-step delivery framework that guarantees quality, on-time delivery, and results that exceed expectations.</p>
-  </div>
-  <div class="process-track">
-    <div class="process-line"></div>
-    <div class="process-steps">
-      <div class="process-step reveal">
-        <div class="step-num">1</div>
-        <div class="step-name">Discovery</div>
-        <div class="step-desc">Deep-dive into your goals, audience, and existing content</div>
+<!-- ===================== DOCUMENTATION ===================== -->
+<section id="documentation">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="tag">Documentation</div>
+      <h2>Every Document Type, <span class="blue-text">Professionally Crafted</span></h2>
+      <p class="section-sub">Our technical writers, instructional designers, and subject-matter experts produce documentation that users actually read and follow.</p>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-types reveal-l">
+        <div class="doc-type-card">
+          <div class="dt-icon" style="background:rgba(26,86,219,.08)">📘</div>
+          <div class="dt-body"><h4>User Manuals</h4><p>End-user documentation for software and hardware — illustrated, localized, and structured for clarity.</p></div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dt-icon" style="background:rgba(5,150,105,.08)">🔧</div>
+          <div class="dt-body"><h4>Technical &amp; Maintenance Manuals</h4><p>Engineering-grade references, MRO guides, and maintenance procedures for industrial and enterprise systems.</p></div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dt-icon" style="background:rgba(8,145,178,.08)">📋</div>
+          <div class="dt-body"><h4>SOPs &amp; Work Instructions</h4><p>Standard Operating Procedures that ensure consistency, quality, and compliance — aligned to ISO, GMP, and OSHA standards.</p></div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dt-icon" style="background:rgba(217,119,6,.08)">📡</div>
+          <div class="dt-body"><h4>API &amp; Developer Documentation</h4><p>Developer-friendly references, SDK guides, and OpenAPI specs with interactive code examples.</p></div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dt-icon" style="background:rgba(124,58,237,.08)">🛡️</div>
+          <div class="dt-body"><h4>Compliance &amp; Regulatory Docs</h4><p>Audit-ready policy manuals, risk frameworks, and compliance documentation for GDPR, HIPAA, SOC 2, and ISO.</p></div>
+        </div>
       </div>
-      <div class="process-step reveal">
-        <div class="step-num">2</div>
-        <div class="step-name">Strategy</div>
-        <div class="step-desc">Learning objectives, content architecture, and project roadmap</div>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">3</div>
-        <div class="step-name">Design</div>
-        <div class="step-desc">UI/UX design, content templates, and brand alignment</div>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">4</div>
-        <div class="step-name">Develop</div>
-        <div class="step-desc">Content creation, LMS configuration, and integration</div>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">5</div>
-        <div class="step-name">Review</div>
-        <div class="step-desc">SME review, QA testing, and stakeholder approvals</div>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">6</div>
-        <div class="step-name">Launch</div>
-        <div class="step-desc">Deployment, training, and ongoing support & analytics</div>
+      <div class="reveal-r">
+        <div class="doc-highlight">
+          <div class="tag green" style="background:rgba(74,222,128,.15);color:#4ade80;border-color:rgba(74,222,128,.2)">Our Standards</div>
+          <h3>Documentation That Meets the Highest Standards</h3>
+          <p>Every document we produce undergoes a multi-stage review process — subject-matter expert review, technical accuracy checks, plain-language editing, and final compliance verification.</p>
+          <p>We follow DITA, DocBook, and Darwin Information Typing Architecture principles where applicable, ensuring your content is modular, reusable, and maintainable.</p>
+          <div class="doc-standards">
+            <span class="std-badge">DITA</span>
+            <span class="std-badge">ISO 9001</span>
+            <span class="std-badge">GDPR</span>
+            <span class="std-badge">HIPAA</span>
+            <span class="std-badge">SOC 2</span>
+            <span class="std-badge">IEC 82079</span>
+            <span class="std-badge">GMP</span>
+            <span class="std-badge">OSHA</span>
+            <span class="std-badge">OpenAPI 3.0</span>
+          </div>
+          <div style="margin-top:2rem">
+            <a href="#contact" class="btn btn-white btn-sm">Request a Doc Sample <span class="arrow">→</span></a>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.5rem">
+          <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate-500);margin-bottom:1rem">Delivery Formats</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+            <span class="svc-tag">PDF</span><span class="svc-tag">HTML / Web</span><span class="svc-tag">MadCap Flare</span>
+            <span class="svc-tag">Confluence</span><span class="svc-tag">Notion</span><span class="svc-tag">Microsoft Word</span>
+            <span class="svc-tag">DITA XML</span><span class="svc-tag">Markdown</span><span class="svc-tag">Docusaurus</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- ===================== HOW IT WORKS ===================== -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="tag">Our Process</div>
+      <h2>How We Deliver <span class="blue-text">Every Project</span></h2>
+      <p class="section-sub">A structured 6-phase delivery process that guarantees quality, transparency, and on-time results — every time.</p>
+    </div>
+    <div class="hiw-grid" style="position:relative">
+      <div class="hiw-connector"></div>
+      <div class="hiw-step reveal delay-1">
+        <div class="hiw-icon-wrap"><div class="hiw-icon">🔍</div><span class="hiw-num">1</span></div>
+        <h4>Discovery</h4>
+        <p>Understand your goals, audiences, and existing content assets</p>
+      </div>
+      <div class="hiw-step reveal delay-2">
+        <div class="hiw-icon-wrap"><div class="hiw-icon">🗺️</div><span class="hiw-num">2</span></div>
+        <h4>Strategy</h4>
+        <p>Define learning objectives, content architecture, and project plan</p>
+      </div>
+      <div class="hiw-step reveal delay-3">
+        <div class="hiw-icon-wrap"><div class="hiw-icon">🎨</div><span class="hiw-num">3</span></div>
+        <h4>Design</h4>
+        <p>UI/UX design, content templates, and brand-aligned prototypes</p>
+      </div>
+      <div class="hiw-step reveal delay-4">
+        <div class="hiw-icon-wrap"><div class="hiw-icon">⚙️</div><span class="hiw-num">4</span></div>
+        <h4>Develop</h4>
+        <p>Content production, LMS build, and system configuration</p>
+      </div>
+      <div class="hiw-step reveal delay-5">
+        <div class="hiw-icon-wrap"><div class="hiw-icon">✅</div><span class="hiw-num">5</span></div>
+        <h4>Review &amp; QA</h4>
+        <p>SME review, accuracy checks, stakeholder approvals, and UAT</p>
+      </div>
+      <div class="hiw-step reveal delay-6">
+        <div class="hiw-icon-wrap"><div class="hiw-icon">🚀</div><span class="hiw-num">6</span></div>
+        <h4>Launch &amp; Support</h4>
+        <p>Deployment, user training, analytics setup, and ongoing support</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASE STUDIES ===================== -->
+<section id="case-studies">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="tag">Case Studies</div>
+      <h2>Measurable Results for <span class="blue-text">Real Organizations</span></h2>
+      <p class="section-sub">See how NexaLearn Solutions has transformed learning and documentation for clients across industries.</p>
+    </div>
+    <div class="case-grid">
+      <div class="case-card reveal delay-1">
+        <div class="case-header">
+          <div class="case-industry"><div class="ci-dot" style="background:#1d4ed8"></div><span class="ci-label">Healthcare · LMS Development</span></div>
+          <h3>National Hospital Network — Clinical Compliance Training Platform</h3>
+        </div>
+        <div class="case-body">
+          <p>Built a HIPAA-compliant LMS for 12,000 clinical staff across 38 hospitals. Includes mandatory compliance training, CME tracking, role-based pathways, and automated certificate management.</p>
+          <div class="case-tags"><span class="case-tag">HIPAA</span><span class="case-tag">SCORM</span><span class="case-tag">SSO</span><span class="case-tag">12K Users</span></div>
+          <div class="case-metrics">
+            <div class="cm"><div class="cm-val">94%</div><div class="cm-label">Completion Rate</div></div>
+            <div class="cm"><div class="cm-val">−60%</div><div class="cm-label">Admin Time</div></div>
+            <div class="cm"><div class="cm-val">38</div><div class="cm-label">Hospitals</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card reveal delay-2">
+        <div class="case-header">
+          <div class="case-industry"><div class="ci-dot" style="background:#059669"></div><span class="ci-label">Manufacturing · Technical Documentation</span></div>
+          <h3>PrecisionParts Ltd — ISO-Compliant Technical Manual Suite</h3>
+        </div>
+        <div class="case-body">
+          <p>Produced 800+ pages of ISO 9001-compliant technical manuals, SOPs, and interactive safety training for global manufacturing operations — delivered in 6 languages across 4 continents.</p>
+          <div class="case-tags"><span class="case-tag">ISO 9001</span><span class="case-tag">6 Languages</span><span class="case-tag">OSHA</span><span class="case-tag">800+ Pages</span></div>
+          <div class="case-metrics">
+            <div class="cm"><div class="cm-val">−40%</div><div class="cm-label">Training Time</div></div>
+            <div class="cm"><div class="cm-val">0</div><div class="cm-label">Safety Incidents</div></div>
+            <div class="cm"><div class="cm-val">6</div><div class="cm-label">Languages</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card reveal delay-3">
+        <div class="case-header">
+          <div class="case-industry"><div class="ci-dot" style="background:#0891b2"></div><span class="ci-label">Fintech · Developer Documentation</span></div>
+          <h3>NextPay — Developer Portal &amp; API Documentation Redesign</h3>
+        </div>
+        <div class="case-body">
+          <p>Redesigned the complete developer portal for a payments unicorn — API references, integration guides, SDK docs, and interactive code samples. Reduced developer onboarding from 14 days to 3 days.</p>
+          <div class="case-tags"><span class="case-tag">REST API</span><span class="case-tag">OpenAPI</span><span class="case-tag">Docusaurus</span><span class="case-tag">Portal</span></div>
+          <div class="case-metrics">
+            <div class="cm"><div class="cm-val">−65%</div><div class="cm-label">Support Tickets</div></div>
+            <div class="cm"><div class="cm-val">3 days</div><div class="cm-label">Onboarding</div></div>
+            <div class="cm"><div class="cm-val">4.9★</div><div class="cm-label">Dev Rating</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
 <section id="testimonials">
-  <div class="text-center reveal">
-    <div class="section-tag">Client Stories</div>
-    <h2 class="section-title">Trusted by <span class="gradient-text">Industry Leaders</span></h2>
-    <p class="section-sub">Don't just take our word for it — here's what our clients say about working with NexaLearn Solutions.</p>
-  </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text">"NexaLearn transformed our entire onboarding process. Completion rates jumped from 42% to 94% within the first quarter. The LMS platform is exactly what we needed."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar" style="background:linear-gradient(135deg,#3b82f6,#7c3aed)">RK</div>
-        <div>
-          <div class="author-name">Rajesh Kumar</div>
-          <div class="author-role">Head of L&D · TechCorp Global</div>
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="tag">Client Testimonials</div>
+      <h2>What Our <span class="blue-text">Clients Say</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal delay-1">
+        <div class="stars">★★★★★</div>
+        <div class="testi-results">Completion rate increased from 42% to 94%</div>
+        <p class="testi-quote">NexaLearn transformed our entire onboarding and compliance training. The LMS platform is intuitive, the analytics are outstanding, and their team was professional throughout every phase.</p>
+        <div class="testi-author">
+          <div class="ta-avatar" style="background:#1d4ed8">RK</div>
+          <div><div class="ta-name">Rajesh Kumar</div><div class="ta-role">Head of L&D · TechCorp Global</div></div>
         </div>
       </div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text">"The technical manuals they produced for our manufacturing line reduced training time by 40%. Incredibly detailed, beautifully designed, and ISO-compliant."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar" style="background:linear-gradient(135deg,#10b981,#06b6d4)">SJ</div>
-        <div>
-          <div class="author-name">Sarah Johnson</div>
-          <div class="author-role">VP Operations · Manuf. Plus</div>
+      <div class="testi-card reveal delay-2">
+        <div class="stars">★★★★★</div>
+        <div class="testi-results">Reduced training time by 40%</div>
+        <p class="testi-quote">The technical manuals NexaLearn produced for our manufacturing line are exceptional — ISO-compliant, beautifully illustrated, and exactly what our operators needed on the floor.</p>
+        <div class="testi-author">
+          <div class="ta-avatar" style="background:#059669">SJ</div>
+          <div><div class="ta-name">Sarah Johnson</div><div class="ta-role">VP Operations · PrecisionParts Ltd</div></div>
         </div>
       </div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text">"Our API documentation went from developer-nightmare to best-in-class. Integration support tickets dropped by 65%. NexaLearn delivered beyond expectations."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">MT</div>
-        <div>
-          <div class="author-name">Marcus Torres</div>
-          <div class="author-role">CTO · DevSkills Co.</div>
+      <div class="testi-card reveal delay-3">
+        <div class="stars">★★★★★</div>
+        <div class="testi-results">Support tickets reduced by 65%</div>
+        <p class="testi-quote">Our developer documentation went from a liability to a competitive advantage. NexaLearn understood our technical stack deeply and delivered documentation that our engineers are proud of.</p>
+        <div class="testi-author">
+          <div class="ta-avatar" style="background:#0891b2">MT</div>
+          <div><div class="ta-name">Marcus Torres</div><div class="ta-role">CTO · NextPay</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ===================== ABOUT ===================== -->
 <section id="about">
-  <div class="about-grid">
-    <div class="reveal-l">
-      <div class="section-tag">About NexaLearn</div>
-      <h2 class="section-title">We Turn <span class="gradient-text">Complex Knowledge</span> into Clear Learning</h2>
-      <p style="color:var(--muted);font-size:1rem;line-height:1.8;margin:1.2rem 0">
-        Founded in 2018, NexaLearn Solutions is a specialist firm dedicated to building learning management systems and professional documentation that organizations actually use. We blend instructional design expertise with modern software engineering to deliver outcomes — not just deliverables.
-      </p>
-      <p style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:1.5rem">
-        Our team of 40+ learning engineers, technical writers, UX designers, and developers has served clients across healthcare, finance, manufacturing, technology, and government sectors across 25 countries.
-      </p>
-      <div class="about-values">
-        <div class="value-card reveal">
-          <div class="vi">🎯</div>
-          <h4>Outcome-Focused</h4>
-          <p>Every project is tied to measurable business outcomes — completion rates, time-to-proficiency, and ROI.</p>
-        </div>
-        <div class="value-card reveal">
-          <div class="vi">🔒</div>
-          <h4>Enterprise-Grade</h4>
-          <p>SOC 2 Type II compliant. GDPR-ready. ISO 9001 aligned documentation standards across every project.</p>
-        </div>
-        <div class="value-card reveal">
-          <div class="vi">⚡</div>
-          <h4>Fast Turnaround</h4>
-          <p>Agile delivery sprints with 2-week review cycles. Most projects delivered 20% ahead of schedule.</p>
-        </div>
-        <div class="value-card reveal">
-          <div class="vi">🌍</div>
-          <h4>Global Reach</h4>
-          <p>Multi-language support across 18 languages. Culturally adapted content for regional audiences.</p>
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="tag">About NexaLearn</div>
+      <h2>Specialists in <span class="blue-text">Learning &amp; Knowledge</span></h2>
+    </div>
+    <div class="about-layout">
+      <div class="about-text reveal-l">
+        <p>Founded in 2018, NexaLearn Solutions is a specialist firm dedicated to building learning management systems and professional documentation that organizations actually use. We blend instructional design expertise with modern software engineering to deliver outcomes, not just deliverables.</p>
+        <p>Our team of 40+ learning engineers, technical writers, UX designers, and developers has served clients across healthcare, finance, manufacturing, technology, and government in 25 countries.</p>
+        <p>We believe that well-designed learning systems and documentation are not a cost — they are one of the highest-ROI investments an organization can make.</p>
+        <div class="about-values">
+          <div class="value-item">
+            <h4>Outcome-Focused</h4>
+            <p>Every project is tied to measurable outcomes — completion rates, time-to-proficiency, and ROI.</p>
+          </div>
+          <div class="value-item">
+            <h4>Enterprise Security</h4>
+            <p>SOC 2 Type II compliant, GDPR-ready, with data residency options for regulated industries.</p>
+          </div>
+          <div class="value-item">
+            <h4>Agile Delivery</h4>
+            <p>2-week sprint cycles, transparent progress tracking, and most projects delivered ahead of schedule.</p>
+          </div>
+          <div class="value-item">
+            <h4>Global Capability</h4>
+            <p>Multi-language support in 18 languages with culturally adapted content for regional audiences.</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="reveal-r">
-      <div class="about-visual">
-        <div class="about-card-main">
-          <div class="about-ring">🎓</div>
-          <p class="about-mission">"Our mission is to make organizational knowledge accessible, engaging, and actionable — for every learner, in every role, at every level."</p>
-          <div class="about-since">— NexaLearn, Est. 2018</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-top:2rem;text-align:center">
-            <div>
-              <div style="font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">40+</div>
-              <div style="font-size:.75rem;color:var(--muted)">Team Members</div>
+      <div class="about-sidebar reveal-r">
+        <div class="about-stat-block">
+          <div class="about-stat"><div class="as-val">200+</div><div class="as-label">Projects Delivered</div></div>
+          <div class="about-stat"><div class="as-val">25</div><div class="as-label">Countries Served</div></div>
+          <div class="about-stat"><div class="as-val">98%</div><div class="as-label">Client Satisfaction</div></div>
+          <div class="about-stat"><div class="as-val">7 yrs</div><div class="as-label">In Business</div></div>
+        </div>
+        <div class="team-strip">
+          <div class="team-hdr"><span class="team-hdr-label">Leadership Team</span></div>
+          <div class="team-list">
+            <div class="team-row">
+              <div class="tr-avatar" style="background:#1d4ed8">AM</div>
+              <div><div class="tr-name">Aisha Menon</div><div class="tr-role">CEO &amp; Co-Founder</div></div>
+              <span class="tr-badge">Founder</span>
             </div>
-            <div>
-              <div style="font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--violet),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">25</div>
-              <div style="font-size:.75rem;color:var(--muted)">Countries</div>
+            <div class="team-row">
+              <div class="tr-avatar" style="background:#059669">DK</div>
+              <div><div class="tr-name">David Kim</div><div class="tr-role">CTO &amp; Co-Founder</div></div>
+              <span class="tr-badge">Founder</span>
             </div>
-            <div>
-              <div style="font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">7yrs</div>
-              <div style="font-size:.75rem;color:var(--muted)">In Business</div>
+            <div class="team-row">
+              <div class="tr-avatar" style="background:#0891b2">SR</div>
+              <div><div class="tr-name">Sofia Reyes</div><div class="tr-role">Head of Instructional Design</div></div>
+            </div>
+            <div class="team-row">
+              <div class="tr-avatar" style="background:#7c3aed">JP</div>
+              <div><div class="tr-name">James Park</div><div class="tr-role">VP Engineering</div></div>
+            </div>
+            <div class="team-row">
+              <div class="tr-avatar" style="background:#d97706">LN</div>
+              <div><div class="tr-name">Lena Novak</div><div class="tr-role">Head of Technical Writing</div></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="team-section text-center reveal">
-    <div class="section-tag">Leadership Team</div>
-    <h3 class="section-title" style="font-size:2rem">Meet the <span class="gradient-text">Experts</span></h3>
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#3b82f6,#7c3aed)">AM</div>
-        <div class="team-name">Aisha Menon</div>
-        <div class="team-role">CEO & Co-Founder</div>
-        <a href="#" class="team-social">in LinkedIn</a>
+    <div class="tech-section reveal">
+      <div class="tech-label">Technologies &amp; Platforms We Work With</div>
+      <div class="tech-pills">
+        <span class="tech-pill">Moodle</span><span class="tech-pill">TalentLMS</span>
+        <span class="tech-pill">Docebo</span><span class="tech-pill">Canvas LMS</span>
+        <span class="tech-pill">Articulate 360</span><span class="tech-pill">Adobe Captivate</span>
+        <span class="tech-pill">SCORM Cloud</span><span class="tech-pill">xAPI / Tin Can</span>
+        <span class="tech-pill">Confluence</span><span class="tech-pill">MadCap Flare</span>
+        <span class="tech-pill">Docusaurus</span><span class="tech-pill">Salesforce</span>
+        <span class="tech-pill">Workday</span><span class="tech-pill">SAP SuccessFactors</span>
       </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#10b981,#06b6d4)">DK</div>
-        <div class="team-name">David Kim</div>
-        <div class="team-role">CTO & Co-Founder</div>
-        <a href="#" class="team-social">in LinkedIn</a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">SR</div>
-        <div class="team-name">Sofia Reyes</div>
-        <div class="team-role">Head of Instructional Design</div>
-        <a href="#" class="team-social">in LinkedIn</a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#a855f7,#3b82f6)">JP</div>
-        <div class="team-name">James Park</div>
-        <div class="team-role">VP Engineering</div>
-        <a href="#" class="team-social">in LinkedIn</a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#06b6d4,#10b981)">LN</div>
-        <div class="team-name">Lena Novak</div>
-        <div class="team-role">Head of Technical Writing</div>
-        <a href="#" class="team-social">in LinkedIn</a>
-      </div>
-    </div>
-  </div>
-  <div class="reveal text-center" style="margin-top:3rem">
-    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.9rem">Technologies & platforms we work with</p>
-    <div class="tech-strip">
-      <span class="tech-badge">Moodle</span>
-      <span class="tech-badge">TalentLMS</span>
-      <span class="tech-badge">Canvas LMS</span>
-      <span class="tech-badge">Docebo</span>
-      <span class="tech-badge">Articulate 360</span>
-      <span class="tech-badge">Adobe Captivate</span>
-      <span class="tech-badge">Confluence</span>
-      <span class="tech-badge">SCORM Cloud</span>
-      <span class="tech-badge">xAPI / Tin Can</span>
-      <span class="tech-badge">Madcap Flare</span>
-      <span class="tech-badge">Salesforce</span>
-      <span class="tech-badge">Workday</span>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
+<!-- ===================== PRICING ===================== -->
 <section id="pricing">
-  <div class="text-center reveal">
-    <div class="section-tag">Pricing</div>
-    <h2 class="section-title">Simple, <span class="gradient-text">Transparent Pricing</span></h2>
-    <p class="section-sub">Flexible plans designed for teams of all sizes. All plans include dedicated support and revision rounds.</p>
-  </div>
-  <div class="pricing-grid">
-    <div class="pricing-card reveal">
-      <div class="price-tier">Starter</div>
-      <div class="price-amount"><sup>$</sup>2,499</div>
-      <div class="price-period">per project</div>
-      <div class="price-desc">Perfect for small businesses and startups needing foundational documentation.</div>
-      <ul class="price-features">
-        <li>Up to 50 pages of documentation</li>
-        <li>1 LMS course setup</li>
-        <li>2 revision rounds</li>
-        <li>PDF & web format delivery</li>
-        <li>14-day email support</li>
-        <li class="no">Custom LMS development</li>
-        <li class="no">Analytics dashboard</li>
-      </ul>
-      <a href="#contact" class="btn-secondary" style="width:100%;justify-content:center">Get Started →</a>
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="tag">Pricing</div>
+      <h2>Transparent <span class="blue-text">Project Pricing</span></h2>
+      <p class="section-sub">Straightforward pricing with no hidden fees. All engagements include a dedicated project manager, revision rounds, and post-delivery support.</p>
     </div>
-    <div class="pricing-card featured reveal">
-      <div class="price-tier">Professional</div>
-      <div class="price-amount"><sup>$</sup>7,999</div>
-      <div class="price-period">per project</div>
-      <div class="price-desc">Ideal for growing organizations with comprehensive learning needs.</div>
-      <ul class="price-features">
-        <li>Up to 200 pages of documentation</li>
-        <li>Full LMS platform setup</li>
-        <li>5 interactive e-learning modules</li>
-        <li>Unlimited revision rounds</li>
-        <li>All formats + video guides</li>
-        <li>Analytics dashboard</li>
-        <li>90-day priority support</li>
-      </ul>
-      <a href="#contact" class="btn-primary" style="width:100%;justify-content:center">Most Popular →</a>
-    </div>
-    <div class="pricing-card reveal">
-      <div class="price-tier">Enterprise</div>
-      <div class="price-amount">Custom</div>
-      <div class="price-period">contact for pricing</div>
-      <div class="price-desc">Full-scale LMS development and documentation for large enterprises.</div>
-      <ul class="price-features">
-        <li>Unlimited documentation</li>
-        <li>Custom LMS development</li>
-        <li>SSO & enterprise integrations</li>
-        <li>Branded mobile app option</li>
-        <li>Dedicated project manager</li>
-        <li>SLA-backed support</li>
-        <li>Compliance & audit ready</li>
-      </ul>
-      <a href="#contact" class="btn-secondary" style="width:100%;justify-content:center">Talk to Sales →</a>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal delay-1">
+        <div class="pc-tier">Starter</div>
+        <div class="pc-price"><sup>$</sup>2,499</div>
+        <div class="pc-cycle">per project · one-time</div>
+        <div class="pc-desc">For small businesses and startups needing foundational documentation or a single e-learning course.</div>
+        <div class="pc-divider"></div>
+        <ul class="pc-features">
+          <li>Up to 50 pages of documentation</li>
+          <li>1 LMS course setup &amp; configuration</li>
+          <li>2 revision rounds included</li>
+          <li>PDF &amp; web format delivery</li>
+          <li>14-day post-delivery support</li>
+          <li class="no">Custom LMS development</li>
+          <li class="no">Analytics &amp; reporting setup</li>
+        </ul>
+        <a href="#contact" class="btn btn-secondary" style="width:100%;justify-content:center">Get Started</a>
+      </div>
+      <div class="pricing-card featured reveal delay-2">
+        <span class="pc-popular">Most Popular</span>
+        <div class="pc-tier">Professional</div>
+        <div class="pc-price"><sup>$</sup>7,999</div>
+        <div class="pc-cycle">per project · one-time</div>
+        <div class="pc-desc">Ideal for growing organizations with comprehensive learning and documentation needs.</div>
+        <div class="pc-divider"></div>
+        <ul class="pc-features">
+          <li>Up to 200 pages of documentation</li>
+          <li>Full LMS platform configuration</li>
+          <li>5 interactive e-learning modules</li>
+          <li>Unlimited revision rounds</li>
+          <li>All formats including video guides</li>
+          <li>Analytics dashboard setup</li>
+          <li>90-day priority support</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">Get Started</a>
+      </div>
+      <div class="pricing-card reveal delay-3">
+        <div class="pc-tier">Enterprise</div>
+        <div class="pc-price" style="font-size:1.8rem;padding-top:.3rem">Custom</div>
+        <div class="pc-cycle">scope-based engagement</div>
+        <div class="pc-desc">Full-scale LMS development and documentation programs for large and regulated organizations.</div>
+        <div class="pc-divider"></div>
+        <ul class="pc-features">
+          <li>Unlimited documentation scope</li>
+          <li>Custom LMS development &amp; branding</li>
+          <li>SSO, HRMS &amp; enterprise integrations</li>
+          <li>Branded mobile app (optional)</li>
+          <li>Dedicated project &amp; account manager</li>
+          <li>SLA-backed ongoing support</li>
+          <li>Compliance &amp; audit documentation</li>
+        </ul>
+        <a href="#contact" class="btn btn-secondary" style="width:100%;justify-content:center">Contact Sales</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CASE STUDIES -->
-<section id="case-studies" style="background:var(--bg2)">
-  <div class="text-center reveal">
-    <div class="section-tag">Case Studies</div>
-    <h2 class="section-title">Real Results for <span class="gradient-text">Real Organizations</span></h2>
-    <p class="section-sub">From healthcare to fintech — see how NexaLearn Solutions has transformed learning and documentation across industries.</p>
-  </div>
-  <div class="case-grid">
-    <div class="case-card reveal">
-      <div class="case-img" style="background:linear-gradient(135deg,rgba(59,130,246,.3),rgba(124,58,237,.3))">🏥</div>
-      <div class="case-body">
-        <span class="case-badge" style="background:rgba(59,130,246,.15);color:#3b82f6;border:1px solid rgba(59,130,246,.3)">Healthcare · LMS</span>
-        <h3>MedTrain Central — National Hospital Network</h3>
-        <p>Built a HIPAA-compliant LMS for 12,000 clinical staff across 38 hospitals. Includes mandatory compliance training, CME tracking, and role-based certification pathways.</p>
-        <div class="case-metrics">
-          <div class="metric"><div class="metric-val">94%</div><div class="metric-label">Completion Rate</div></div>
-          <div class="metric"><div class="metric-val">-60%</div><div class="metric-label">Admin Time</div></div>
-          <div class="metric"><div class="metric-val">12K</div><div class="metric-label">Learners</div></div>
-        </div>
-      </div>
+<!-- ===================== CTA BAND ===================== -->
+<section id="cta-band">
+  <div class="cta-inner reveal">
+    <div class="tag" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.15)">Ready to Start?</div>
+    <h2>Transform How Your Organization Learns</h2>
+    <p>Join 200+ organizations that trust NexaLearn Solutions to build their learning systems and documentation. Let's discuss your project.</p>
+    <div class="cta-btns">
+      <a href="#contact" class="btn btn-white btn-lg">Request a Proposal <span class="arrow">→</span></a>
+      <a href="#contact" class="btn btn-ghost btn-lg">Schedule a Call</a>
     </div>
-    <div class="case-card reveal">
-      <div class="case-img" style="background:linear-gradient(135deg,rgba(16,185,129,.3),rgba(6,182,212,.3))">🏭</div>
-      <div class="case-body">
-        <span class="case-badge" style="background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)">Manufacturing · Technical Docs</span>
-        <h3>Industrial Safety Manual Suite — PrecisionParts Ltd</h3>
-        <p>Developed 800+ pages of ISO-compliant technical manuals, SOPs, and interactive safety training modules for global manufacturing operations in 6 languages.</p>
-        <div class="case-metrics">
-          <div class="metric"><div class="metric-val">-40%</div><div class="metric-label">Training Time</div></div>
-          <div class="metric"><div class="metric-val">0</div><div class="metric-label">Safety Incidents</div></div>
-          <div class="metric"><div class="metric-val">6</div><div class="metric-label">Languages</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="case-card reveal">
-      <div class="case-img" style="background:linear-gradient(135deg,rgba(245,158,11,.3),rgba(239,68,68,.3))">💳</div>
-      <div class="case-body">
-        <span class="case-badge" style="background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3)">Fintech · Knowledge Base</span>
-        <h3>NextPay Developer Portal — FinTech Unicorn</h3>
-        <p>Redesigned API documentation, developer guides, and knowledge base for a payments platform. Reduced developer onboarding from 2 weeks to 3 days with interactive code samples.</p>
-        <div class="case-metrics">
-          <div class="metric"><div class="metric-val">-65%</div><div class="metric-label">Support Tickets</div></div>
-          <div class="metric"><div class="metric-val">3 days</div><div class="metric-label">Onboarding</div></div>
-          <div class="metric"><div class="metric-val">4.9★</div><div class="metric-label">Dev Rating</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="text-center reveal" style="margin-top:3rem">
-    <a href="#contact" class="btn-primary">Start Your Project →</a>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ===================== CONTACT ===================== -->
 <section id="contact">
-  <div class="contact-grid">
-    <div class="reveal-l">
-      <div class="section-tag">Contact Us</div>
-      <h2 class="section-title">Let's Build Something <span class="gradient-text">Remarkable</span></h2>
-      <p class="section-sub" style="margin-bottom:2rem">Ready to transform your learning and documentation? Tell us about your project and we'll get back to you within 24 hours.</p>
-      <div class="contact-info">
-        <div class="contact-item">
-          <div class="contact-icon">📧</div>
-          <div>
-            <h4>Email</h4>
-            <p>hello@nexalearn.solutions</p>
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal-l">
+        <div class="tag">Contact Us</div>
+        <h2>Let's Discuss Your <span class="blue-text">Project</span></h2>
+        <p style="margin-top:.75rem;margin-bottom:2rem">Tell us about your needs and we'll respond within one business day with a tailored proposal.</p>
+        <div class="contact-info-list">
+          <div class="ci-item">
+            <div class="ci-ico">📧</div>
+            <div><div class="ci-label">Email</div><div class="ci-val">hello@nexalearn.solutions</div></div>
           </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">📞</div>
-          <div>
-            <h4>Phone</h4>
-            <p>+1 (888) NEXALEARN</p>
+          <div class="ci-item">
+            <div class="ci-ico">📞</div>
+            <div><div class="ci-label">Phone</div><div class="ci-val">+1 (888) NEXALEARN</div></div>
           </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">🕐</div>
-          <div>
-            <h4>Response Time</h4>
-            <p>Within 24 business hours</p>
+          <div class="ci-item">
+            <div class="ci-ico">🕐</div>
+            <div><div class="ci-label">Response Time</div><div class="ci-val">Within 1 business day</div></div>
           </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">🌍</div>
-          <div>
-            <h4>Offices</h4>
-            <p>USA · UK · Canada · Australia</p>
+          <div class="ci-item">
+            <div class="ci-ico">🌍</div>
+            <div><div class="ci-label">Offices</div><div class="ci-val">USA · UK · Canada · Australia</div></div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="reveal-r">
-      <div class="contact-form">
-        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.5rem">Send Us a Message</h3>
-        <form id="contactForm" onsubmit="handleForm(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" placeholder="John" required>
+      <div class="reveal-r">
+        <div class="contact-form-card">
+          <h3>Send Us a Message</h3>
+          <form id="contactForm" onsubmit="handleForm(event)">
+            <div class="form-row">
+              <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required></div>
+              <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith" required></div>
             </div>
+            <div class="form-group"><label>Work Email</label><input type="email" placeholder="john@company.com" required></div>
+            <div class="form-group"><label>Company</label><input type="text" placeholder="Your Organization"></div>
             <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" placeholder="Smith" required>
+              <label>Service Required</label>
+              <select>
+                <option value="">Select a service...</option>
+                <option>Custom LMS Development</option>
+                <option>User Manuals &amp; Guides</option>
+                <option>Technical Manuals</option>
+                <option>Training Materials</option>
+                <option>Knowledge Management</option>
+                <option>L&amp;D Consulting</option>
+                <option>Multiple Services</option>
+              </select>
             </div>
-          </div>
-          <div class="form-group">
-            <label>Work Email</label>
-            <input type="email" placeholder="john@company.com" required>
-          </div>
-          <div class="form-group">
-            <label>Company</label>
-            <input type="text" placeholder="Your Organization">
-          </div>
-          <div class="form-group">
-            <label>Service Needed</label>
-            <select>
-              <option value="">Select a service...</option>
-              <option>Custom LMS Development</option>
-              <option>User Manuals & Guides</option>
-              <option>Technical Manuals</option>
-              <option>Training Materials</option>
-              <option>Document Management</option>
-              <option>Consulting & Strategy</option>
-              <option>Multiple Services</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Tell Us About Your Project</label>
-            <textarea placeholder="Describe your needs, timeline, and any specific requirements..."></textarea>
-          </div>
-          <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Send Message ✉️</button>
-        </form>
+            <div class="form-group"><label>Project Description</label><textarea placeholder="Describe your project, timeline, and any specific requirements..."></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:13px">Submit Request <span class="arrow">→</span></button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#hero" class="logo" style="margin-bottom:.75rem;display:inline-flex">
-        <svg width="36" height="36" viewBox="0 0 42 42" fill="none">
-          <rect width="42" height="42" rx="10" fill="url(#lg1)"/>
-          <path d="M8 30 L21 12 L34 30" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <circle cx="21" cy="12" r="3.5" fill="#06b6d4"/>
-        </svg>
-        <div style="margin-left:10px">
-          <div class="logo-text">NexaLearn</div>
-          <div class="logo-sub">Solutions</div>
-        </div>
-      </a>
-      <p>Transforming organizations through world-class learning management systems, technical documentation, and training materials since 2018.</p>
-      <div class="social-links">
-        <a href="#" class="social-link">in</a>
-        <a href="#" class="social-link">𝕏</a>
-        <a href="#" class="social-link">▶</a>
-        <a href="#" class="social-link">📘</a>
+      <div class="logo" style="margin-bottom:.75rem">
+        <div class="logo-mark"><svg viewBox="0 0 20 20" fill="none"><path d="M3 15 L10 4 L17 15" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="4" r="2.2" fill="#60a5fa"/><line x1="3" y1="15" x2="17" y2="15" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity=".45"/></svg></div>
+        <span class="logo-name">Nexa<span>Learn</span></span>
+      </div>
+      <p>Transforming organizations through world-class LMS platforms, technical documentation, and training materials since 2018.</p>
+      <div class="social-row">
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">𝕏</a>
+        <a href="#" class="social-btn">▶</a>
+        <a href="#" class="social-btn">f</a>
       </div>
     </div>
     <div class="footer-col">
-      <h4>Services</h4>
+      <h5>Services</h5>
       <ul>
         <li><a href="#services">LMS Development</a></li>
-        <li><a href="#manuals">User Manuals</a></li>
-        <li><a href="#manuals">Technical Docs</a></li>
+        <li><a href="#services">User Manuals</a></li>
+        <li><a href="#services">Technical Docs</a></li>
         <li><a href="#services">Training Materials</a></li>
         <li><a href="#services">Consulting</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Platform</h4>
+      <h5>Platform</h5>
       <ul>
-        <li><a href="#lms-demo">LMS Overview</a></li>
-        <li><a href="#lms-demo">Course Builder</a></li>
-        <li><a href="#lms-demo">Analytics</a></li>
-        <li><a href="#lms-demo">Integrations</a></li>
+        <li><a href="#platform">Overview</a></li>
+        <li><a href="#platform">Course Builder</a></li>
+        <li><a href="#platform">Analytics</a></li>
+        <li><a href="#platform">Integrations</a></li>
         <li><a href="#pricing">Pricing</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Company</h4>
+      <h5>Company</h5>
       <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Case Studies</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#case-studies">Case Studies</a></li>
         <li><a href="#">Blog</a></li>
         <li><a href="#">Careers</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -1332,404 +1437,71 @@ footer{background:rgba(2,5,15,1);border-top:1px solid var(--border);padding:4rem
   </div>
 </footer>
 
-<!-- Toast -->
-<div class="toast" id="toast">✅ Message sent! We'll reply within 24 hours.</div>
-
-<!-- Back to top -->
+<div class="toast" id="toast">Message received — we'll be in touch within one business day.</div>
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
-// ============ HERO CANVAS - PARTICLE NETWORK ============
-(function(){
-  const c=document.getElementById('hero-canvas');
-  const ctx=c.getContext('2d');
-  let W,H,pts=[];
-  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
-  resize();window.addEventListener('resize',resize);
-  for(let i=0;i<80;i++){pts.push({x:Math.random()*1.5,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+1})}
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    // gradient bg
-    const g=ctx.createRadialGradient(W*.3,H*.4,.1,W*.3,H*.4,H*.7);
-    g.addColorStop(0,'rgba(59,130,246,0.08)');g.addColorStop(1,'rgba(4,9,30,0)');
-    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-    const g2=ctx.createRadialGradient(W*.7,H*.6,.1,W*.7,H*.6,H*.5);
-    g2.addColorStop(0,'rgba(124,58,237,0.06)');g2.addColorStop(1,'rgba(4,9,30,0)');
-    ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);
-    pts.forEach(p=>{
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
-      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(96,165,250,0.5)';ctx.fill();
-    });
-    for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){
-      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<120){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-        ctx.strokeStyle=`rgba(59,130,246,${(1-d/120)*.2})`;ctx.lineWidth=.5;ctx.stroke()}
-    }}
-    requestAnimationFrame(frame);
-  }
-  frame();
-})();
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
 
-// ============ COUNTER ANIMATION ============
-function animateCount(el,target){
-  let current=0;const duration=2000;const step=target/duration*16;
-  const t=setInterval(()=>{
-    current=Math.min(current+step,target);
-    el.textContent=Math.floor(current)+(el.dataset.count=='98'?'%':'+');
-    if(current>=target)clearInterval(t);
-  },16);
-}
-const statObserver=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      document.querySelectorAll('[data-count]').forEach(el=>animateCount(el,+el.dataset.count));
-      statObserver.disconnect();
-    }
-  });
-},{threshold:.5});
-const statsEl=document.querySelector('.hero-stats');
-if(statsEl)statObserver.observe(statsEl);
-
-// ============ SCROLL REVEAL ============
-const revObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
-},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>revObs.observe(el));
-
-// ============ LMS MODULE PULSE ============
-(function(){
-  const mods=['mod1','mod2','mod3','mod4'];let i=0;
-  setInterval(()=>{
-    mods.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active')});
-    i=(i+1)%mods.length;
-    const el=document.getElementById(mods[i]);if(el)el.classList.add('active');
-  },2000);
-})();
-
-// ============ LMS TABS ============
-document.querySelectorAll('.lms-tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.lms-tab').forEach(t=>t.classList.remove('act'));
-    tab.classList.add('act');
-  });
-});
-
-// ============ LIVE ACTIVITY FEED ============
-(function(){
-  const activities=[
-    ['#10b981','Priya S. completed "Data Security Module"'],
-    ['#3b82f6','James K. earned "SQL Expert" certificate'],
-    ['#f59e0b','Team Alpha started "Leadership Bootcamp"'],
-    ['#7c3aed','Ana M. scored 98% on Compliance Assessment'],
-    ['#06b6d4','New course "AI Fundamentals" published'],
-    ['#ef4444','5 learners due for certification renewal'],
-    ['#10b981','Carlos R. completed onboarding in record time'],
-  ];
-  let idx=3;
-  setInterval(()=>{
-    const feed=document.getElementById('actFeed');
-    if(!feed)return;
-    const item=activities[idx%activities.length];
-    const div=document.createElement('div');
-    div.className='activity-item';
-    div.style.opacity='0';div.style.transition='.4s';
-    div.innerHTML=`<div class="act-dot" style="background:${item[0]}"></div>${item[1]}`;
-    feed.insertBefore(div,feed.firstChild);
-    setTimeout(()=>div.style.opacity='1',50);
-    if(feed.children.length>4)feed.removeChild(feed.lastChild);
-    idx++;
-  },3000);
-})();
-
-// ============ NAVBAR ============
-const navbar=document.getElementById('navbar');
+// Nav
+const nav=document.getElementById('navbar');
+const backTop=document.getElementById('backTop');
 window.addEventListener('scroll',()=>{
-  navbar.style.background=window.scrollY>50?'rgba(4,9,30,0.98)':'rgba(4,9,30,0.85)';
-  document.getElementById('backTop').classList.toggle('visible',window.scrollY>600);
+  nav.classList.toggle('scrolled',window.scrollY>10);
+  backTop.classList.toggle('show',window.scrollY>500);
+  // Active nav
+  let cur='';
+  document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+cur);
+  });
 });
 
 function toggleNav(){
-  document.getElementById('navLinks').classList.toggle('open');
+  const nl=document.getElementById('navLinks');
+  nl.classList.toggle('open');
 }
 document.querySelectorAll('.nav-links a').forEach(a=>{
   a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
 });
 
-// ============ FORM ============
+// Contact form
 function handleForm(e){
   e.preventDefault();
-  const toast=document.getElementById('toast');
-  toast.classList.add('show');
-  setTimeout(()=>toast.classList.remove('show'),4000);
+  const t=document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),4500);
   e.target.reset();
 }
 
-// ============ ACTIVE NAV ============
-const sections=document.querySelectorAll('section[id]');
-const links=document.querySelectorAll('.nav-links a[href^="#"]');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});
-  links.forEach(a=>a.style.color=a.getAttribute('href')==='#'+cur?'var(--blue)':'');
-});
-
-// ============ PRICING CARD HOVER ============
-document.querySelectorAll('.pricing-card').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5;
-    const y=(e.clientY-r.top)/r.height-.5;
-    card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-4px)`;
-  });
-  card.addEventListener('mouseleave',()=>card.style.transform='');
-});
-
-// ============ MODULE ASSEMBLY CANVAS ============
+// Live activity feed
 (function(){
-  const canvas=document.getElementById('assembly-canvas');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  const DPR=window.devicePixelRatio||1;
-  const W=900,H=520;
-  canvas.style.width=Math.min(W,window.innerWidth-40)+'px';
-  canvas.style.height=(Math.min(W,window.innerWidth-40)/W*H)+'px';
-
-  // Modules definition
-  const MODULES=[
-    {id:'course',label:'Course Builder',icon:'📚',color:'#3b82f6',glow:'rgba(59,130,246,',desc:'Build rich courses'},
-    {id:'users', label:'User Management',icon:'👥',color:'#10b981',glow:'rgba(16,185,129,',desc:'Manage learners'},
-    {id:'quiz',  label:'Quiz & Assess',  icon:'📝',color:'#7c3aed',glow:'rgba(124,58,237,',desc:'Test knowledge'},
-    {id:'report',label:'Analytics',      icon:'📊',color:'#f59e0b',glow:'rgba(245,158,11,',desc:'Track progress'},
-    {id:'cert',  label:'Certificates',   icon:'🏆',color:'#06b6d4',glow:'rgba(6,182,212,',desc:'Issue badges'},
-    {id:'integ', label:'Integrations',   icon:'🔗',color:'#ef4444',glow:'rgba(239,68,68,',desc:'Connect tools'},
-    {id:'mobile',label:'Mobile App',     icon:'📱',color:'#a855f7',glow:'rgba(168,85,247,',desc:'Learn anywhere'},
-    {id:'lib',   label:'Content Library',icon:'🗂️', color:'#14b8a6',glow:'rgba(20,184,166,',desc:'Store content'},
+  const feed=[
+    ['#059669','Priya S. completed "Data Security Module"','Just now'],
+    ['#1d4ed8','James K. earned SQL Expert certificate','2m ago'],
+    ['#d97706','Team Alpha started Leadership Bootcamp','5m ago'],
+    ['#0891b2','Ana M. scored 98% on Compliance Assessment','7m ago'],
+    ['#7c3aed','New course "AI Fundamentals" published','12m ago'],
+    ['#059669','Carlos R. completed onboarding ahead of schedule','15m ago'],
   ];
-
-  // Target grid positions on canvas (the assembled LMS dashboard)
-  const COLS=4,ROWS=2,MW=160,MH=100,GAP=12;
-  const gridX=(W-(COLS*MW+(COLS-1)*GAP))/2;
-  const gridY=H/2-ROWS*MH/2-GAP/2+40;
-  const targets=MODULES.map((_,i)=>{
-    const col=i%COLS,row=Math.floor(i/COLS);
-    return{x:gridX+col*(MW+GAP),y:gridY+row*(MH+GAP)};
-  });
-
-  // Random start positions (outside canvas edges)
-  function randStart(){
-    const edge=Math.floor(Math.random()*4);
-    if(edge===0)return{x:Math.random()*W,y:-120};
-    if(edge===1)return{x:W+120,y:Math.random()*H};
-    if(edge===2)return{x:Math.random()*W,y:H+120};
-    return{x:-120,y:Math.random()*H};
-  }
-
-  // State: each module has a current position, velocity, scale, opacity, status
-  const STATE=MODULES.map((_,i)=>{
-    const s=randStart();
-    return{x:s.x,y:s.y,tx:targets[i].x+MW/2,ty:targets[i].y+MH/2,
-      scale:.4,opacity:0,arrived:false,hovered:false,pulse:0,
-      progress:Math.random(),delay:i*300};
-  });
-
-  let phase='fly'; // fly → assemble → dashboard → loop
-  let startTime=null;
-  let hovIdx=-1;
-  let dashTick=0;
-
-  // Easing
-  function ease(t){return t<.5?4*t*t*t:(t-1)*(2*t-2)*(2*t-2)+1}
-
-  // Mouse hover detection
-  canvas.addEventListener('mousemove',e=>{
-    const rect=canvas.getBoundingClientRect();
-    const scaleX=W/rect.width,scaleY=H/rect.height;
-    const mx=(e.clientX-rect.left)*scaleX,my=(e.clientY-rect.top)*scaleY;
-    hovIdx=-1;
-    STATE.forEach((s,i)=>{
-      const tx=targets[i].x,ty=targets[i].y;
-      if(s.arrived&&mx>=tx&&mx<=tx+MW&&my>=ty&&my<=ty+MH)hovIdx=i;
-    });
-    canvas.style.cursor=hovIdx>=0?'pointer':'crosshair';
-  });
-  canvas.addEventListener('mouseleave',()=>hovIdx=-1);
-  canvas.addEventListener('click',e=>{
-    if(hovIdx>=0){
-      STATE.forEach((s,i)=>{s.pulse=(i===hovIdx)?1:s.pulse});
-    }
-  });
-
-  function drawModule(ctx,x,y,w,h,mod,state,isHov,tick){
-    const r=12;
-    // Card shadow / glow
-    if(isHov||state.pulse>0){
-      ctx.save();
-      ctx.shadowColor=mod.color;
-      ctx.shadowBlur=isHov?24:14*state.pulse;
-      ctx.fillStyle='rgba(0,0,0,0)';
-      ctx.fillRect(x,y,w,h);
-      ctx.restore();
-    }
-    // Card bg
-    ctx.save();
-    ctx.globalAlpha=state.opacity;
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
-    ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
-    ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);
-    ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
-    const grad=ctx.createLinearGradient(x,y,x+w,y+h);
-    grad.addColorStop(0,isHov?mod.color+'33':'rgba(255,255,255,0.06)');
-    grad.addColorStop(1,isHov?mod.color+'11':'rgba(255,255,255,0.02)');
-    ctx.fillStyle=grad;ctx.fill();
-    // Border
-    ctx.strokeStyle=isHov?mod.color:(state.arrived?mod.color+'55':'rgba(255,255,255,0.1)');
-    ctx.lineWidth=isHov?2:1;ctx.stroke();
-    ctx.restore();
-
-    // Content
-    ctx.save();ctx.globalAlpha=state.opacity*Math.min(1,(state.arrived?1:0));
-    // Icon
-    ctx.font=`${isHov?28:22}px serif`;ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(mod.icon,x+w/2,y+26);
-    // Label
-    ctx.font=`bold ${isHov?13:11}px 'Segoe UI',sans-serif`;
-    ctx.fillStyle=isHov?'#ffffff':'#e2e8f0';
-    ctx.fillText(mod.label,x+w/2,y+50);
-    // Desc
-    ctx.font=`${9}px 'Segoe UI',sans-serif`;
-    ctx.fillStyle='rgba(148,163,184,0.8)';
-    ctx.fillText(mod.desc,x+w/2,y+64);
-    // Progress bar
-    const bx=x+16,by=y+h-20,bw=w-32,bh=5;
-    ctx.fillStyle='rgba(255,255,255,0.08)';
-    ctx.beginPath();ctx.roundRect(bx,by,bw,bh,3);ctx.fill();
-    const prog=state.progress+Math.sin(tick/60+state.progress*10)*.04;
-    ctx.fillStyle=mod.color;
-    ctx.beginPath();ctx.roundRect(bx,by,bw*Math.min(1,Math.max(0,prog)),bh,3);ctx.fill();
-    // Pct
-    ctx.font=`8px 'Segoe UI',sans-serif`;ctx.fillStyle=mod.color;ctx.textAlign='right';
-    ctx.fillText(Math.floor(prog*100)+'%',x+w-10,y+h-16);
-    ctx.restore();
-    if(state.pulse>0)state.pulse=Math.max(0,state.pulse-.03);
-  }
-
-  function drawCenterLogo(ctx,tick){
-    const cx=W/2,cy=90;
-    // Background glow
-    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,120);
-    g.addColorStop(0,'rgba(59,130,246,0.15)');g.addColorStop(1,'rgba(59,130,246,0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,120,0,Math.PI*2);ctx.fill();
-    // Title
-    ctx.save();
-    ctx.font="bold 22px 'Segoe UI',sans-serif";ctx.textAlign='center';ctx.textBaseline='middle';
-    const tg=ctx.createLinearGradient(cx-100,cy,cx+100,cy);
-    tg.addColorStop(0,'#3b82f6');tg.addColorStop(.5,'#06b6d4');tg.addColorStop(1,'#7c3aed');
-    ctx.fillStyle=tg;ctx.fillText('NexaLearn LMS Platform',cx,cy-10);
-    ctx.font="12px 'Segoe UI',sans-serif";ctx.fillStyle='rgba(148,163,184,0.8)';
-    ctx.fillText('All modules assembled • Enterprise ready',cx,cy+14);
-    ctx.restore();
-    // Orbiting dots
-    for(let i=0;i<6;i++){
-      const angle=tick/80+i*(Math.PI*2/6);
-      const ox=cx+Math.cos(angle)*60,oy=cy+Math.sin(angle)*18;
-      ctx.beginPath();ctx.arc(ox,oy,3,0,Math.PI*2);
-      ctx.fillStyle=`hsl(${i*60+tick},70%,60%)`;ctx.fill();
-    }
-  }
-
-  function drawConnectors(ctx,tick){
-    const cx=W/2,cy=gridY-30;
-    STATE.forEach((s,i)=>{
-      if(!s.arrived)return;
-      const tx=targets[i].x+MW/2,ty=targets[i].y;
-      const alpha=.15+.08*Math.sin(tick/40+i);
-      ctx.save();ctx.globalAlpha=alpha;
-      ctx.strokeStyle=MODULES[i].color;ctx.lineWidth=1;ctx.setLineDash([4,8]);
-      ctx.lineDashOffset=-tick/4;
-      ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(cx,cy);ctx.stroke();
-      ctx.restore();
-    });
-  }
-
-  let animStarted=false;
-  const obsAC=new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting&&!animStarted){animStarted=true;requestAnimationFrame(render);}
-  },{threshold:.1});
-  obsAC.observe(canvas);
-
-  function render(ts){
-    if(!startTime)startTime=ts;
-    const elapsed=ts-startTime;
-    dashTick++;
-    ctx.clearRect(0,0,W,H);
-
-    // Dark bg
-    ctx.fillStyle='rgba(6,12,40,0.97)';ctx.fillRect(0,0,W,H);
-    // Subtle grid
-    ctx.save();ctx.strokeStyle='rgba(255,255,255,0.03)';ctx.lineWidth=1;
-    for(let gx=0;gx<W;gx+=40){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
-    for(let gy=0;gy<H;gy+=40){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
-    ctx.restore();
-
-    let allArrived=true;
-    STATE.forEach((s,i)=>{
-      const delay=s.delay;
-      const t=Math.max(0,elapsed-delay)/1800;
-      const p=Math.min(1,ease(t));
-      const startPos=targets[i]; // use the first randStart computed once
-      if(!s._sx){const rs=randStart();s._sx=rs.x;s._sy=rs.y;}
-      if(t<1){
-        s.x=s._sx+(targets[i].x+MW/2-s._sx)*p;
-        s.y=s._sy+(targets[i].y+MH/2-s._sy)*p;
-        s.opacity=p;s.scale=.4+(1-0.4)*p;s.arrived=false;
-      } else {
-        s.x=targets[i].x+MW/2;s.y=targets[i].y+MH/2;
-        s.opacity=1;s.scale=1;s.arrived=true;
-      }
-      if(!s.arrived)allArrived=false;
-
-      // Flying particle effect
-      if(!s.arrived&&t>0){
-        ctx.save();ctx.globalAlpha=s.opacity*.6;
-        ctx.beginPath();ctx.arc(s.x,s.y,6*s.scale,0,Math.PI*2);
-        ctx.fillStyle=MODULES[i].color;ctx.fill();
-        ctx.shadowColor=MODULES[i].color;ctx.shadowBlur=12;ctx.fill();
-        ctx.restore();
-        // Trail
-        ctx.save();ctx.globalAlpha=s.opacity*.15;
-        ctx.strokeStyle=MODULES[i].color;ctx.lineWidth=2;
-        ctx.beginPath();ctx.moveTo(s._sx,s._sy);ctx.lineTo(s.x,s.y);ctx.stroke();
-        ctx.restore();
-      }
-    });
-
-    // Draw connectors when assembling
-    if(allArrived)drawConnectors(ctx,dashTick);
-
-    // Draw assembled modules
-    STATE.forEach((s,i)=>{
-      if(!s.arrived)return;
-      const isHov=hovIdx===i;
-      ctx.save();
-      ctx.translate(targets[i].x+MW/2,targets[i].y+MH/2);
-      const sc=isHov?1.04:1;
-      ctx.scale(sc,sc);
-      ctx.translate(-(targets[i].x+MW/2),-(targets[i].y+MH/2));
-      drawModule(ctx,targets[i].x,targets[i].y,MW,MH,MODULES[i],s,isHov,dashTick);
-      ctx.restore();
-    });
-
-    // Central header when all assembled
-    if(allArrived)drawCenterLogo(ctx,dashTick);
-
-    // Loop: reset after 12s
-    if(elapsed>12000){startTime=ts;STATE.forEach((s,i)=>{const rs=randStart();s._sx=rs.x;s._sy=rs.y;s.arrived=false;s.opacity=0;s.scale=.4;s.pulse=0;});}
-    requestAnimationFrame(render);
-  }
+  let i=3;
+  setInterval(()=>{
+    const el=document.getElementById('liveActivity');
+    if(!el)return;
+    const row=feed[i%feed.length];
+    const div=document.createElement('div');
+    div.className='pm-act-row';
+    div.style.opacity='0';div.style.transition='.3s';
+    div.innerHTML=`<div class="pm-act-dot" style="background:${row[0]}"></div>${row[1]}<span class="pm-act-time">${row[2]}</span>`;
+    el.insertBefore(div,el.firstChild);
+    setTimeout(()=>div.style.opacity='1',30);
+    if(el.children.length>3)el.removeChild(el.lastChild);
+    i++;
+  },4000);
 })();
 </script>
 </body>
