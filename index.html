@@ -197,20 +197,6 @@ nav.scrolled{box-shadow:var(--shadow)}
 .badge-text strong{display:block;font-size:12px;font-weight:700;color:var(--slate-900)}
 .badge-text span{color:var(--slate-500)}
 
-/* =========================================
-   SOCIAL PROOF BAR
-   ========================================= */
-#proof-bar{border-top:1px solid var(--slate-200);border-bottom:1px solid var(--slate-200);
-  background:var(--white);padding:20px 0;overflow:hidden}
-.proof-inner{max-width:1520px;margin:0 auto;padding:0 clamp(20px,5vw,80px);
-  display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
-.proof-label{font-size:.75rem;font-weight:700;color:var(--slate-400);text-transform:uppercase;
-  letter-spacing:.1em;white-space:nowrap;flex-shrink:0}
-.proof-divider{width:1px;height:24px;background:var(--slate-200);flex-shrink:0}
-.proof-logos{display:flex;gap:2rem;align-items:center;overflow:hidden;flex:1}
-.proof-logo{font-size:.85rem;font-weight:700;color:var(--slate-300);letter-spacing:.05em;
-  white-space:nowrap;transition:.2s}
-.proof-logo:hover{color:var(--slate-500)}
 
 /* =========================================
    SERVICES
@@ -591,9 +577,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
   .hero-trust{justify-content:center;flex-wrap:wrap}
   .hero-visual{display:none}
 
-  /* Proof bar */
-  .proof-inner{flex-wrap:wrap;gap:1rem}
-  .proof-logos{gap:1.2rem;flex-wrap:wrap}
 
   /* Services: 2 cols on tablet */
   .services-grid{grid-template-columns:repeat(2,1fr)}
@@ -665,11 +648,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
   .hero-trust{flex-direction:column;align-items:center;gap:.6rem}
   .trust-logos{justify-content:center;flex-wrap:wrap;gap:.4rem}
 
-  /* Proof bar */
-  #proof-bar{padding:14px 0}
-  .proof-inner{gap:.6rem}
-  .proof-logos{gap:1rem}
-  .proof-divider{display:none}
 
   /* Services: 1 col on phone */
   .services-grid{grid-template-columns:1fr}
@@ -878,23 +856,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
 </section>
 
 <!-- ===================== PROOF BAR ===================== -->
-<div id="proof-bar">
-  <div class="proof-inner">
-    <span class="proof-label">Trusted by 200+ organizations</span>
-    <div class="proof-divider"></div>
-    <div class="proof-logos">
-      <span class="proof-logo">TECHCORP</span>
-      <span class="proof-logo">MEDLEARN</span>
-      <span class="proof-logo">FINANCEACADEMY</span>
-      <span class="proof-logo">AEROLEARN</span>
-      <span class="proof-logo">DEVSKILLS</span>
-      <span class="proof-logo">BIOLEARN</span>
-      <span class="proof-logo">GLOBALED</span>
-      <span class="proof-logo">POWERTRAIN</span>
-    </div>
-  </div>
-</div>
-
 <!-- ===================== SERVICES ===================== -->
 <section id="services">
   <div class="container">
