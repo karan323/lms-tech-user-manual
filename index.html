@@ -199,28 +199,75 @@ nav.scrolled{box-shadow:var(--shadow)}
 
 
 /* =========================================
-   SERVICES
+   SERVICES — 3D SCROLL ANIMATION
    ========================================= */
-#services{padding:88px 0;background:var(--slate-50)}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:1.5rem;margin-top:3rem}
-.service-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-xl);
-  padding:2rem;transition:.25s;cursor:default;position:relative;overflow:hidden}
-.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--blue),var(--teal));opacity:0;transition:.25s}
-.service-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:transparent}
-.service-card:hover::before{opacity:1}
+#services{padding:88px 0;background:var(--slate-50);overflow:hidden}
+.services-scene{perspective:1400px;margin-top:3rem;perspective-origin:50% 40%}
+.services-grid-3d{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  transform-style:preserve-3d;
+}
+@media(max-width:900px){.services-grid-3d{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.services-grid-3d{grid-template-columns:1fr}}
+.svc-card-3d{
+  position:relative;
+  cursor:default;
+  will-change:transform,opacity;
+  opacity:0; /* JS drives this to 1 */
+  transform-style:preserve-3d;
+}
+.svc-card-inner{
+  background:var(--white);
+  border:1px solid var(--slate-200);
+  border-radius:var(--radius-xl);
+  padding:2rem;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .25s,box-shadow .25s,transform .18s ease-out;
+  will-change:transform;
+}
+/* accent top bar */
+.svc-card-inner::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--accent,linear-gradient(90deg,var(--blue),var(--teal)));
+  opacity:0;transition:opacity .25s;border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+}
+.svc-card-3d:hover .svc-card-inner{
+  border-color:rgba(26,86,219,.2);
+  box-shadow:0 24px 60px rgba(26,86,219,.13),0 6px 16px rgba(0,0,0,.06);
+}
+.svc-card-3d:hover .svc-card-inner::before{opacity:1}
+/* glare overlay */
+.svc-card-glare{
+  position:absolute;inset:0;border-radius:inherit;
+  pointer-events:none;opacity:0;transition:opacity .2s;
+  background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.22),rgba(255,255,255,0) 65%);
+}
+/* icon */
 .svc-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;
-  justify-content:center;margin-bottom:1.25rem}
+  justify-content:center;margin-bottom:1.25rem;transition:transform .3s}
 .svc-icon svg{width:24px;height:24px}
-.service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.6rem;color:var(--slate-900)}
-.service-card p{font-size:.9rem;color:var(--slate-600);line-height:1.7}
-.svc-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.85rem;font-weight:600;
-  color:var(--blue);text-decoration:none;margin-top:1.2rem;transition:.15s}
-.svc-link:hover{gap:.5rem}
+.svc-card-3d:hover .svc-icon{transform:scale(1.1) translateY(-2px)}
+/* text */
+.svc-card-inner h3{font-size:1.05rem;font-weight:700;margin-bottom:.6rem;color:var(--slate-900)}
+.svc-card-inner p{font-size:.9rem;color:var(--slate-600);line-height:1.7}
+/* tags */
 .svc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
 .svc-tag{font-size:.7rem;padding:3px 9px;border-radius:4px;background:var(--slate-100);
-  color:var(--slate-600);font-weight:500}
+  color:var(--slate-600);font-weight:500;transition:.2s}
+.svc-card-3d:hover .svc-tag{background:rgba(26,86,219,.07);color:var(--blue)}
+/* link */
+.svc-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.85rem;font-weight:600;
+  color:var(--blue);text-decoration:none;margin-top:1.2rem;transition:.15s}
+.svc-link:hover{gap:.55rem}
+/* scroll hint */
+.svc-scroll-hint{text-align:center;margin-top:2.5rem;font-size:.8rem;
+  color:var(--slate-400);display:flex;align-items:center;justify-content:center;gap:.5rem;
+  animation:hintBounce 2s ease-in-out infinite}
+.svc-scroll-hint.hidden{opacity:0;pointer-events:none}
+@keyframes hintBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
 /* =========================================
    PLATFORM (LMS DEMO)
@@ -864,73 +911,104 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
       <h2>End-to-End Learning &amp; <span class="underline-accent">Documentation</span> Services</h2>
       <p class="section-sub" style="margin-top:.75rem">From custom LMS platforms to compliance-ready technical documents — we handle every layer of your organization's knowledge ecosystem.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card reveal delay-1">
-        <div class="svc-icon" style="background:rgba(26,86,219,.08)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
-          </svg>
+    <div class="services-scene">
+      <div class="services-grid-3d" id="servicesGrid">
+
+        <div class="svc-card-3d" data-i="0">
+          <div class="svc-card-inner" style="--accent:linear-gradient(90deg,#1a56db,#0891b2)">
+            <div class="svc-card-glare"></div>
+            <div class="svc-icon" style="background:rgba(26,86,219,.08)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+              </svg>
+            </div>
+            <h3>Custom LMS Development</h3>
+            <p>Enterprise-grade Learning Management Systems built to your specification — SCORM/xAPI compliant, mobile-first, with role-based access and analytics dashboards.</p>
+            <div class="svc-tags"><span class="svc-tag">SCORM</span><span class="svc-tag">xAPI</span><span class="svc-tag">SSO</span><span class="svc-tag">Gamification</span></div>
+            <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+          </div>
         </div>
-        <h3>Custom LMS Development</h3>
-        <p>Enterprise-grade Learning Management Systems built to your specification — SCORM/xAPI compliant, mobile-first, with role-based access and analytics dashboards.</p>
-        <div class="svc-tags"><span class="svc-tag">SCORM</span><span class="svc-tag">xAPI</span><span class="svc-tag">SSO</span><span class="svc-tag">Gamification</span></div>
-        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
-      </div>
-      <div class="service-card reveal delay-2">
-        <div class="svc-icon" style="background:rgba(8,145,178,.08)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
+
+        <div class="svc-card-3d" data-i="1">
+          <div class="svc-card-inner" style="--accent:linear-gradient(90deg,#0891b2,#059669)">
+            <div class="svc-card-glare"></div>
+            <div class="svc-icon" style="background:rgba(8,145,178,.08)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <h3>User Manuals &amp; Guides</h3>
+            <p>Clear, intuitive user documentation for software, hardware, and processes — illustrated step-by-step guides, quick-reference cards, and embedded video walkthroughs.</p>
+            <div class="svc-tags"><span class="svc-tag">Software Docs</span><span class="svc-tag">Quick Start</span><span class="svc-tag">Help Centers</span></div>
+            <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+          </div>
         </div>
-        <h3>User Manuals &amp; Guides</h3>
-        <p>Clear, intuitive user documentation for software, hardware, and processes — illustrated step-by-step guides, quick-reference cards, and embedded video walkthroughs.</p>
-        <div class="svc-tags"><span class="svc-tag">Software Docs</span><span class="svc-tag">Quick Start</span><span class="svc-tag">Help Centers</span></div>
-        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
-      </div>
-      <div class="service-card reveal delay-3">
-        <div class="svc-icon" style="background:rgba(5,150,105,.08)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
+
+        <div class="svc-card-3d" data-i="2">
+          <div class="svc-card-inner" style="--accent:linear-gradient(90deg,#059669,#0891b2)">
+            <div class="svc-card-glare"></div>
+            <div class="svc-icon" style="background:rgba(5,150,105,.08)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3>Technical Manuals</h3>
+            <p>Industry-standard technical documentation — maintenance guides, SOPs, engineering specifications, API references, and audit-ready compliance documents.</p>
+            <div class="svc-tags"><span class="svc-tag">SOP</span><span class="svc-tag">API Docs</span><span class="svc-tag">ISO</span><span class="svc-tag">Compliance</span></div>
+            <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+          </div>
         </div>
-        <h3>Technical Manuals</h3>
-        <p>Industry-standard technical documentation — maintenance guides, SOPs, engineering specifications, API references, and audit-ready compliance documents.</p>
-        <div class="svc-tags"><span class="svc-tag">SOP</span><span class="svc-tag">API Docs</span><span class="svc-tag">ISO</span><span class="svc-tag">Compliance</span></div>
-        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
-      </div>
-      <div class="service-card reveal delay-4">
-        <div class="svc-icon" style="background:rgba(217,119,6,.08)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
+
+        <div class="svc-card-3d" data-i="3">
+          <div class="svc-card-inner" style="--accent:linear-gradient(90deg,#d97706,#dc2626)">
+            <div class="svc-card-glare"></div>
+            <div class="svc-icon" style="background:rgba(217,119,6,.08)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3>Training Materials</h3>
+            <p>Interactive e-learning modules, instructor-led training kits, assessment tools, and workbooks aligned with your business objectives and measurable KPIs.</p>
+            <div class="svc-tags"><span class="svc-tag">eLearning</span><span class="svc-tag">ILT Kits</span><span class="svc-tag">Assessments</span></div>
+            <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+          </div>
         </div>
-        <h3>Training Materials</h3>
-        <p>Interactive e-learning modules, instructor-led training kits, assessment tools, and workbooks aligned with your business objectives and measurable KPIs.</p>
-        <div class="svc-tags"><span class="svc-tag">eLearning</span><span class="svc-tag">ILT Kits</span><span class="svc-tag">Assessments</span></div>
-        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
-      </div>
-      <div class="service-card reveal delay-5">
-        <div class="svc-icon" style="background:rgba(124,58,237,.08)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round">
-            <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-          </svg>
+
+        <div class="svc-card-3d" data-i="4">
+          <div class="svc-card-inner" style="--accent:linear-gradient(90deg,#7c3aed,#1a56db)">
+            <div class="svc-card-glare"></div>
+            <div class="svc-icon" style="background:rgba(124,58,237,.08)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </div>
+            <h3>Knowledge Management</h3>
+            <p>Structured document repositories, searchable knowledge bases, version control systems, and self-service help portals that scale with your organization.</p>
+            <div class="svc-tags"><span class="svc-tag">Knowledge Base</span><span class="svc-tag">Version Control</span><span class="svc-tag">Search</span></div>
+            <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+          </div>
         </div>
-        <h3>Knowledge Management</h3>
-        <p>Structured document repositories, searchable knowledge bases, version control systems, and self-service help portals that scale with your organization.</p>
-        <div class="svc-tags"><span class="svc-tag">Knowledge Base</span><span class="svc-tag">Version Control</span><span class="svc-tag">Search</span></div>
-        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
-      </div>
-      <div class="service-card reveal delay-6">
-        <div class="svc-icon" style="background:rgba(220,38,38,.08)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
+
+        <div class="svc-card-3d" data-i="5">
+          <div class="svc-card-inner" style="--accent:linear-gradient(90deg,#dc2626,#d97706)">
+            <div class="svc-card-glare"></div>
+            <div class="svc-icon" style="background:rgba(220,38,38,.08)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <h3>L&amp;D Consulting</h3>
+            <p>Learning strategy assessments, content audits, needs analysis, and implementation roadmaps. We identify gaps and design a learning architecture that delivers ROI.</p>
+            <div class="svc-tags"><span class="svc-tag">L&D Strategy</span><span class="svc-tag">Needs Analysis</span><span class="svc-tag">Roadmap</span></div>
+            <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+          </div>
         </div>
-        <h3>L&amp;D Consulting</h3>
-        <p>Learning strategy assessments, content audits, needs analysis, and implementation roadmaps. We identify gaps and design a learning architecture that delivers ROI.</p>
-        <div class="svc-tags"><span class="svc-tag">L&D Strategy</span><span class="svc-tag">Needs Analysis</span><span class="svc-tag">Roadmap</span></div>
-        <a href="#contact" class="svc-link">Learn more <span class="arrow">→</span></a>
+
       </div>
+    </div>
+    <div class="svc-scroll-hint" id="svcHint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Scroll to reveal services
     </div>
   </div>
 </section>
@@ -1485,6 +1563,95 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+// ============================================================
+//  SERVICES — 3D Scatter-to-Grid + Scroll Driver + Tilt
+// ============================================================
+(function(){
+  const cards = [...document.querySelectorAll('.svc-card-3d')];
+  if(!cards.length) return;
+  const hint  = document.getElementById('svcHint');
+
+  // Starting scatter positions (tx, ty, tz, rx, ry, rz)
+  // Each card flies in from a unique direction/depth
+  const scatter = [
+    {tx:-420, ty:-160, tz:-180, rx: 22, ry:-28, rz:-14},
+    {tx:   0, ty:-300, tz:-120, rx:-18, ry:  6, rz:  8},
+    {tx: 440, ty:-120, tz:-160, rx: 14, ry: 30, rz: 16},
+    {tx:-380, ty: 180, tz:-140, rx:-20, ry:-22, rz:-10},
+    {tx: 120, ty: 320, tz:-160, rx: 16, ry: 14, rz: -8},
+    {tx: 420, ty: 160, tz:-120, rx:-12, ry: 28, rz: 12},
+  ];
+
+  function lerp(a,b,t){return a+(b-a)*t}
+  function easeOutCubic(t){return 1-Math.pow(1-t,3)}
+
+  let globalP = 0; // 0 → 1 scroll progress
+
+  function updateScatter(){
+    const section = document.getElementById('services');
+    if(!section) return;
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // Start animating when top of section enters viewport (offset 15%)
+    // Finish when the section midpoint is 20% above fold
+    const raw = 1 - (rect.top - vh * 0.15) / (vh * 0.7);
+    globalP = Math.min(1, Math.max(0, raw));
+    const p = easeOutCubic(globalP);
+
+    cards.forEach((card, i) => {
+      const s = scatter[i] || {tx:0,ty:0,tz:0,rx:0,ry:0,rz:0};
+      // stagger each card slightly (i * 0.06 delay offset)
+      const sp = Math.min(1, Math.max(0, (globalP - i*0.06) / (1 - i*0.04)));
+      const ep = easeOutCubic(sp);
+
+      const tx = lerp(s.tx, 0, ep);
+      const ty = lerp(s.ty, 0, ep);
+      const tz = lerp(s.tz, 0, ep);
+      const rx = lerp(s.rx, 0, ep);
+      const ry = lerp(s.ry, 0, ep);
+      const rz = lerp(s.rz, 0, ep);
+      const op = Math.min(1, ep * 1.8);
+
+      card.style.transform =
+        `translate3d(${tx}px,${ty}px,${tz}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+      card.style.opacity = op;
+    });
+
+    // hide hint once settled
+    if(hint) hint.classList.toggle('hidden', globalP > 0.15);
+  }
+
+  // 3D mouse tilt on settled cards
+  cards.forEach(card => {
+    const inner  = card.querySelector('.svc-card-inner');
+    const glare  = card.querySelector('.svc-card-glare');
+
+    card.addEventListener('mousemove', e => {
+      if(globalP < 0.85) return; // only tilt once settled
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5; // -0.5 → 0.5
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      inner.style.transform =
+        `perspective(900px) rotateX(${-y*14}deg) rotateY(${x*14}deg) translateZ(12px) scale(1.02)`;
+      // dynamic glare follows cursor
+      const gx = (x + 0.5) * 100;
+      const gy = (y + 0.5) * 100;
+      glare.style.background =
+        `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 65%)`;
+      glare.style.opacity = '1';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      inner.style.transform = '';
+      glare.style.opacity   = '0';
+    });
+  });
+
+  // Drive on scroll + initial call
+  window.addEventListener('scroll', updateScatter, {passive:true});
+  updateScatter();
+})();
+
 // Scroll reveal
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
