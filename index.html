@@ -1466,14 +1466,14 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
                 <div class="pm-side-brand">NexaLearn<small>ADMIN</small></div>
               </div>
               <div class="pm-nav">
-                <div class="pm-nav-item on" data-page="dashboard">◼ &nbsp;Dashboard</div>
-                <div class="pm-nav-item" data-page="courses">📚 &nbsp;Courses</div>
-                <div class="pm-nav-item" data-page="learners">👥 &nbsp;Learners</div>
-                <div class="pm-nav-item" data-page="assessments">📝 &nbsp;Assessments</div>
-                <div class="pm-nav-item" data-page="analytics">📊 &nbsp;Analytics</div>
-                <div class="pm-nav-item" data-page="certificates">🏆 &nbsp;Certificates</div>
-                <div class="pm-nav-item" data-page="integrations">🔗 &nbsp;Integrations</div>
-                <div class="pm-nav-item" data-page="settings">⚙️ &nbsp;Settings</div>
+                <div class="pm-nav-item on"  onclick="lmsNav(this,'dashboard')">◼ &nbsp;Dashboard</div>
+                <div class="pm-nav-item"    onclick="lmsNav(this,'courses')">📚 &nbsp;Courses</div>
+                <div class="pm-nav-item"    onclick="lmsNav(this,'learners')">👥 &nbsp;Learners</div>
+                <div class="pm-nav-item"    onclick="lmsNav(this,'assessments')">📝 &nbsp;Assessments</div>
+                <div class="pm-nav-item"    onclick="lmsNav(this,'analytics')">📊 &nbsp;Analytics</div>
+                <div class="pm-nav-item"    onclick="lmsNav(this,'certificates')">🏆 &nbsp;Certificates</div>
+                <div class="pm-nav-item"    onclick="lmsNav(this,'integrations')">🔗 &nbsp;Integrations</div>
+                <div class="pm-nav-item"    onclick="lmsNav(this,'settings')">⚙️ &nbsp;Settings</div>
               </div>
             </div>
             <div class="pm-page" id="pmPage">
@@ -2104,25 +2104,31 @@ function handleForm(e){
 // ============================================================
 //  LMS PLATFORM MOCKUP — Interactive Sidebar Nav
 // ============================================================
-(function(){
-  const mockup = document.querySelector('.platform-mockup');
-  if(!mockup) return;
-  const navItems  = [...mockup.querySelectorAll('.pm-nav-item')];
-  const pmPage    = document.getElementById('pmPage');
-  const pmTitle   = document.getElementById('pmTopbarTitle');
+const _lmsTitles = {
+  dashboard:    'NexaLearn Admin · Dashboard',
+  courses:      'NexaLearn Admin · Courses',
+  learners:     'NexaLearn Admin · Learners',
+  assessments:  'NexaLearn Admin · Assessments',
+  analytics:    'NexaLearn Admin · Analytics',
+  certificates: 'NexaLearn Admin · Certificates',
+  integrations: 'NexaLearn Admin · Integrations',
+  settings:     'NexaLearn Admin · Settings',
+};
 
-  const titleMap = {
-    dashboard:    'NexaLearn Admin · Dashboard',
-    courses:      'NexaLearn Admin · Courses',
-    learners:     'NexaLearn Admin · Learners',
-    assessments:  'NexaLearn Admin · Assessments',
-    analytics:    'NexaLearn Admin · Analytics',
-    certificates: 'NexaLearn Admin · Certificates',
-    integrations: 'NexaLearn Admin · Integrations',
-    settings:     'NexaLearn Admin · Settings',
-  };
+function lmsNav(el, page) {
+  document.querySelectorAll('.pm-nav-item').forEach(n => n.classList.remove('on'));
+  el.classList.add('on');
+  const pmPage  = document.getElementById('pmPage');
+  const pmTitle = document.getElementById('pmTopbarTitle');
+  if(!pmPage || !_lmsPages[page]) return;
+  pmPage.classList.remove('pm-fade-in');
+  void pmPage.offsetWidth;
+  pmPage.innerHTML = _lmsPages[page];
+  pmPage.classList.add('pm-fade-in');
+  if(pmTitle) pmTitle.textContent = _lmsTitles[page] || _lmsTitles.dashboard;
+}
 
-  const pages = {
+const _lmsPages = {
     dashboard: `
       <div class="pm-page-hdr"><div class="pm-page-title">Q3 2025 Overview</div><div class="pm-badge-btn">+ New Course</div></div>
       <div class="pm-kpis">
@@ -2312,23 +2318,6 @@ function handleForm(e){
       </div>`,
   };
 
-  function render(name) {
-    if(!pmPage || !pages[name]) return;
-    pmPage.classList.remove('pm-fade-in');
-    void pmPage.offsetWidth; // force reflow to restart animation
-    pmPage.innerHTML = pages[name];
-    pmPage.classList.add('pm-fade-in');
-    if(pmTitle) pmTitle.textContent = titleMap[name] || titleMap.dashboard;
-  }
-
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      navItems.forEach(n => n.classList.remove('on'));
-      item.classList.add('on');
-      render(item.dataset.page || 'dashboard');
-    });
-  });
-})();
 
 // Live activity feed
 (function(){
