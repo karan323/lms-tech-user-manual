@@ -208,149 +208,176 @@ nav.scrolled{box-shadow:var(--shadow)}
   overflow:hidden;display:flex;flex-direction:column;
   background:var(--slate-50);
 }
-/* Tab bar */
+
+/* ── Premium dark tab bar ── */
 .svc-tabbar{
-  background:var(--white);border-bottom:1px solid var(--slate-200);
+  background:var(--navy);
   flex-shrink:0;display:flex;align-items:stretch;
   overflow-x:auto;scrollbar-width:none;
   padding:0 clamp(20px,5vw,80px);
+  box-shadow:0 2px 16px rgba(0,0,0,.25);
 }
 .svc-tabbar::-webkit-scrollbar{display:none}
 .svc-tab-label{
-  font-size:.68rem;font-weight:700;color:var(--slate-400);
-  text-transform:uppercase;letter-spacing:.08em;
-  padding:0 1.1rem 0 0;display:flex;align-items:center;
-  border-right:1px solid var(--slate-200);margin-right:.5rem;
-  white-space:nowrap;flex-shrink:0;
+  font-size:.65rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(148,163,184,.5);
+  padding:0 1.25rem 0 0;display:flex;align-items:center;
+  border-right:1px solid rgba(255,255,255,.08);
+  margin-right:.75rem;white-space:nowrap;flex-shrink:0;
 }
 .svc-tab-btn{
-  padding:0 .9rem;height:46px;font-size:.78rem;font-weight:600;
-  color:var(--slate-400);border:none;background:none;
-  border-bottom:2px solid transparent;white-space:nowrap;
-  cursor:pointer;transition:color .2s,border-color .2s;
-  flex-shrink:0;display:flex;align-items:center;gap:.4rem;
+  padding:0 1rem;height:54px;font-size:.82rem;font-weight:600;
+  color:rgba(148,163,184,.6);border:none;background:none;
+  border-bottom:3px solid transparent;white-space:nowrap;
+  cursor:pointer;transition:color .25s,border-color .25s,background .25s;
+  flex-shrink:0;display:flex;align-items:center;gap:.45rem;
 }
+.svc-tab-btn:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.04)}
 .svc-tab-num{
-  width:17px;height:17px;border-radius:50%;
-  background:var(--slate-100);color:var(--slate-400);
-  font-size:.62rem;font-weight:700;
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);
+  font-size:.65rem;font-weight:800;
   display:flex;align-items:center;justify-content:center;
-  transition:background .2s,color .2s;flex-shrink:0;
+  transition:background .25s,color .25s,transform .2s;flex-shrink:0;
 }
-.svc-tab-btn.svc-visited{color:var(--slate-700)}
-.svc-tab-btn.svc-visited .svc-tab-num{background:rgba(26,86,219,.12);color:var(--blue)}
-.svc-tab-btn.svc-active{color:var(--blue);border-bottom-color:var(--blue)}
-.svc-tab-btn.svc-active .svc-tab-num{background:var(--blue);color:var(--white)}
-/* Slides container */
+.svc-tab-btn.svc-visited{color:rgba(255,255,255,.7)}
+.svc-tab-btn.svc-visited .svc-tab-num{
+  background:rgba(26,86,219,.45);color:rgba(255,255,255,.85);
+}
+.svc-tab-btn.svc-active{color:#fff;border-bottom-color:var(--blue-light)}
+.svc-tab-btn.svc-active .svc-tab-num{
+  background:var(--blue-light);color:#fff;
+  transform:scale(1.12);
+}
+
+/* ── Slides container ── */
 .svc-slides-area{flex:1;position:relative;overflow:hidden}
-/* Intro screen */
+
+/* ── Intro screen ── */
 .svc-intro{
   position:absolute;inset:0;z-index:1;
   display:flex;align-items:center;background:var(--slate-50);
-  padding:0 clamp(24px,5vw,80px);
-  transition:opacity .1s;
+  padding:0 clamp(24px,6vw,100px);
 }
-.svc-intro-inner{max-width:700px}
-.svc-intro-inner h2{font-size:clamp(1.7rem,3vw,2.75rem);margin:.9rem 0 1.2rem;line-height:1.2}
-.svc-intro-inner .section-sub{font-size:1rem;max-width:540px}
+.svc-intro-inner{max-width:780px}
+.svc-intro-inner h2{
+  font-size:clamp(2rem,3.5vw,3.5rem);margin:1rem 0 1.4rem;line-height:1.15;
+}
+.svc-intro-inner .section-sub{font-size:clamp(1rem,1.2vw,1.2rem);max-width:580px;line-height:1.75}
 .svc-scroll-cue{
-  display:inline-flex;align-items:center;gap:.55rem;
-  margin-top:2.25rem;font-size:.82rem;font-weight:600;
+  display:inline-flex;align-items:center;gap:.6rem;
+  margin-top:2.5rem;font-size:.88rem;font-weight:600;
   color:var(--slate-400);letter-spacing:.04em;
   animation:svcCueBounce 2s ease-in-out infinite;
 }
-@keyframes svcCueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
-/* Individual slides */
+@keyframes svcCueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ── Individual slides ── */
 .svc-slide{
   position:absolute;inset:0;background:var(--white);
   transform:translateY(103%);will-change:transform;
   display:flex;align-items:stretch;overflow:hidden;
 }
-/* Slide two-column grid */
-.svc-slide-grid{display:grid;grid-template-columns:2fr 3fr;width:100%}
+
+/* ── Slide two-column grid ── */
+.svc-slide-grid{display:grid;grid-template-columns:5fr 7fr;width:100%}
 .svc-slide-left{
   display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(22px,4vh,52px) clamp(22px,4vw,60px);
+  padding:clamp(28px,5vh,64px) clamp(28px,5vw,72px);
   border-right:1px solid var(--slate-200);position:relative;overflow:hidden;
 }
 .svc-slide-left::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
-  background:var(--svc-color,var(--blue));
+  content:'';position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:linear-gradient(180deg,var(--svc-color,var(--blue)),
+    color-mix(in srgb,var(--svc-color,var(--blue)) 60%,transparent));
+  border-radius:0 3px 3px 0;
 }
 .svc-slide-num{
-  font-size:5rem;font-weight:900;line-height:1;color:var(--slate-100);
-  position:absolute;top:clamp(14px,2.5vh,28px);right:clamp(18px,2.5vw,36px);
-  pointer-events:none;user-select:none;
+  font-size:9rem;font-weight:900;line-height:1;
+  color:var(--svc-light,rgba(26,86,219,.07));
+  position:absolute;bottom:-1.5rem;right:clamp(12px,2vw,28px);
+  pointer-events:none;user-select:none;letter-spacing:-.02em;
 }
 .svc-slide-icon{
-  width:50px;height:50px;border-radius:12px;
+  width:64px;height:64px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
-  background:var(--svc-light,rgba(26,86,219,.08));margin-bottom:1.1rem;flex-shrink:0;
+  background:var(--svc-light,rgba(26,86,219,.08));
+  margin-bottom:1.4rem;flex-shrink:0;
+  box-shadow:0 4px 20px var(--svc-light,rgba(26,86,219,.15));
 }
-.svc-slide-icon svg{width:25px;height:25px}
+.svc-slide-icon svg{width:32px;height:32px}
 .svc-slide-cat{
-  font-size:.68rem;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--svc-color,var(--blue));margin-bottom:.4rem;
+  font-size:.75rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--svc-color,var(--blue));margin-bottom:.55rem;
 }
 .svc-slide-title{
-  font-size:clamp(1.15rem,1.9vw,1.55rem);font-weight:800;
-  color:var(--slate-900);margin-bottom:.8rem;line-height:1.25;
+  font-size:clamp(1.6rem,2.4vw,2.6rem);font-weight:800;
+  color:var(--slate-900);margin-bottom:1rem;line-height:1.2;
 }
 .svc-slide-desc{
-  font-size:.89rem;color:var(--slate-600);line-height:1.75;margin-bottom:1.1rem;
+  font-size:clamp(.95rem,1.05vw,1.1rem);color:var(--slate-600);
+  line-height:1.8;margin-bottom:1.4rem;
 }
-.svc-slide-tags{display:flex;flex-wrap:wrap;gap:.32rem;margin-bottom:1.4rem}
+.svc-slide-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.75rem}
 .svc-slide-tag{
-  font-size:.67rem;padding:3px 9px;border-radius:4px;
+  font-size:.72rem;padding:4px 12px;border-radius:20px;
   background:var(--svc-light,rgba(26,86,219,.08));
   color:var(--svc-color,var(--blue));font-weight:600;
+  border:1px solid color-mix(in srgb,var(--svc-color,var(--blue)) 20%,transparent);
 }
-/* Right feature panel */
+
+/* ── Right feature panel ── */
 .svc-slide-right{
   display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(22px,4vh,52px) clamp(22px,4vw,60px);
-  background:var(--slate-50);gap:.85rem;
+  padding:clamp(28px,5vh,64px) clamp(28px,5vw,72px);
+  background:var(--slate-50);gap:1.1rem;
 }
 .svc-features-label{
-  font-size:.68rem;font-weight:700;letter-spacing:.1em;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;
   text-transform:uppercase;color:var(--slate-400);
 }
-.svc-features-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.svc-features-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .svc-feat{
   background:var(--white);border:1px solid var(--slate-200);
-  border-radius:10px;padding:.9rem 1rem;
-  display:flex;flex-direction:column;gap:.3rem;
-  transition:border-color .2s,box-shadow .2s;
+  border-radius:12px;padding:1.2rem 1.3rem;
+  display:flex;flex-direction:column;gap:.45rem;
+  transition:border-color .22s,box-shadow .22s,transform .22s;
+  cursor:default;
 }
 .svc-feat:hover{
   border-color:var(--svc-color,var(--blue));
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  transform:translateY(-2px);
 }
 .svc-feat-icon{
-  width:30px;height:30px;border-radius:7px;
+  width:36px;height:36px;border-radius:8px;
   display:flex;align-items:center;justify-content:center;
-  background:var(--svc-light,rgba(26,86,219,.08));flex-shrink:0;
+  background:var(--svc-light,rgba(26,86,219,.08));
+  margin-bottom:.1rem;flex-shrink:0;
 }
-.svc-feat-icon svg{width:14px;height:14px}
-.svc-feat-title{font-size:.8rem;font-weight:700;color:var(--slate-900)}
-.svc-feat-desc{font-size:.73rem;color:var(--slate-500);line-height:1.55}
-/* Responsive */
+.svc-feat-icon svg{width:17px;height:17px}
+.svc-feat-title{font-size:.9rem;font-weight:700;color:var(--slate-900);line-height:1.3}
+.svc-feat-desc{font-size:.8rem;color:var(--slate-500);line-height:1.6}
+
+/* ── Responsive ── */
 @media(max-width:1024px){
-  .svc-features-grid{gap:.55rem}
-  .svc-slide-left,.svc-slide-right{padding:18px 22px}
-  .svc-slide-num{font-size:3.5rem}
+  .svc-features-grid{gap:.75rem}
+  .svc-slide-left,.svc-slide-right{padding:22px 28px}
+  .svc-slide-num{font-size:6rem}
+  .svc-slide-title{font-size:clamp(1.4rem,2vw,2rem)}
 }
 @media(max-width:860px){
   .svc-slide-grid{grid-template-columns:1fr}
   .svc-slide-right{display:none}
-  .svc-slide-left{border-right:none;padding:28px}
+  .svc-slide-left{border-right:none;padding:32px 28px}
   .svc-tab-label{display:none}
+  .svc-slide-num{font-size:7rem;bottom:-1rem}
 }
 @media(max-width:600px){
-  .svc-tab-btn{padding:0 .55rem;font-size:.7rem}
-  .svc-tab-num{width:15px;height:15px;font-size:.58rem}
-  .svc-slide-left{padding:22px 20px}
-  .svc-slide-title{font-size:1.15rem}
+  .svc-tab-btn{padding:0 .65rem;font-size:.72rem;height:46px}
+  .svc-tab-num{width:17px;height:17px;font-size:.6rem}
+  .svc-slide-left{padding:24px 20px}
+  .svc-slide-title{font-size:1.45rem}
 }
 
 /* =========================================
@@ -1837,7 +1864,7 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
 
 <script>
 // ============================================================
-//  SERVICES — Scroll-Stack Slides
+//  SERVICES — Scroll-Stack Slides (lerp-smoothed RAF)
 // ============================================================
 (function(){
   const section = document.getElementById('services');
@@ -1848,56 +1875,94 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
   const intro   = section.querySelector('.svc-intro');
   const N = slides.length;
 
-  // Later slides sit on top
   slides.forEach((s, i) => { s.style.zIndex = i + 2; });
 
+  // Lerp targets (driven by scroll) and current displayed values
+  const targets  = new Array(N).fill(103);
+  const currents = new Array(N).fill(103);
+  let introTarget = 1, introCurrent = 1;
+  let rafId = null;
+  const LERP = 0.09; // smoothing: lower = silkier, higher = snappier
+
   function easeOutQuart(t){ return 1 - Math.pow(1 - t, 4); }
+  function lerp(a, b, t){ return a + (b - a) * t; }
 
   function getProgress(){
-    const rect      = section.getBoundingClientRect();
-    const scrollH   = section.offsetHeight - window.innerHeight;
-    if(scrollH <= 0) return 0;
-    return Math.max(0, Math.min(1, -rect.top / scrollH));
+    const rect    = section.getBoundingClientRect();
+    const scrollH = section.offsetHeight - window.innerHeight;
+    return scrollH > 0 ? Math.max(0, Math.min(1, -rect.top / scrollH)) : 0;
   }
 
-  function update(){
+  let lastActiveIdx = 0;
+
+  function computeTargets(){
     const p            = getProgress();
-    const slideProgress = p * N;                         // 0 → N
+    const slideProgress = p * N;
     const activeIdx    = Math.min(N - 1, Math.floor(slideProgress));
 
-    // Move each slide: 103% (below screen) → 0% (fully visible)
-    slides.forEach((slide, i) => {
+    slides.forEach((_, i) => {
       const sp   = Math.max(0, Math.min(1, slideProgress - i));
-      const ease = easeOutQuart(sp);
-      slide.style.transform = `translateY(${((1 - ease) * 103).toFixed(3)}%)`;
+      targets[i] = (1 - easeOutQuart(sp)) * 103;
     });
 
-    // Fade out intro as slide 0 rises
-    if(intro){
-      const alpha = Math.max(0, 1 - slideProgress * 5);
-      intro.style.opacity      = alpha;
-      intro.style.pointerEvents = alpha < 0.05 ? 'none' : '';
+    introTarget = Math.max(0, 1 - slideProgress * 5);
+
+    // Tabs update immediately (no lerp needed)
+    if(activeIdx !== lastActiveIdx){
+      tabBtns.forEach((btn, i) => {
+        btn.classList.toggle('svc-visited', i <= activeIdx);
+        btn.classList.toggle('svc-active',  i === activeIdx);
+      });
+      lastActiveIdx = activeIdx;
     }
-
-    // Highlight active tab
-    tabBtns.forEach((btn, i) => {
-      btn.classList.toggle('svc-visited', i <= activeIdx);
-      btn.classList.toggle('svc-active',  i === activeIdx);
-    });
   }
 
-  // Click a tab → smooth-scroll to that slide's position
+  function tick(){
+    let moving = false;
+
+    slides.forEach((slide, i) => {
+      const diff = targets[i] - currents[i];
+      if(Math.abs(diff) > 0.02){
+        currents[i] = lerp(currents[i], targets[i], LERP);
+        moving = true;
+      } else {
+        currents[i] = targets[i];
+      }
+      slide.style.transform = `translateY(${currents[i].toFixed(3)}%)`;
+    });
+
+    if(intro){
+      const diff = introTarget - introCurrent;
+      if(Math.abs(diff) > 0.005){
+        introCurrent = lerp(introCurrent, introTarget, LERP);
+        moving = true;
+      } else {
+        introCurrent = introTarget;
+      }
+      intro.style.opacity      = introCurrent;
+      intro.style.pointerEvents = introCurrent < 0.05 ? 'none' : '';
+    }
+
+    rafId = moving ? requestAnimationFrame(tick) : null;
+  }
+
+  function onScroll(){
+    computeTargets();
+    if(!rafId) rafId = requestAnimationFrame(tick);
+  }
+
+  // Click tab → scroll to reveal that slide
   tabBtns.forEach((btn, i) => {
     btn.addEventListener('click', () => {
-      const scrollH   = section.offsetHeight - window.innerHeight;
+      const scrollH    = section.offsetHeight - window.innerHeight;
       const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
-      const targetP   = (i + 0.5) / N;
-      window.scrollTo({ top: sectionTop + targetP * scrollH, behavior: 'smooth' });
+      window.scrollTo({ top: sectionTop + ((i + 0.5) / N) * scrollH, behavior: 'smooth' });
     });
   });
 
-  window.addEventListener('scroll', update, { passive: true });
-  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  computeTargets();
+  rafId = requestAnimationFrame(tick);
 })();
 
 // Scroll reveal
