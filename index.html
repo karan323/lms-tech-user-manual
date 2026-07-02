@@ -438,6 +438,105 @@ nav.scrolled{box-shadow:var(--shadow)}
 .pm-act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .pm-act-time{font-size:.65rem;color:var(--slate-400);margin-left:auto}
 
+/* ── Interactive mockup page transitions ── */
+@keyframes pmFadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.pm-fade-in{animation:pmFadeIn .18s ease-out forwards}
+/* Search bar */
+.pm-search{display:flex;align-items:center;gap:6px;background:#fff;
+  border:1px solid var(--slate-200);border-radius:6px;padding:5px 10px;
+  margin-bottom:11px;font-size:.7rem;color:var(--slate-400);cursor:text}
+/* Badges */
+.pm-badge{font-size:.6rem;font-weight:700;padding:2px 7px;
+  border-radius:20px;white-space:nowrap;flex-shrink:0}
+.pm-badge.pub{background:rgba(5,150,105,.1);color:#059669}
+.pm-badge.draft{background:rgba(217,119,6,.1);color:#d97706}
+.pm-badge.cert{background:rgba(124,58,237,.1);color:#7c3aed}
+.pm-badge.warn{background:rgba(220,38,38,.1);color:#dc2626}
+.pm-badge.dis{background:var(--slate-100);color:var(--slate-500)}
+/* Course cards (Courses page) */
+.pm-course-card{background:#fff;border:1px solid var(--slate-200);
+  border-radius:8px;margin-bottom:8px;overflow:hidden}
+.pm-cc-hdr{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:8px 11px 6px;gap:8px}
+.pm-cc-title{font-size:.74rem;font-weight:700;color:var(--slate-900);margin-bottom:1px}
+.pm-cc-meta{font-size:.62rem;color:var(--slate-500)}
+.pm-mod-list{border-top:1px solid var(--slate-100);padding:5px 11px 8px}
+.pm-mod{display:flex;align-items:center;gap:6px;padding:3px 0}
+.pm-mod-n{font-size:.58rem;font-weight:800;color:#fff;background:var(--blue);
+  padding:1px 5px;border-radius:3px;flex-shrink:0;letter-spacing:-.01em}
+.pm-mod-name{flex:1;font-size:.67rem;color:var(--slate-700);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm-mod-bar{width:52px;height:4px;background:var(--slate-200);
+  border-radius:2px;overflow:hidden;flex-shrink:0}
+.pm-mod-bar div{height:100%;border-radius:2px}
+.pm-mod-pct{font-size:.62rem;color:var(--slate-500);width:26px;text-align:right;flex-shrink:0}
+.pm-mod-pct.pend{color:var(--slate-400);font-style:italic}
+/* Learner stats + table */
+.pm-ls-stats{display:flex;gap:8px;margin-bottom:11px}
+.pm-ls-stat{background:#fff;border:1px solid var(--slate-200);border-radius:7px;
+  padding:7px 10px;text-align:center;flex:1}
+.pm-ls-stat strong{display:block;font-size:1rem;font-weight:800;color:var(--navy)}
+.pm-ls-stat small{font-size:.58rem;color:var(--slate-400);text-transform:uppercase;letter-spacing:.04em}
+.pm-table{width:100%;border-collapse:collapse;font-size:.68rem;background:#fff;
+  border:1px solid var(--slate-200);border-radius:8px;overflow:hidden}
+.pm-table th{background:var(--slate-50);color:var(--slate-500);text-transform:uppercase;
+  letter-spacing:.05em;font-size:.58rem;padding:6px 8px;text-align:left;
+  border-bottom:1px solid var(--slate-200);font-weight:700}
+.pm-table td{padding:6px 8px;color:var(--slate-700);border-bottom:1px solid var(--slate-100);font-size:.67rem}
+.pm-table tr:last-child td{border-bottom:none}
+.pm-table tr:hover td{background:var(--slate-50)}
+/* Assessment items */
+.pm-assess-item{background:#fff;border:1px solid var(--slate-200);border-radius:7px;
+  padding:8px 11px;margin-bottom:7px;display:flex;align-items:center;gap:10px}
+.pm-assess-body{flex:1;min-width:0}
+.pm-assess-name{font-size:.72rem;font-weight:700;color:var(--slate-900);margin-bottom:1px}
+.pm-assess-meta{font-size:.61rem;color:var(--slate-500);margin-bottom:4px}
+.pm-assess-bar{height:4px;background:var(--slate-200);border-radius:2px;overflow:hidden}
+.pm-assess-fill{height:100%;border-radius:2px;background:#059669}
+/* Analytics bar chart */
+.pm-chart{display:flex;align-items:flex-end;gap:5px;height:68px;
+  background:#fff;border:1px solid var(--slate-200);border-radius:8px;
+  padding:8px 12px 6px;margin-bottom:10px}
+.pm-bar-col{display:flex;flex-direction:column;align-items:center;flex:1;height:100%;gap:2px}
+.pm-bar-wrap{flex:1;display:flex;align-items:flex-end;width:100%}
+.pm-bar{width:100%;border-radius:3px 3px 0 0;background:var(--blue);min-height:3px}
+.pm-bar-lbl{font-size:.57rem;color:var(--slate-400);font-weight:600}
+/* Certificate rows */
+.pm-cert-list{display:flex;flex-direction:column;gap:6px}
+.pm-cert-row{background:#fff;border:1px solid var(--slate-200);border-radius:7px;
+  padding:7px 10px;display:flex;align-items:center;gap:8px}
+.pm-cert-icon{font-size:.9rem;flex-shrink:0}
+.pm-cert-body{flex:1;min-width:0}
+.pm-cert-name{font-size:.7rem;font-weight:700;color:var(--slate-900);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm-cert-meta{font-size:.59rem;color:var(--slate-500)}
+/* Integrations */
+.pm-int-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.pm-int-card{background:#fff;border:1px solid var(--slate-200);border-radius:8px;
+  padding:9px 6px;text-align:center;transition:border-color .15s,box-shadow .15s;cursor:pointer}
+.pm-int-card:hover{border-color:var(--blue);box-shadow:0 2px 8px rgba(26,86,219,.1)}
+.pm-int-logo{width:30px;height:30px;border-radius:7px;font-size:.62rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 4px}
+.pm-int-name{font-size:.62rem;font-weight:700;color:var(--slate-800);margin-bottom:4px}
+/* Settings */
+.pm-setting-group{background:#fff;border:1px solid var(--slate-200);
+  border-radius:8px;margin-bottom:8px;overflow:hidden}
+.pm-sg-title{font-size:.62rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--slate-500);padding:7px 11px;
+  background:var(--slate-50);border-bottom:1px solid var(--slate-200)}
+.pm-sg-item{display:flex;align-items:center;justify-content:space-between;
+  padding:7px 11px;border-bottom:1px solid var(--slate-100);gap:8px}
+.pm-sg-item:last-child{border-bottom:none}
+.pm-sg-name{font-size:.68rem;font-weight:600;color:var(--slate-800)}
+.pm-sg-val{font-size:.62rem;color:var(--slate-500)}
+.pm-sg-edit{font-size:.61rem;color:var(--blue);font-weight:600;cursor:pointer;flex-shrink:0}
+.pm-toggle{width:26px;height:14px;border-radius:7px;background:#059669;
+  position:relative;flex-shrink:0}
+.pm-toggle::after{content:'';position:absolute;right:2px;top:2px;
+  width:10px;height:10px;border-radius:50%;background:#fff}
+.pm-toggle.off{background:var(--slate-300)}
+.pm-toggle.off::after{right:auto;left:2px}
+
 /* =========================================
    HOW IT WORKS (Module Assembly — Professional)
    ========================================= */
@@ -1359,7 +1458,7 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
             <div class="pm-ctrl" style="background:#ef4444"></div>
             <div class="pm-ctrl" style="background:#f59e0b"></div>
             <div class="pm-ctrl" style="background:#22c55e"></div>
-            <span class="pm-title">NexaLearn Admin · Dashboard</span>
+            <span class="pm-title" id="pmTopbarTitle">NexaLearn Admin · Dashboard</span>
           </div>
           <div class="pm-main">
             <div class="pm-side">
@@ -1367,17 +1466,17 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
                 <div class="pm-side-brand">NexaLearn<small>ADMIN</small></div>
               </div>
               <div class="pm-nav">
-                <div class="pm-nav-item on">◼ &nbsp;Dashboard</div>
-                <div class="pm-nav-item">📚 &nbsp;Courses</div>
-                <div class="pm-nav-item">👥 &nbsp;Learners</div>
-                <div class="pm-nav-item">📝 &nbsp;Assessments</div>
-                <div class="pm-nav-item">📊 &nbsp;Analytics</div>
-                <div class="pm-nav-item">🏆 &nbsp;Certificates</div>
-                <div class="pm-nav-item">🔗 &nbsp;Integrations</div>
-                <div class="pm-nav-item">⚙️ &nbsp;Settings</div>
+                <div class="pm-nav-item on" data-page="dashboard">◼ &nbsp;Dashboard</div>
+                <div class="pm-nav-item" data-page="courses">📚 &nbsp;Courses</div>
+                <div class="pm-nav-item" data-page="learners">👥 &nbsp;Learners</div>
+                <div class="pm-nav-item" data-page="assessments">📝 &nbsp;Assessments</div>
+                <div class="pm-nav-item" data-page="analytics">📊 &nbsp;Analytics</div>
+                <div class="pm-nav-item" data-page="certificates">🏆 &nbsp;Certificates</div>
+                <div class="pm-nav-item" data-page="integrations">🔗 &nbsp;Integrations</div>
+                <div class="pm-nav-item" data-page="settings">⚙️ &nbsp;Settings</div>
               </div>
             </div>
-            <div class="pm-page">
+            <div class="pm-page" id="pmPage">
               <div class="pm-page-hdr">
                 <div class="pm-page-title">Q3 2025 Overview</div>
                 <div class="pm-badge-btn">+ New Course</div>
@@ -2001,6 +2100,235 @@ function handleForm(e){
   setTimeout(()=>t.classList.remove('show'),4500);
   e.target.reset();
 }
+
+// ============================================================
+//  LMS PLATFORM MOCKUP — Interactive Sidebar Nav
+// ============================================================
+(function(){
+  const mockup = document.querySelector('.platform-mockup');
+  if(!mockup) return;
+  const navItems  = [...mockup.querySelectorAll('.pm-nav-item')];
+  const pmPage    = document.getElementById('pmPage');
+  const pmTitle   = document.getElementById('pmTopbarTitle');
+
+  const titleMap = {
+    dashboard:    'NexaLearn Admin · Dashboard',
+    courses:      'NexaLearn Admin · Courses',
+    learners:     'NexaLearn Admin · Learners',
+    assessments:  'NexaLearn Admin · Assessments',
+    analytics:    'NexaLearn Admin · Analytics',
+    certificates: 'NexaLearn Admin · Certificates',
+    integrations: 'NexaLearn Admin · Integrations',
+    settings:     'NexaLearn Admin · Settings',
+  };
+
+  const pages = {
+    dashboard: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Q3 2025 Overview</div><div class="pm-badge-btn">+ New Course</div></div>
+      <div class="pm-kpis">
+        <div class="pm-kpi"><div class="pm-kpi-val">1,248</div><div class="pm-kpi-lbl">Active Learners</div><div class="pm-kpi-chg">↑ 12% vs last month</div></div>
+        <div class="pm-kpi"><div class="pm-kpi-val">84%</div><div class="pm-kpi-lbl">Avg Completion</div><div class="pm-kpi-chg">↑ 6% vs last month</div></div>
+        <div class="pm-kpi"><div class="pm-kpi-val">382</div><div class="pm-kpi-lbl">Certs Issued</div><div class="pm-kpi-chg">↑ 23% this quarter</div></div>
+      </div>
+      <div class="pm-section-title">Top Courses by Completion</div>
+      <div class="pm-courses">
+        <div class="pm-course-row"><div class="pm-c-dot" style="background:#1d4ed8"></div><div class="pm-c-name">Safety &amp; Compliance 2025</div><div class="pm-c-bar"><div class="pm-c-fill" style="width:97%;background:#1d4ed8"></div></div><div class="pm-c-pct">97%</div></div>
+        <div class="pm-course-row"><div class="pm-c-dot" style="background:#059669"></div><div class="pm-c-name">Product Onboarding v3</div><div class="pm-c-bar"><div class="pm-c-fill" style="width:89%;background:#059669"></div></div><div class="pm-c-pct">89%</div></div>
+        <div class="pm-course-row"><div class="pm-c-dot" style="background:#0891b2"></div><div class="pm-c-name">Leadership Essentials</div><div class="pm-c-bar"><div class="pm-c-fill" style="width:76%;background:#0891b2"></div></div><div class="pm-c-pct">76%</div></div>
+      </div>
+      <div class="pm-section-title">Live Activity</div>
+      <div class="pm-activity" id="liveActivity">
+        <div class="pm-act-row"><div class="pm-act-dot" style="background:#059669"></div>Priya S. completed "Data Security Module"<span class="pm-act-time">2m ago</span></div>
+        <div class="pm-act-row"><div class="pm-act-dot" style="background:#1d4ed8"></div>James K. earned SQL Expert certificate<span class="pm-act-time">5m ago</span></div>
+        <div class="pm-act-row"><div class="pm-act-dot" style="background:#d97706"></div>Team Alpha started Leadership Bootcamp<span class="pm-act-time">9m ago</span></div>
+      </div>`,
+
+    courses: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Course Library</div><div class="pm-badge-btn">+ New Course</div></div>
+      <div class="pm-search">🔍 &nbsp;Search courses...</div>
+      <div class="pm-course-card">
+        <div class="pm-cc-hdr">
+          <div><div class="pm-cc-title">Safety &amp; Compliance 2025</div><div class="pm-cc-meta">342 enrolled · Updated 2d ago</div></div>
+          <span class="pm-badge pub">Published</span>
+        </div>
+        <div class="pm-mod-list">
+          <div class="pm-mod"><span class="pm-mod-n">M1</span><span class="pm-mod-name">Workplace Safety Fundamentals</span><div class="pm-mod-bar"><div style="width:97%;background:#1d4ed8"></div></div><span class="pm-mod-pct">97%</span></div>
+          <div class="pm-mod"><span class="pm-mod-n">M2</span><span class="pm-mod-name">Hazard Identification &amp; Risks</span><div class="pm-mod-bar"><div style="width:88%;background:#1d4ed8"></div></div><span class="pm-mod-pct">88%</span></div>
+          <div class="pm-mod"><span class="pm-mod-n">M3</span><span class="pm-mod-name">Emergency Response Procedures</span><div class="pm-mod-bar"><div style="width:72%;background:#1d4ed8"></div></div><span class="pm-mod-pct">72%</span></div>
+        </div>
+      </div>
+      <div class="pm-course-card">
+        <div class="pm-cc-hdr">
+          <div><div class="pm-cc-title">Product Onboarding v3</div><div class="pm-cc-meta">218 enrolled · Updated 1wk ago</div></div>
+          <span class="pm-badge pub">Published</span>
+        </div>
+        <div class="pm-mod-list">
+          <div class="pm-mod"><span class="pm-mod-n">M1</span><span class="pm-mod-name">Getting Started</span><div class="pm-mod-bar"><div style="width:95%;background:#059669"></div></div><span class="pm-mod-pct">95%</span></div>
+          <div class="pm-mod"><span class="pm-mod-n">M2</span><span class="pm-mod-name">Core Features Tour</span><div class="pm-mod-bar"><div style="width:84%;background:#059669"></div></div><span class="pm-mod-pct">84%</span></div>
+          <div class="pm-mod"><span class="pm-mod-n">M3</span><span class="pm-mod-name">Advanced Configuration</span><div class="pm-mod-bar"><div style="width:61%;background:#059669"></div></div><span class="pm-mod-pct">61%</span></div>
+        </div>
+      </div>
+      <div class="pm-course-card">
+        <div class="pm-cc-hdr">
+          <div><div class="pm-cc-title">Leadership Essentials</div><div class="pm-cc-meta">156 enrolled · 1 module pending</div></div>
+          <span class="pm-badge draft">Draft</span>
+        </div>
+        <div class="pm-mod-list">
+          <div class="pm-mod"><span class="pm-mod-n">M1</span><span class="pm-mod-name">Leadership Fundamentals</span><div class="pm-mod-bar"><div style="width:76%;background:#0891b2"></div></div><span class="pm-mod-pct">76%</span></div>
+          <div class="pm-mod"><span class="pm-mod-n">M2</span><span class="pm-mod-name">Team Communication Skills</span><div class="pm-mod-bar"><div style="width:45%;background:#0891b2"></div></div><span class="pm-mod-pct">45%</span></div>
+          <div class="pm-mod"><span class="pm-mod-n">M3</span><span class="pm-mod-name">Conflict Resolution</span><div class="pm-mod-bar"><div style="width:0%"></div></div><span class="pm-mod-pct pend">Pending</span></div>
+        </div>
+      </div>`,
+
+    learners: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Learner Management</div><div class="pm-badge-btn">+ Invite</div></div>
+      <div class="pm-ls-stats">
+        <div class="pm-ls-stat"><strong>1,248</strong><small>Active</small></div>
+        <div class="pm-ls-stat"><strong>89</strong><small>Overdue</small></div>
+        <div class="pm-ls-stat"><strong>312</strong><small>Certified</small></div>
+      </div>
+      <table class="pm-table">
+        <thead><tr><th>Learner</th><th>Courses</th><th>Prog.</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Priya S.</td><td>4</td><td>92%</td><td><span class="pm-badge pub">Active</span></td></tr>
+          <tr><td>Carlos R.</td><td>3</td><td>78%</td><td><span class="pm-badge pub">Active</span></td></tr>
+          <tr><td>Ana M.</td><td>5</td><td>100%</td><td><span class="pm-badge cert">Certified</span></td></tr>
+          <tr><td>James K.</td><td>2</td><td>55%</td><td><span class="pm-badge warn">At Risk</span></td></tr>
+          <tr><td>Maria T.</td><td>6</td><td>88%</td><td><span class="pm-badge pub">Active</span></td></tr>
+          <tr><td>Team Alpha</td><td>6</td><td>67%</td><td><span class="pm-badge pub">Active</span></td></tr>
+        </tbody>
+      </table>`,
+
+    assessments: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Assessment Center</div><div class="pm-badge-btn">+ New Quiz</div></div>
+      <div class="pm-assess-item">
+        <div class="pm-assess-body">
+          <div class="pm-assess-name">Compliance Knowledge Check</div>
+          <div class="pm-assess-meta">248 attempts · 15 questions · Avg 82%</div>
+          <div class="pm-assess-bar"><div class="pm-assess-fill" style="width:87%"></div></div>
+        </div>
+        <span class="pm-badge pub">87% pass</span>
+      </div>
+      <div class="pm-assess-item">
+        <div class="pm-assess-body">
+          <div class="pm-assess-name">Product Onboarding Quiz</div>
+          <div class="pm-assess-meta">183 attempts · 12 questions · Avg 79%</div>
+          <div class="pm-assess-bar"><div class="pm-assess-fill" style="width:91%;background:#1d4ed8"></div></div>
+        </div>
+        <span class="pm-badge" style="background:rgba(29,78,216,.1);color:#1d4ed8">91% pass</span>
+      </div>
+      <div class="pm-assess-item">
+        <div class="pm-assess-body">
+          <div class="pm-assess-name">SQL Proficiency Test</div>
+          <div class="pm-assess-meta">95 attempts · 20 questions · Avg 71%</div>
+          <div class="pm-assess-bar"><div class="pm-assess-fill" style="width:74%;background:#0891b2"></div></div>
+        </div>
+        <span class="pm-badge" style="background:rgba(8,145,178,.1);color:#0891b2">74% pass</span>
+      </div>
+      <div class="pm-assess-item">
+        <div class="pm-assess-body">
+          <div class="pm-assess-name">Leadership Self-Assessment</div>
+          <div class="pm-assess-meta">64 attempts · 10 questions · Avg 88%</div>
+          <div class="pm-assess-bar"><div class="pm-assess-fill" style="width:96%;background:#7c3aed"></div></div>
+        </div>
+        <span class="pm-badge" style="background:rgba(124,58,237,.1);color:#7c3aed">96% pass</span>
+      </div>`,
+
+    analytics: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Analytics</div><div class="pm-badge-btn">Export CSV</div></div>
+      <div class="pm-kpis">
+        <div class="pm-kpi"><div class="pm-kpi-val">1,248</div><div class="pm-kpi-lbl">Active Learners</div><div class="pm-kpi-chg">↑ 12%</div></div>
+        <div class="pm-kpi"><div class="pm-kpi-val">84%</div><div class="pm-kpi-lbl">Avg Completion</div><div class="pm-kpi-chg">↑ 6%</div></div>
+        <div class="pm-kpi"><div class="pm-kpi-val">4.2h</div><div class="pm-kpi-lbl">Avg Time/Week</div><div class="pm-kpi-chg">↑ 0.8h</div></div>
+      </div>
+      <div class="pm-section-title">Weekly Completions (Last 4 Weeks)</div>
+      <div class="pm-chart">
+        <div class="pm-bar-col"><div class="pm-bar-wrap"><div class="pm-bar" style="height:62%"></div></div><div class="pm-bar-lbl">Wk1</div></div>
+        <div class="pm-bar-col"><div class="pm-bar-wrap"><div class="pm-bar" style="height:78%"></div></div><div class="pm-bar-lbl">Wk2</div></div>
+        <div class="pm-bar-col"><div class="pm-bar-wrap"><div class="pm-bar" style="height:55%"></div></div><div class="pm-bar-lbl">Wk3</div></div>
+        <div class="pm-bar-col"><div class="pm-bar-wrap"><div class="pm-bar" style="height:91%"></div></div><div class="pm-bar-lbl">Wk4</div></div>
+        <div class="pm-bar-col"><div class="pm-bar-wrap"><div class="pm-bar" style="height:84%;background:#0891b2"></div></div><div class="pm-bar-lbl">Wk5</div></div>
+        <div class="pm-bar-col"><div class="pm-bar-wrap"><div class="pm-bar" style="height:97%;background:#059669"></div></div><div class="pm-bar-lbl">Wk6</div></div>
+      </div>
+      <div class="pm-section-title">Completion by Department</div>
+      <div class="pm-courses">
+        <div class="pm-course-row"><div class="pm-c-dot" style="background:#1d4ed8"></div><div class="pm-c-name">Engineering</div><div class="pm-c-bar"><div class="pm-c-fill" style="width:91%;background:#1d4ed8"></div></div><div class="pm-c-pct">91%</div></div>
+        <div class="pm-course-row"><div class="pm-c-dot" style="background:#7c3aed"></div><div class="pm-c-name">HR &amp; People</div><div class="pm-c-bar"><div class="pm-c-fill" style="width:95%;background:#7c3aed"></div></div><div class="pm-c-pct">95%</div></div>
+        <div class="pm-course-row"><div class="pm-c-dot" style="background:#059669"></div><div class="pm-c-name">Operations</div><div class="pm-c-bar"><div class="pm-c-fill" style="width:87%;background:#059669"></div></div><div class="pm-c-pct">87%</div></div>
+        <div class="pm-course-row"><div class="pm-c-dot" style="background:#d97706"></div><div class="pm-c-name">Sales</div><div class="pm-c-bar"><div class="pm-c-fill" style="width:73%;background:#d97706"></div></div><div class="pm-c-pct">73%</div></div>
+      </div>`,
+
+    certificates: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Certificates</div><div class="pm-badge-btn">+ New Template</div></div>
+      <div class="pm-kpis">
+        <div class="pm-kpi"><div class="pm-kpi-val">382</div><div class="pm-kpi-lbl">Issued</div><div class="pm-kpi-chg">↑ 23% this qtr</div></div>
+        <div class="pm-kpi"><div class="pm-kpi-val">23</div><div class="pm-kpi-lbl">Expiring</div><div class="pm-kpi-chg" style="color:#d97706">Next 30 days</div></div>
+        <div class="pm-kpi"><div class="pm-kpi-val">4</div><div class="pm-kpi-lbl">Templates</div><div class="pm-kpi-chg">Active</div></div>
+      </div>
+      <div class="pm-section-title">Recently Issued</div>
+      <div class="pm-cert-list">
+        <div class="pm-cert-row"><div class="pm-cert-icon">🏆</div><div class="pm-cert-body"><div class="pm-cert-name">Data Security — Priya S.</div><div class="pm-cert-meta">Issued Jul 1, 2025 · Expires Jul 1, 2026</div></div><span class="pm-badge pub">Valid</span></div>
+        <div class="pm-cert-row"><div class="pm-cert-icon">🏆</div><div class="pm-cert-body"><div class="pm-cert-name">SQL Expert — James K.</div><div class="pm-cert-meta">Issued Jun 28, 2025 · Expires Jun 28, 2026</div></div><span class="pm-badge pub">Valid</span></div>
+        <div class="pm-cert-row"><div class="pm-cert-icon">🏆</div><div class="pm-cert-body"><div class="pm-cert-name">Leadership — Ana M.</div><div class="pm-cert-meta">Issued Jun 15, 2025 · No expiry</div></div><span class="pm-badge pub">Valid</span></div>
+        <div class="pm-cert-row"><div class="pm-cert-icon">⚠️</div><div class="pm-cert-body"><div class="pm-cert-name">Compliance 2024 — Carlos R.</div><div class="pm-cert-meta">Issued Jul 20, 2024 · Expires Jul 20, 2025</div></div><span class="pm-badge warn">Expiring</span></div>
+      </div>`,
+
+    integrations: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Integrations</div><div class="pm-badge-btn">+ Connect</div></div>
+      <div class="pm-section-title">Connected (4 of 8)</div>
+      <div class="pm-int-grid">
+        <div class="pm-int-card"><div class="pm-int-logo" style="background:#dbeafe;color:#1d4ed8">SF</div><div class="pm-int-name">Salesforce</div><span class="pm-badge pub">Live</span></div>
+        <div class="pm-int-card"><div class="pm-int-logo" style="background:#fce7f3;color:#be185d">WD</div><div class="pm-int-name">Workday</div><span class="pm-badge pub">Live</span></div>
+        <div class="pm-int-card"><div class="pm-int-logo" style="background:#ecfdf5;color:#059669">SL</div><div class="pm-int-name">Slack</div><span class="pm-badge pub">Live</span></div>
+        <div class="pm-int-card"><div class="pm-int-logo" style="background:#eff6ff;color:#2563eb">MS</div><div class="pm-int-name">Teams</div><span class="pm-badge pub">Live</span></div>
+        <div class="pm-int-card"><div class="pm-int-logo" style="background:#fef3c7;color:#d97706">ZM</div><div class="pm-int-name">Zoom</div><span class="pm-badge dis">Setup</span></div>
+        <div class="pm-int-card"><div class="pm-int-logo" style="background:var(--slate-100);color:var(--slate-500)">SAP</div><div class="pm-int-name">SAP</div><span class="pm-badge dis">Off</span></div>
+      </div>
+      <div class="pm-section-title">Webhooks &amp; API</div>
+      <div class="pm-activity">
+        <div class="pm-act-row"><div class="pm-act-dot" style="background:#059669"></div>API key active · Production env<span class="pm-act-time">Live</span></div>
+        <div class="pm-act-row"><div class="pm-act-dot" style="background:#1d4ed8"></div>Webhook: learner.completed → HR System<span class="pm-act-time">Active</span></div>
+        <div class="pm-act-row"><div class="pm-act-dot" style="background:#d97706"></div>Webhook: cert.issued → Salesforce<span class="pm-act-time">Pending</span></div>
+      </div>`,
+
+    settings: `
+      <div class="pm-page-hdr"><div class="pm-page-title">Platform Settings</div><div class="pm-badge-btn">Save Changes</div></div>
+      <div class="pm-setting-group">
+        <div class="pm-sg-title">Organization</div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Org Name</div><div class="pm-sg-val">NexaLearn Demo Org</div></div><span class="pm-sg-edit">Edit</span></div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Subdomain</div><div class="pm-sg-val">demo.nexalearn.io</div></div><span class="pm-sg-edit">Edit</span></div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Timezone</div><div class="pm-sg-val">America/New_York</div></div><span class="pm-sg-edit">Edit</span></div>
+      </div>
+      <div class="pm-setting-group">
+        <div class="pm-sg-title">Security</div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Single Sign-On (SAML 2.0)</div><div class="pm-sg-val">Enabled via Okta</div></div><div class="pm-toggle"></div></div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Two-Factor Authentication</div><div class="pm-sg-val">Required for Admins</div></div><div class="pm-toggle"></div></div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Session Timeout</div><div class="pm-sg-val">8 hours</div></div><span class="pm-sg-edit">Edit</span></div>
+      </div>
+      <div class="pm-setting-group">
+        <div class="pm-sg-title">Notifications</div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Completion Emails</div><div class="pm-sg-val">Learner + Manager</div></div><div class="pm-toggle"></div></div>
+        <div class="pm-sg-item"><div><div class="pm-sg-name">Certificate Expiry Alerts</div><div class="pm-sg-val">30 days before</div></div><div class="pm-toggle"></div></div>
+      </div>`,
+  };
+
+  function render(name) {
+    if(!pmPage || !pages[name]) return;
+    pmPage.classList.remove('pm-fade-in');
+    void pmPage.offsetWidth; // force reflow to restart animation
+    pmPage.innerHTML = pages[name];
+    pmPage.classList.add('pm-fade-in');
+    if(pmTitle) pmTitle.textContent = titleMap[name] || titleMap.dashboard;
+  }
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      navItems.forEach(n => n.classList.remove('on'));
+      item.classList.add('on');
+      render(item.dataset.page || 'dashboard');
+    });
+  });
+})();
 
 // Live activity feed
 (function(){
