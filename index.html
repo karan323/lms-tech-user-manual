@@ -577,87 +577,76 @@ nav.scrolled{box-shadow:var(--shadow)}
 .hiw-step h4{font-size:.9rem;font-weight:700;color:var(--slate-900);margin-bottom:.3rem}
 .hiw-step p{font-size:.8rem;color:var(--slate-500);line-height:1.55}
 
-/* LMS PLATFORM MODULES - Edge UI */
+/* LMS PLATFORM MODULES */
 .modules-visual{
-  background:linear-gradient(135deg,#07091a 0%,#0c1429 60%,#080e1e 100%);
-  border-radius:20px;border:1px solid rgba(255,255,255,.06);
-  padding:3rem 2.5rem;margin-top:4rem;position:relative;overflow:hidden
+  background:var(--slate-50);border:1px solid var(--slate-200);
+  border-radius:20px;padding:3rem 2.5rem;margin-top:4rem;
+  position:relative;overflow:hidden
 }
 .modules-visual::before{
-  content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
-  width:700px;height:350px;
-  background:radial-gradient(ellipse at center,rgba(26,86,219,.14) 0%,transparent 65%);
-  pointer-events:none
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--teal),var(--blue));
+  background-size:200% 100%;animation:shimmer 3s linear infinite
 }
-.modules-visual-head{text-align:center;margin-bottom:2.5rem;position:relative}
-.modules-visual-head .tag{background:rgba(26,86,219,.18);color:#93c5fd;border-color:rgba(26,86,219,.25)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.modules-visual-head{text-align:center;margin-bottom:2.5rem}
 .modules-visual-head h3{
-  font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:800;margin:.65rem 0 .5rem;
-  background:linear-gradient(135deg,#fff 30%,#93c5fd);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+  font-size:clamp(1.5rem,2.5vw,2.1rem);font-weight:800;
+  color:var(--slate-900);margin:.65rem 0 .5rem
 }
-.modules-visual-head p{font-size:.95rem;color:rgba(255,255,255,.4);max-width:520px;margin:0 auto}
+.modules-visual-head p{font-size:.95rem;color:var(--slate-500);max-width:520px;margin:0 auto}
 
-.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:0;position:relative}
+.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:0}
 
 .module-tile{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:1.5rem 1.25rem;
+  background:var(--white);border:1px solid var(--slate-200);
+  border-radius:14px;padding:1.5rem 1.25rem;
   cursor:default;text-align:left;position:relative;overflow:hidden;
-  transition:border-color .3s,box-shadow .3s,transform .3s
+  transition:box-shadow .25s,transform .25s,border-color .25s
 }
-.module-tile::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--tile-color,rgba(99,102,241,.6)),transparent);
-  opacity:0;transition:opacity .35s
+.module-tile::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:var(--tile-color,var(--blue));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.4,0,.2,1)
 }
+.module-tile:hover::before{transform:scaleX(1)}
 .module-tile:hover{
-  border-color:var(--tile-color,rgba(99,102,241,.45));
-  box-shadow:0 0 0 1px var(--tile-color,rgba(99,102,241,.1)),0 20px 60px rgba(0,0,0,.5);
-  transform:translateY(-5px)
+  box-shadow:0 8px 32px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.06);
+  border-color:var(--slate-300);transform:translateY(-4px)
 }
-.module-tile:hover::after{opacity:1}
-
 .mt-icon-wrap{
-  width:48px;height:48px;border-radius:13px;
+  width:46px;height:46px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.45rem;margin-bottom:1rem;
-  background:var(--tile-icon-bg,rgba(99,102,241,.15));
-  border:1px solid var(--tile-color,rgba(99,102,241,.2));
-  transition:transform .3s,box-shadow .3s
+  font-size:1.4rem;margin-bottom:1rem;
+  background:var(--tile-icon-bg,rgba(26,86,219,.08));
+  transition:transform .3s
 }
-.module-tile:hover .mt-icon-wrap{
-  transform:scale(1.12) rotate(-4deg);
-  box-shadow:0 0 20px var(--tile-color,rgba(99,102,241,.45))
-}
-.mt-name{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.3rem;line-height:1.3}
-.mt-desc{font-size:.78rem;color:rgba(255,255,255,.38);line-height:1.55;margin-bottom:.9rem}
+.module-tile:hover .mt-icon-wrap{transform:scale(1.1)}
+.mt-name{font-size:1rem;font-weight:700;color:var(--slate-900);margin-bottom:.3rem;line-height:1.3}
+.mt-desc{font-size:.8rem;color:var(--slate-500);line-height:1.55;margin-bottom:.85rem}
 .mt-status{
-  display:inline-flex;align-items:center;gap:.35rem;
-  font-size:.63rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-size:.63rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
   padding:3px 10px;border-radius:20px
 }
-.mt-status.core{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.25)}
-.mt-status.ext{background:rgba(52,211,153,.12);color:#6ee7b7;border:1px solid rgba(52,211,153,.2)}
+.mt-status.core{background:rgba(26,86,219,.08);color:var(--blue);border:1px solid rgba(26,86,219,.18)}
+.mt-status.ext{background:rgba(5,150,105,.08);color:var(--green);border:1px solid rgba(5,150,105,.18)}
 .mt-status.core::before{
-  content:'';width:5px;height:5px;border-radius:50%;background:#60a5fa;
+  content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);
   animation:modPulse 2s ease-in-out infinite
 }
-@keyframes modPulse{
-  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(96,165,250,.6)}
-  50%{opacity:.4;box-shadow:0 0 0 4px rgba(96,165,250,0)}
-}
-@keyframes modIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-.mod-vis .module-tile{animation:modIn .55s ease-out both}
+@keyframes modPulse{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes modIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.mod-vis .module-tile{animation:modIn .5s ease-out both}
 .mod-vis .module-tile:nth-child(1){animation-delay:.04s}
-.mod-vis .module-tile:nth-child(2){animation-delay:.11s}
-.mod-vis .module-tile:nth-child(3){animation-delay:.18s}
-.mod-vis .module-tile:nth-child(4){animation-delay:.25s}
-.mod-vis .module-tile:nth-child(5){animation-delay:.32s}
-.mod-vis .module-tile:nth-child(6){animation-delay:.39s}
-.mod-vis .module-tile:nth-child(7){animation-delay:.46s}
-.mod-vis .module-tile:nth-child(8){animation-delay:.53s}
+.mod-vis .module-tile:nth-child(2){animation-delay:.10s}
+.mod-vis .module-tile:nth-child(3){animation-delay:.17s}
+.mod-vis .module-tile:nth-child(4){animation-delay:.24s}
+.mod-vis .module-tile:nth-child(5){animation-delay:.31s}
+.mod-vis .module-tile:nth-child(6){animation-delay:.38s}
+.mod-vis .module-tile:nth-child(7){animation-delay:.45s}
+.mod-vis .module-tile:nth-child(8){animation-delay:.52s}
 
 /* =========================================
    DOCUMENTATION / MANUALS
@@ -1611,42 +1600,42 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
         <p>Every module is available out-of-the-box or as an add-on — mix and match to fit your exact needs.</p>
       </div>
       <div class="modules-grid">
-        <div class="module-tile" style="--tile-color:rgba(59,130,246,.5);--tile-icon-bg:rgba(59,130,246,.12)">
+        <div class="module-tile" style="--tile-color:#1a56db;--tile-icon-bg:rgba(26,86,219,.09)">
           <div class="mt-icon-wrap">📚</div><div class="mt-name">Course Builder</div>
           <div class="mt-desc">SCORM, video, quizzes & branching scenarios</div>
           <span class="mt-status core">Core</span>
         </div>
-        <div class="module-tile" style="--tile-color:rgba(139,92,246,.5);--tile-icon-bg:rgba(139,92,246,.12)">
+        <div class="module-tile" style="--tile-color:#0891b2;--tile-icon-bg:rgba(8,145,178,.09)">
           <div class="mt-icon-wrap">👥</div><div class="mt-name">User Management</div>
           <div class="mt-desc">Roles, groups, SSO & directory sync</div>
           <span class="mt-status core">Core</span>
         </div>
-        <div class="module-tile" style="--tile-color:rgba(6,182,212,.5);--tile-icon-bg:rgba(6,182,212,.12)">
+        <div class="module-tile" style="--tile-color:#7c3aed;--tile-icon-bg:rgba(124,58,237,.09)">
           <div class="mt-icon-wrap">📊</div><div class="mt-name">Analytics</div>
           <div class="mt-desc">Live dashboards, xAPI & exports</div>
           <span class="mt-status core">Core</span>
         </div>
-        <div class="module-tile" style="--tile-color:rgba(245,158,11,.5);--tile-icon-bg:rgba(245,158,11,.12)">
+        <div class="module-tile" style="--tile-color:#d97706;--tile-icon-bg:rgba(217,119,6,.09)">
           <div class="mt-icon-wrap">🏆</div><div class="mt-name">Certifications</div>
           <div class="mt-desc">Auto-issue, expiry alerts & branding</div>
           <span class="mt-status core">Core</span>
         </div>
-        <div class="module-tile" style="--tile-color:rgba(239,68,68,.5);--tile-icon-bg:rgba(239,68,68,.12)">
+        <div class="module-tile" style="--tile-color:#dc2626;--tile-icon-bg:rgba(220,38,38,.09)">
           <div class="mt-icon-wrap">📝</div><div class="mt-name">Assessments</div>
           <div class="mt-desc">Quizzes, surveys & adaptive rubrics</div>
           <span class="mt-status core">Core</span>
         </div>
-        <div class="module-tile" style="--tile-color:rgba(16,185,129,.5);--tile-icon-bg:rgba(16,185,129,.12)">
+        <div class="module-tile" style="--tile-color:#059669;--tile-icon-bg:rgba(5,150,105,.09)">
           <div class="mt-icon-wrap">🔗</div><div class="mt-name">Integrations</div>
           <div class="mt-desc">HRMS, CRM, REST API & webhooks</div>
           <span class="mt-status ext">Add-on</span>
         </div>
-        <div class="module-tile" style="--tile-color:rgba(236,72,153,.5);--tile-icon-bg:rgba(236,72,153,.12)">
+        <div class="module-tile" style="--tile-color:#db2777;--tile-icon-bg:rgba(219,39,119,.09)">
           <div class="mt-icon-wrap">📱</div><div class="mt-name">Mobile App</div>
           <div class="mt-desc">iOS & Android with offline mode</div>
           <span class="mt-status ext">Add-on</span>
         </div>
-        <div class="module-tile" style="--tile-color:rgba(251,146,60,.5);--tile-icon-bg:rgba(251,146,60,.12)">
+        <div class="module-tile" style="--tile-color:#ea580c;--tile-icon-bg:rgba(234,88,12,.09)">
           <div class="mt-icon-wrap">🗂️</div><div class="mt-name">Content Library</div>
           <div class="mt-desc">Shared assets & version control</div>
           <span class="mt-status ext">Add-on</span>
