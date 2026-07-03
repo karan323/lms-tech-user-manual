@@ -326,22 +326,39 @@ nav.scrolled{box-shadow:var(--shadow)}
   border:1px solid color-mix(in srgb,var(--svc-color,var(--blue)) 20%,transparent);
 }
 
-/* ── Slide text reveal animation ── */
+/* ── Slide text reveal / hide animations ── */
 @keyframes svcFadeUp{
-  from{opacity:0;transform:translateY(26px)}
+  from{opacity:0;transform:translateY(22px)}
   to{opacity:1;transform:none}
 }
-.svc-in .svc-slide-icon  {animation:svcFadeUp .5s ease-out both}
-.svc-in .svc-slide-cat   {animation:svcFadeUp .52s ease-out .07s both}
-.svc-in .svc-slide-title {animation:svcFadeUp .55s ease-out .14s both}
-.svc-in .svc-slide-desc  {animation:svcFadeUp .55s ease-out .24s both}
-.svc-in .svc-slide-tags  {animation:svcFadeUp .5s ease-out .34s both}
-.svc-in .svc-slide-left>.btn{animation:svcFadeUp .5s ease-out .42s both}
-.svc-in .svc-features-label{animation:svcFadeUp .5s ease-out .12s both}
-.svc-in .svc-feat:nth-child(1){animation:svcFadeUp .48s ease-out .22s both}
-.svc-in .svc-feat:nth-child(2){animation:svcFadeUp .48s ease-out .30s both}
-.svc-in .svc-feat:nth-child(3){animation:svcFadeUp .48s ease-out .37s both}
-.svc-in .svc-feat:nth-child(4){animation:svcFadeUp .48s ease-out .44s both}
+@keyframes svcFadeDown{
+  from{opacity:1;transform:none}
+  to{opacity:0;transform:translateY(14px)}
+}
+/* Entry — spring easing, staggered */
+.svc-in .svc-slide-icon   {animation:svcFadeUp .6s cubic-bezier(.22,1,.36,1) both}
+.svc-in .svc-slide-cat    {animation:svcFadeUp .6s cubic-bezier(.22,1,.36,1) .08s both}
+.svc-in .svc-slide-title  {animation:svcFadeUp .65s cubic-bezier(.22,1,.36,1) .15s both}
+.svc-in .svc-slide-desc   {animation:svcFadeUp .65s cubic-bezier(.22,1,.36,1) .25s both}
+.svc-in .svc-slide-tags   {animation:svcFadeUp .6s cubic-bezier(.22,1,.36,1) .35s both}
+.svc-in .svc-slide-left>.btn{animation:svcFadeUp .6s cubic-bezier(.22,1,.36,1) .43s both}
+.svc-in .svc-features-label{animation:svcFadeUp .6s cubic-bezier(.22,1,.36,1) .13s both}
+.svc-in .svc-feat:nth-child(1){animation:svcFadeUp .55s cubic-bezier(.22,1,.36,1) .23s both}
+.svc-in .svc-feat:nth-child(2){animation:svcFadeUp .55s cubic-bezier(.22,1,.36,1) .31s both}
+.svc-in .svc-feat:nth-child(3){animation:svcFadeUp .55s cubic-bezier(.22,1,.36,1) .38s both}
+.svc-in .svc-feat:nth-child(4){animation:svcFadeUp .55s cubic-bezier(.22,1,.36,1) .45s both}
+/* Exit — fast fade-down */
+.svc-out .svc-slide-icon   {animation:svcFadeDown .25s ease-in both}
+.svc-out .svc-slide-cat    {animation:svcFadeDown .22s ease-in both}
+.svc-out .svc-slide-title  {animation:svcFadeDown .22s ease-in both}
+.svc-out .svc-slide-desc   {animation:svcFadeDown .2s ease-in both}
+.svc-out .svc-slide-tags   {animation:svcFadeDown .2s ease-in both}
+.svc-out .svc-slide-left>.btn{animation:svcFadeDown .2s ease-in both}
+.svc-out .svc-features-label{animation:svcFadeDown .22s ease-in both}
+.svc-out .svc-feat:nth-child(1){animation:svcFadeDown .2s ease-in both}
+.svc-out .svc-feat:nth-child(2){animation:svcFadeDown .2s ease-in .03s both}
+.svc-out .svc-feat:nth-child(3){animation:svcFadeDown .2s ease-in .05s both}
+.svc-out .svc-feat:nth-child(4){animation:svcFadeDown .2s ease-in .07s both}
 
 /* ── Right feature panel ── */
 .svc-slide-right{
@@ -2169,7 +2186,7 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
   const currents = new Array(N).fill(103);
   let introTarget = 1, introCurrent = 1;
   let rafId = null;
-  const LERP = 0.09; // smoothing: lower = silkier, higher = snappier
+  const LERP = 0.11; // smoothing: lower = silkier, higher = snappier
 
   function easeOutQuart(t){ return 1 - Math.pow(1 - t, 4); }
   function lerp(a, b, t){ return a + (b - a) * t; }
@@ -2196,13 +2213,28 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
 
     // Tabs update immediately (no lerp needed)
     if(activeIdx !== lastActiveIdx){
+      const prevIdx = lastActiveIdx;
+      lastActiveIdx = activeIdx;
+
       tabBtns.forEach((btn, i) => {
         btn.classList.toggle('svc-visited', i <= activeIdx);
         btn.classList.toggle('svc-active',  i === activeIdx);
       });
-      slides[lastActiveIdx].classList.remove('svc-in');
-      slides[activeIdx].classList.add('svc-in');
-      lastActiveIdx = activeIdx;
+
+      // Exit: fade text down on outgoing slide
+      const outSlide = slides[prevIdx];
+      clearTimeout(outSlide._svcInT);
+      outSlide.classList.remove('svc-in');
+      outSlide.classList.add('svc-out');
+      clearTimeout(outSlide._svcOutT);
+      outSlide._svcOutT = setTimeout(() => outSlide.classList.remove('svc-out'), 400);
+
+      // Entry: wait 160ms so the incoming slide moves into view before text appears
+      const inSlide = slides[activeIdx];
+      inSlide.classList.remove('svc-out');
+      clearTimeout(inSlide._svcOutT);
+      clearTimeout(inSlide._svcInT);
+      inSlide._svcInT = setTimeout(() => inSlide.classList.add('svc-in'), 160);
     }
   }
 
