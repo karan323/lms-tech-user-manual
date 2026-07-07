@@ -788,55 +788,6 @@ nav.scrolled{box-shadow:var(--shadow)}
 .ps-desc{font-size:.8rem;color:var(--slate-500);line-height:1.55}
 
 /* =========================================
-   CASE STUDIES
-   ========================================= */
-#case-studies{padding:88px 0;background:var(--white)}
-.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:3rem}
-.case-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-xl);
-  overflow:hidden;transition:.25s;cursor:default}
-.case-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:transparent}
-.case-header{padding:1.5rem;border-bottom:1px solid var(--slate-100)}
-.case-industry{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
-.ci-dot{width:8px;height:8px;border-radius:50%}
-.ci-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate-500)}
-.case-card h3{font-size:1rem;font-weight:700;color:var(--slate-900);line-height:1.35}
-.case-body{padding:1.5rem}
-.case-card p{font-size:.87rem;color:var(--slate-600);line-height:1.7;margin-bottom:1.25rem}
-.case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;
-  padding-top:1.25rem;border-top:1px solid var(--slate-100)}
-.cm{text-align:center}
-.cm-val{font-size:1.35rem;font-weight:800;color:var(--navy)}
-.cm-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;color:var(--slate-400);margin-top:2px}
-.case-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem}
-.case-tag{font-size:.7rem;padding:3px 9px;border-radius:4px;background:var(--slate-100);
-  color:var(--slate-600);font-weight:500}
-
-/* =========================================
-   TESTIMONIALS
-   ========================================= */
-#testimonials{padding:88px 0;background:var(--slate-50)}
-.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
-.testi-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-xl);
-  padding:2rem;transition:.2s}
-.testi-card:hover{box-shadow:var(--shadow)}
-.stars{display:flex;gap:2px;margin-bottom:1.2rem}
-.star{color:#f59e0b;font-size:14px}
-.testi-quote{font-size:.92rem;color:var(--slate-700);line-height:1.8;
-  font-style:italic;margin-bottom:1.5rem;position:relative;padding-left:1.2rem}
-.testi-quote::before{content:'"';position:absolute;left:0;top:-.2rem;font-size:2rem;
-  color:var(--blue);opacity:.25;font-style:normal;line-height:1}
-.testi-author{display:flex;align-items:center;gap:.75rem;padding-top:1.25rem;
-  border-top:1px solid var(--slate-100)}
-.ta-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-weight:700;font-size:.85rem;color:#fff;flex-shrink:0}
-.ta-name{font-size:.9rem;font-weight:700;color:var(--slate-900)}
-.ta-role{font-size:.78rem;color:var(--slate-500)}
-.testi-results{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;
-  color:var(--green);background:rgba(5,150,105,.08);padding:3px 10px;border-radius:20px;
-  margin-bottom:1rem}
-.testi-results::before{content:'↑';font-weight:800}
-
-/* =========================================
    ABOUT
    ========================================= */
 #about{padding:88px 0;background:var(--white)}
@@ -1180,7 +1131,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
       <li><a href="#services">Services</a></li>
       <li><a href="#platform">Platform</a></li>
       <li><a href="#documentation">Documentation</a></li>
-      <li><a href="#case-studies">Case Studies</a></li>
       <li><a href="#about">About</a></li>
     </ul>
     <div class="nav-actions">
@@ -1882,103 +1832,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
   </div>
 </section>
 
-<!-- ===================== CASE STUDIES ===================== -->
-<section id="case-studies">
-  <div class="container">
-    <div class="reveal text-center">
-      <div class="tag">Case Studies</div>
-      <h2>Measurable Results for <span class="blue-text">Real Organizations</span></h2>
-      <p class="section-sub">See how NexaLearn Solutions has transformed learning and documentation for clients across industries.</p>
-    </div>
-    <div class="case-grid">
-      <div class="case-card reveal delay-1">
-        <div class="case-header">
-          <div class="case-industry"><div class="ci-dot" style="background:#1d4ed8"></div><span class="ci-label">Healthcare · LMS Development</span></div>
-          <h3>National Hospital Network — Clinical Compliance Training Platform</h3>
-        </div>
-        <div class="case-body">
-          <p>Built a HIPAA-compliant LMS for 12,000 clinical staff across 38 hospitals. Includes mandatory compliance training, CME tracking, role-based pathways, and automated certificate management.</p>
-          <div class="case-tags"><span class="case-tag">HIPAA</span><span class="case-tag">SCORM</span><span class="case-tag">SSO</span><span class="case-tag">12K Users</span></div>
-          <div class="case-metrics">
-            <div class="cm"><div class="cm-val">94%</div><div class="cm-label">Completion Rate</div></div>
-            <div class="cm"><div class="cm-val">−60%</div><div class="cm-label">Admin Time</div></div>
-            <div class="cm"><div class="cm-val">38</div><div class="cm-label">Hospitals</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card reveal delay-2">
-        <div class="case-header">
-          <div class="case-industry"><div class="ci-dot" style="background:#059669"></div><span class="ci-label">Manufacturing · Technical Documentation</span></div>
-          <h3>PrecisionParts Ltd — ISO-Compliant Technical Manual Suite</h3>
-        </div>
-        <div class="case-body">
-          <p>Produced 800+ pages of ISO 9001-compliant technical manuals, SOPs, and interactive safety training for global manufacturing operations — delivered in 6 languages across 4 continents.</p>
-          <div class="case-tags"><span class="case-tag">ISO 9001</span><span class="case-tag">6 Languages</span><span class="case-tag">OSHA</span><span class="case-tag">800+ Pages</span></div>
-          <div class="case-metrics">
-            <div class="cm"><div class="cm-val">−40%</div><div class="cm-label">Training Time</div></div>
-            <div class="cm"><div class="cm-val">0</div><div class="cm-label">Safety Incidents</div></div>
-            <div class="cm"><div class="cm-val">6</div><div class="cm-label">Languages</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card reveal delay-3">
-        <div class="case-header">
-          <div class="case-industry"><div class="ci-dot" style="background:#0891b2"></div><span class="ci-label">Fintech · Developer Documentation</span></div>
-          <h3>NextPay — Developer Portal &amp; API Documentation Redesign</h3>
-        </div>
-        <div class="case-body">
-          <p>Redesigned the complete developer portal for a payments unicorn — API references, integration guides, SDK docs, and interactive code samples. Reduced developer onboarding from 14 days to 3 days.</p>
-          <div class="case-tags"><span class="case-tag">REST API</span><span class="case-tag">OpenAPI</span><span class="case-tag">Docusaurus</span><span class="case-tag">Portal</span></div>
-          <div class="case-metrics">
-            <div class="cm"><div class="cm-val">−65%</div><div class="cm-label">Support Tickets</div></div>
-            <div class="cm"><div class="cm-val">3 days</div><div class="cm-label">Onboarding</div></div>
-            <div class="cm"><div class="cm-val">4.9★</div><div class="cm-label">Dev Rating</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== TESTIMONIALS ===================== -->
-<section id="testimonials">
-  <div class="container">
-    <div class="reveal text-center">
-      <div class="tag">Client Testimonials</div>
-      <h2>What Our <span class="blue-text">Clients Say</span></h2>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card reveal delay-1">
-        <div class="stars">★★★★★</div>
-        <div class="testi-results">Completion rate increased from 42% to 94%</div>
-        <p class="testi-quote">NexaLearn transformed our entire onboarding and compliance training. The LMS platform is intuitive, the analytics are outstanding, and their team was professional throughout every phase.</p>
-        <div class="testi-author">
-          <div class="ta-avatar" style="background:#1d4ed8">RK</div>
-          <div><div class="ta-name">Rajesh Kumar</div><div class="ta-role">Head of L&D · TechCorp Global</div></div>
-        </div>
-      </div>
-      <div class="testi-card reveal delay-2">
-        <div class="stars">★★★★★</div>
-        <div class="testi-results">Reduced training time by 40%</div>
-        <p class="testi-quote">The technical manuals NexaLearn produced for our manufacturing line are exceptional — ISO-compliant, beautifully illustrated, and exactly what our operators needed on the floor.</p>
-        <div class="testi-author">
-          <div class="ta-avatar" style="background:#059669">SJ</div>
-          <div><div class="ta-name">Sarah Johnson</div><div class="ta-role">VP Operations · PrecisionParts Ltd</div></div>
-        </div>
-      </div>
-      <div class="testi-card reveal delay-3">
-        <div class="stars">★★★★★</div>
-        <div class="testi-results">Support tickets reduced by 65%</div>
-        <p class="testi-quote">Our developer documentation went from a liability to a competitive advantage. NexaLearn understood our technical stack deeply and delivered documentation that our engineers are proud of.</p>
-        <div class="testi-author">
-          <div class="ta-avatar" style="background:#0891b2">MT</div>
-          <div><div class="ta-name">Marcus Torres</div><div class="ta-role">CTO · NextPay</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== ABOUT ===================== -->
 <section id="about">
   <div class="container">
@@ -2174,7 +2027,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
       <h5>Company</h5>
       <ul>
         <li><a href="#about">About Us</a></li>
-        <li><a href="#case-studies">Case Studies</a></li>
         <li><a href="#">Blog</a></li>
         <li><a href="#">Careers</a></li>
         <li><a href="#contact">Contact</a></li>
