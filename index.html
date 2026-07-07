@@ -714,16 +714,59 @@ nav.scrolled{box-shadow:var(--shadow)}
    DOCUMENTATION / MANUALS
    ========================================= */
 #documentation{padding:88px 0;background:var(--white)}
-.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;margin-top:3rem}
-@media(max-width:860px){.doc-grid{grid-template-columns:1fr}}
-.doc-types{display:flex;flex-direction:column;gap:1rem}
+.doc-grid{display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start;margin-top:3rem}
+@media(max-width:960px){.doc-grid{grid-template-columns:1fr}}
+.doc-types{display:flex;flex-direction:column;gap:.75rem}
 .doc-type-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-lg);
-  padding:1.25rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;transition:.2s;cursor:default}
+  padding:1.1rem 1.4rem;display:flex;align-items:flex-start;gap:.9rem;
+  transition:.2s;cursor:pointer;position:relative}
 .doc-type-card:hover{box-shadow:var(--shadow);border-color:var(--slate-300)}
-.dt-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;
-  justify-content:center;font-size:1.1rem;flex-shrink:0}
-.dt-body h4{font-size:.9rem;font-weight:700;margin-bottom:.2rem;color:var(--slate-900)}
-.dt-body p{font-size:.82rem;color:var(--slate-500);line-height:1.55}
+.doc-type-card.doc-active{
+  border-color:var(--blue);background:rgba(26,86,219,.03);
+  box-shadow:0 0 0 2px rgba(26,86,219,.1)
+}
+.doc-type-card.doc-active .dt-body h4{color:var(--blue)}
+.doc-active-bar{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:60%;background:var(--blue);border-radius:0 3px 3px 0;
+  opacity:0;transition:opacity .2s
+}
+.doc-type-card.doc-active .doc-active-bar{opacity:1}
+.dt-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:1.05rem;flex-shrink:0;transition:transform .2s}
+.doc-type-card.doc-active .dt-icon{transform:scale(1.1)}
+.dt-body h4{font-size:.88rem;font-weight:700;margin-bottom:.18rem;color:var(--slate-900)}
+.dt-body p{font-size:.78rem;color:var(--slate-500);line-height:1.5}
+
+/* Doc Preview Panel */
+.doc-preview-wrap{
+  background:var(--white);border:1px solid var(--slate-200);
+  border-radius:16px;overflow:hidden;position:sticky;top:88px;
+  box-shadow:var(--shadow-lg)
+}
+.doc-preview-bar{
+  background:var(--slate-50);border-bottom:1px solid var(--slate-200);
+  padding:9px 14px;display:flex;align-items:center;gap:10px
+}
+.doc-preview-dots{display:flex;gap:5px}
+.doc-preview-dots span{width:10px;height:10px;border-radius:50%}
+.doc-preview-dots span:nth-child(1){background:#fc5c54}
+.doc-preview-dots span:nth-child(2){background:#fdbc40}
+.doc-preview-dots span:nth-child(3){background:#34c84a}
+.doc-preview-fname{
+  flex:1;text-align:center;font-size:.72rem;font-weight:600;
+  color:var(--slate-500);background:var(--white);
+  border:1px solid var(--slate-200);border-radius:5px;
+  padding:3px 12px;margin:0 4px
+}
+.doc-preview-body{
+  padding:1.5rem 1.75rem;min-height:430px;background:var(--white);overflow:hidden
+}
+@keyframes docFadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+.doc-preview-content{animation:docFadeIn .3s ease-out both}
 .doc-highlight{background:var(--navy);border-radius:var(--radius-xl);padding:2.5rem;color:#fff}
 .doc-highlight h3{color:#fff;font-size:1.3rem;margin-bottom:1rem}
 .doc-highlight p{color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7;margin-bottom:1.5rem}
@@ -1753,24 +1796,40 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
       <p class="section-sub">Our technical writers, instructional designers, and subject-matter experts produce documentation that users actually read and follow.</p>
     </div>
     <div class="doc-grid">
-      <div class="doc-types reveal-l">
-        <div class="doc-type-card">
+      <!-- LEFT: Interactive document preview -->
+      <div class="doc-preview-wrap reveal-l">
+        <div class="doc-preview-bar">
+          <div class="doc-preview-dots"><span></span><span></span><span></span></div>
+          <div class="doc-preview-fname" id="docPreviewFname">User_Manual_Getting_Started_v2.1.pdf</div>
+        </div>
+        <div class="doc-preview-body" id="docPreviewBody">
+          <!-- Filled by JS on load -->
+        </div>
+      </div>
+      <!-- RIGHT: Doc type cards -->
+      <div class="doc-types reveal-r">
+        <div class="doc-type-card doc-active" onclick="docNav(this,0)">
+          <div class="doc-active-bar"></div>
           <div class="dt-icon" style="background:rgba(26,86,219,.08)">📘</div>
           <div class="dt-body"><h4>User Manuals</h4><p>End-user documentation for software and hardware — illustrated, localized, and structured for clarity.</p></div>
         </div>
-        <div class="doc-type-card">
+        <div class="doc-type-card" onclick="docNav(this,1)">
+          <div class="doc-active-bar"></div>
           <div class="dt-icon" style="background:rgba(5,150,105,.08)">🔧</div>
           <div class="dt-body"><h4>Technical &amp; Maintenance Manuals</h4><p>Engineering-grade references, MRO guides, and maintenance procedures for industrial and enterprise systems.</p></div>
         </div>
-        <div class="doc-type-card">
+        <div class="doc-type-card" onclick="docNav(this,2)">
+          <div class="doc-active-bar"></div>
           <div class="dt-icon" style="background:rgba(8,145,178,.08)">📋</div>
           <div class="dt-body"><h4>SOPs &amp; Work Instructions</h4><p>Standard Operating Procedures that ensure consistency, quality, and compliance — aligned to ISO, GMP, and OSHA standards.</p></div>
         </div>
-        <div class="doc-type-card">
+        <div class="doc-type-card" onclick="docNav(this,3)">
+          <div class="doc-active-bar"></div>
           <div class="dt-icon" style="background:rgba(217,119,6,.08)">📡</div>
-          <div class="dt-body"><h4>API &amp; Developer Documentation</h4><p>Developer-friendly Software Requirements Specifications (SRS), SDK guides, and OpenAPI specs with interactive code examples — including comprehensive Software Testing Requirements Documents aligned to your development lifecycle.</p></div>
+          <div class="dt-body"><h4>API &amp; Developer Documentation</h4><p>Developer-friendly SRS, SDK guides, and OpenAPI specs with interactive code examples — including Software Testing Requirements Documents.</p></div>
         </div>
-        <div class="doc-type-card">
+        <div class="doc-type-card" onclick="docNav(this,4)">
+          <div class="doc-active-bar"></div>
           <div class="dt-icon" style="background:rgba(124,58,237,.08)">🛡️</div>
           <div class="dt-body"><h4>Compliance &amp; Regulatory Docs</h4><p>Audit-ready policy manuals, risk frameworks, and compliance documentation for GDPR, HIPAA, SOC 2, and ISO.</p></div>
         </div>
@@ -2553,6 +2612,56 @@ document.addEventListener('click', function(e) {
   if(!item || !item.dataset.page) return;
   window.lmsNav(item, item.dataset.page);
 });
+
+// ===================== DOC PREVIEW SWITCHER =====================
+(function(){
+  var docPreviews = [
+    // 0: User Manuals
+    {
+      fname: 'User_Manual_Getting_Started_v2.1.pdf',
+      html: '<div class="doc-preview-content"><div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0"><span style="font-size:1.2rem">📘</span><div><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:700">Chapter 3</div><div style="font-size:.92rem;font-weight:700;color:#0f172a">Getting Started Guide</div></div><span style="margin-left:auto;font-size:.62rem;background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:4px;font-weight:700">v2.1</span></div><div style="display:flex;flex-direction:column;gap:.85rem"><div style="display:flex;gap:.8rem;align-items:flex-start"><div style="width:22px;height:22px;border-radius:50%;background:#1a56db;color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</div><div><div style="font-size:.82rem;font-weight:700;color:#0f172a;margin-bottom:.3rem">System Requirements</div><div style="display:flex;gap:.4rem;flex-wrap:wrap"><span style="font-size:.68rem;background:#f1f5f9;border:1px solid #e2e8f0;padding:2px 7px;border-radius:4px;color:#475569">✓ Windows 10+ / macOS 12+</span><span style="font-size:.68rem;background:#f1f5f9;border:1px solid #e2e8f0;padding:2px 7px;border-radius:4px;color:#475569">✓ 4 GB RAM</span><span style="font-size:.68rem;background:#f1f5f9;border:1px solid #e2e8f0;padding:2px 7px;border-radius:4px;color:#475569">✓ 10 GB Disk</span></div></div></div><div style="display:flex;gap:.8rem;align-items:flex-start"><div style="width:22px;height:22px;border-radius:50%;background:#1a56db;color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</div><div><div style="font-size:.82rem;font-weight:700;color:#0f172a;margin-bottom:.25rem">Download &amp; Install</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:.55rem .85rem;font-size:.73rem;color:#475569;line-height:1.6">Run the installer as Administrator. The setup wizard will guide you through selecting the installation directory and configuring initial preferences.</div></div></div><div style="display:flex;gap:.8rem;align-items:flex-start"><div style="width:22px;height:22px;border-radius:50%;background:#1a56db;color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</div><div style="flex:1"><div style="font-size:.82rem;font-weight:700;color:#0f172a;margin-bottom:.3rem">Activate License</div><div style="background:#fff;border:1.5px solid #1a56db;border-radius:6px;padding:.5rem .85rem;font-size:.73rem;color:#94a3b8;display:flex;justify-content:space-between;align-items:center"><span>Enter your license key...</span><span style="background:#1a56db;color:#fff;font-size:.63rem;font-weight:700;padding:2px 10px;border-radius:4px">Activate</span></div></div></div></div><div style="margin-top:1.25rem;padding:.7rem .85rem;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;display:flex;gap:.6rem;align-items:center"><span style="font-size:.9rem">✅</span><span style="font-size:.73rem;color:#166534;font-weight:600">Installation complete. Restart required to apply changes.</span></div></div>'
+    },
+    // 1: Technical & Maintenance Manuals
+    {
+      fname: 'Hydraulic_System_Maintenance_Manual_Rev3.pdf',
+      html: '<div class="doc-preview-content"><div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0"><span style="font-size:1.2rem">🔧</span><div><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:700">MNT-HYD-004</div><div style="font-size:.92rem;font-weight:700;color:#0f172a">Hydraulic System Service Manual</div></div><span style="margin-left:auto;font-size:.62rem;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:4px;font-weight:700">Rev 3.0</span></div><div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:6px;padding:.55rem .85rem;font-size:.72rem;color:#92400e;font-weight:600;margin-bottom:1rem;display:flex;gap:.5rem;align-items:center"><span>⚠️</span>Depressurize system before proceeding. Max operating pressure: 210 bar.</div><div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:.5rem">Component Specifications</div><table style="width:100%;border-collapse:collapse;font-size:.73rem"><tr style="background:#f8fafc"><th style="padding:.38rem .7rem;text-align:left;color:#475569;font-weight:700;border:1px solid #e2e8f0">Component</th><th style="padding:.38rem .7rem;text-align:left;color:#475569;font-weight:700;border:1px solid #e2e8f0">Spec</th><th style="padding:.38rem .7rem;text-align:left;color:#475569;font-weight:700;border:1px solid #e2e8f0">Interval</th><th style="padding:.38rem .7rem;text-align:left;color:#475569;font-weight:700;border:1px solid #e2e8f0">Status</th></tr><tr><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#0f172a">Oil Filter</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">ISO VG 46</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">500 hrs</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0"><span style="background:#dcfce7;color:#166534;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:3px">OK</span></td></tr><tr style="background:#f8fafc"><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#0f172a">Pump Pressure</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">210 bar max</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">Daily</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0"><span style="background:#dcfce7;color:#166534;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:3px">OK</span></td></tr><tr><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#0f172a">Seals &amp; O-Rings</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">NBR 70°C</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">2,000 hrs</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0"><span style="background:#fef3c7;color:#92400e;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:3px">DUE</span></td></tr><tr style="background:#f8fafc"><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#0f172a">Reservoir Tank</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">80 L capacity</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0;color:#475569">Weekly</td><td style="padding:.35rem .7rem;border:1px solid #e2e8f0"><span style="background:#dcfce7;color:#166534;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:3px">OK</span></td></tr></table></div>'
+    },
+    // 2: SOPs & Work Instructions
+    {
+      fname: 'SOP-QC-042_Product_Release_Procedure_Rev3.0.pdf',
+      html: '<div class="doc-preview-content"><div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0"><span style="font-size:1.2rem">📋</span><div><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:700">SOP-QC-042</div><div style="font-size:.92rem;font-weight:700;color:#0f172a">Product Release Procedure</div></div><span style="margin-left:auto;font-size:.62rem;background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:4px;font-weight:700">Rev 3.0</span></div><div style="display:flex;gap:1rem;font-size:.68rem;color:#94a3b8;margin-bottom:1rem"><span>Effective: 2025-01-01</span><span>•</span><span>Owner: Quality Dept</span><span>•</span><span>ISO 9001 Aligned</span></div><div style="display:flex;flex-direction:column;gap:.6rem"><div style="display:flex;gap:.7rem;align-items:flex-start"><div style="width:18px;height:18px;border-radius:3px;border:1.5px solid #059669;background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><span style="font-size:.6rem;color:#059669;font-weight:900">✓</span></div><div style="font-size:.78rem;color:#0f172a">Verify batch documentation is complete and signed</div></div><div style="display:flex;gap:.7rem;align-items:flex-start"><div style="width:18px;height:18px;border-radius:3px;border:1.5px solid #059669;background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><span style="font-size:.6rem;color:#059669;font-weight:900">✓</span></div><div style="font-size:.78rem;color:#0f172a">Perform visual inspection per QC-Form-018</div></div><div style="display:flex;gap:.7rem;align-items:flex-start"><div style="width:18px;height:18px;border-radius:3px;border:1.5px solid #059669;background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><span style="font-size:.6rem;color:#059669;font-weight:900">✓</span></div><div style="font-size:.78rem;color:#0f172a">Review QC lab test results against specifications</div></div><div style="display:flex;gap:.7rem;align-items:flex-start"><div style="width:18px;height:18px;border-radius:3px;border:1.5px solid #e2e8f0;background:#fff;flex-shrink:0;margin-top:1px;border-radius:3px"></div><div style="font-size:.78rem;color:#475569">Complete release checklist and exception report</div></div><div style="display:flex;gap:.7rem;align-items:flex-start"><div style="width:18px;height:18px;border-radius:3px;border:1.5px solid #e2e8f0;background:#fff;flex-shrink:0;margin-top:1px;border-radius:3px"></div><div style="font-size:.78rem;color:#475569">Obtain supervisor digital sign-off in system</div></div><div style="display:flex;gap:.7rem;align-items:flex-start"><div style="width:18px;height:18px;border-radius:3px;border:1.5px solid #e2e8f0;background:#fff;flex-shrink:0;margin-top:1px;border-radius:3px"></div><div style="font-size:.78rem;color:#475569">Issue Certificate of Conformance (CoC)</div></div></div><div style="margin-top:1.1rem;padding:.6rem .85rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:.68rem;color:#94a3b8">Related: QC-Form-018 · SOP-QC-001 · SOP-QC-019</div></div>'
+    },
+    // 3: API & Developer Documentation
+    {
+      fname: 'NexaLearn_API_Reference_v3.2.pdf',
+      html: '<div class="doc-preview-content"><div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0"><span style="font-size:1.2rem">📡</span><div><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:700">REST API · v3.2</div><div style="font-size:.92rem;font-weight:700;color:#0f172a">API Reference — Enrolment</div></div><span style="margin-left:auto;font-size:.62rem;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-weight:700">POST</span></div><div style="font-size:.7rem;color:#64748b;font-family:monospace;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:.45rem .85rem;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem"><span style="background:#fef3c7;color:#92400e;font-size:.6rem;font-weight:800;padding:1px 6px;border-radius:3px">POST</span>/api/v3/users/enroll</div><div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:.4rem">Request Body</div><div style="background:#1e293b;border-radius:8px;padding:.85rem 1rem;font-size:.72rem;font-family:monospace;color:#e2e8f0;line-height:1.7;margin-bottom:.85rem"><span style="color:#7dd3fc">{</span><br>&nbsp;&nbsp;<span style="color:#93c5fd">"user_id"</span>: <span style="color:#6ee7b7">"usr_abc123"</span>,<br>&nbsp;&nbsp;<span style="color:#93c5fd">"course_id"</span>: <span style="color:#6ee7b7">"crs_xyz789"</span>,<br>&nbsp;&nbsp;<span style="color:#93c5fd">"notify"</span>: <span style="color:#fbbf24">true</span><br><span style="color:#7dd3fc">}</span></div><div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:.4rem">Response <span style="color:#059669">200 OK</span></div><div style="background:#1e293b;border-radius:8px;padding:.85rem 1rem;font-size:.72rem;font-family:monospace;color:#e2e8f0;line-height:1.7"><span style="color:#7dd3fc">{</span><br>&nbsp;&nbsp;<span style="color:#93c5fd">"status"</span>: <span style="color:#6ee7b7">"enrolled"</span>,<br>&nbsp;&nbsp;<span style="color:#93c5fd">"enrollment_id"</span>: <span style="color:#6ee7b7">"enr_7f2a9c"</span>,<br>&nbsp;&nbsp;<span style="color:#93c5fd">"enrolled_at"</span>: <span style="color:#6ee7b7">"2025-07-01T09:14:22Z"</span><br><span style="color:#7dd3fc">}</span></div></div>'
+    },
+    // 4: Compliance & Regulatory Docs
+    {
+      fname: 'GDPR_Compliance_Policy_v1.4.pdf',
+      html: '<div class="doc-preview-content"><div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0"><span style="font-size:1.2rem">🛡️</span><div><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:700">Compliance</div><div style="font-size:.92rem;font-weight:700;color:#0f172a">GDPR Compliance Policy</div></div><span style="margin-left:auto;font-size:.62rem;background:#ede9fe;color:#6d28d9;padding:2px 8px;border-radius:4px;font-weight:700">v1.4</span></div><div style="display:flex;flex-direction:column;gap:.55rem"><div style="display:flex;align-items:center;gap:.75rem;padding:.5rem .75rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px"><span style="font-size:.85rem">✅</span><div><div style="font-size:.75rem;font-weight:700;color:#0f172a">Article 5 — Data Processing Principles</div><div style="font-size:.67rem;color:#166534">Lawfulness, fairness, transparency · Compliant</div></div></div><div style="display:flex;align-items:center;gap:.75rem;padding:.5rem .75rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px"><span style="font-size:.85rem">✅</span><div><div style="font-size:.75rem;font-weight:700;color:#0f172a">Article 6 — Lawful Basis for Processing</div><div style="font-size:.67rem;color:#166534">Consent &amp; legitimate interests documented · Compliant</div></div></div><div style="display:flex;align-items:center;gap:.75rem;padding:.5rem .75rem;background:#fef3c7;border:1px solid #fde68a;border-radius:6px"><span style="font-size:.85rem">⚠️</span><div><div style="font-size:.75rem;font-weight:700;color:#0f172a">Article 17 — Right to Erasure</div><div style="font-size:.67rem;color:#92400e">Deletion workflow under review — due Aug 2025</div></div></div><div style="display:flex;align-items:center;gap:.75rem;padding:.5rem .75rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px"><span style="font-size:.85rem">✅</span><div><div style="font-size:.75rem;font-weight:700;color:#0f172a">Article 25 — Data Protection by Design</div><div style="font-size:.67rem;color:#166534">Privacy-by-design controls active · Compliant</div></div></div></div><div style="margin-top:1rem;display:flex;gap:.75rem;font-size:.68rem;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:.85rem"><span>Last Audit: Jun 2025</span><span>•</span><span>Next Review: Dec 2025</span><span>•</span><span style="color:#059669;font-weight:700">Status: Compliant</span></div></div>'
+    }
+  ];
+
+  var docCards = document.querySelectorAll('.doc-type-card');
+  var previewBody = document.getElementById('docPreviewBody');
+  var previewFname = document.getElementById('docPreviewFname');
+
+  function showDocPreview(idx) {
+    var p = docPreviews[idx];
+    previewFname.textContent = p.fname;
+    previewBody.innerHTML = p.html;
+  }
+
+  window.docNav = function(el, idx) {
+    docCards.forEach(function(c){ c.classList.remove('doc-active'); });
+    el.classList.add('doc-active');
+    showDocPreview(idx);
+  };
+
+  // Show first preview on load
+  if(previewBody) showDocPreview(0);
+})();
 </script>
 </body>
 </html>
