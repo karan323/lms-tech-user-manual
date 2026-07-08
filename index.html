@@ -1938,15 +1938,20 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
         <div class="contact-form-card">
           <h3>Send Us a Message</h3>
           <form id="contactForm" onsubmit="handleForm(event)">
+            <!-- Web3Forms hidden fields -->
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
+            <input type="hidden" name="subject" value="New Project Enquiry — NexaLearn Solutions">
+            <input type="hidden" name="from_name" value="NexaLearn Website">
+            <input type="checkbox" name="botcheck" style="display:none">
             <div class="form-row">
-              <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required></div>
-              <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith" required></div>
+              <div class="form-group"><label>First Name</label><input type="text" name="first_name" placeholder="John" required></div>
+              <div class="form-group"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
             </div>
-            <div class="form-group"><label>Work Email</label><input type="email" placeholder="john@company.com" required></div>
-            <div class="form-group"><label>Company</label><input type="text" placeholder="Your Organization"></div>
+            <div class="form-group"><label>Work Email</label><input type="email" name="email" placeholder="john@company.com" required></div>
+            <div class="form-group"><label>Company</label><input type="text" name="company" placeholder="Your Organization"></div>
             <div class="form-group">
               <label>Service Required</label>
-              <select>
+              <select name="service">
                 <option value="">Select a service...</option>
                 <option>Custom LMS Development</option>
                 <option>User Manuals &amp; Guides</option>
@@ -1957,9 +1962,17 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
                 <option>Multiple Services</option>
               </select>
             </div>
-            <div class="form-group"><label>Project Description</label><textarea placeholder="Describe your project, timeline, and any specific requirements..."></textarea></div>
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:13px">Submit Request <span class="arrow">→</span></button>
+            <div class="form-group"><label>Project Description</label><textarea name="message" placeholder="Describe your project, timeline, and any specific requirements..."></textarea></div>
+            <button type="submit" id="contactSubmitBtn" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:13px">Submit Request <span class="arrow">→</span></button>
           </form>
+          <div id="formSuccess" style="display:none;text-align:center;padding:2rem 1rem">
+            <div style="font-size:2.5rem;margin-bottom:.75rem">✅</div>
+            <h4 style="font-size:1.1rem;font-weight:700;color:#0f172a;margin-bottom:.4rem">Message Sent!</h4>
+            <p style="font-size:.88rem;color:#475569">Thanks! We'll get back to you within 1 business day.</p>
+          </div>
+          <div id="formError" style="display:none;margin-top:1rem;padding:.75rem 1rem;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;font-size:.82rem;color:#dc2626;text-align:center">
+            Something went wrong. Please email us directly at <strong>karanmistry333@gmail.com</strong>
+          </div>
         </div>
       </div>
     </div>
@@ -2184,13 +2197,49 @@ document.querySelectorAll('.nav-links a').forEach(a=>{
   a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
 });
 
-// Contact form
-function handleForm(e){
+// Contact form — Web3Forms submission + localStorage backup
+async function handleForm(e){
   e.preventDefault();
-  const t=document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),4500);
-  e.target.reset();
+  var form = e.target;
+  var btn  = document.getElementById('contactSubmitBtn');
+  var successEl = document.getElementById('formSuccess');
+  var errorEl   = document.getElementById('formError');
+
+  // Disable button while submitting
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  errorEl.style.display = 'none';
+
+  // Collect form data
+  var data = Object.fromEntries(new FormData(form).entries());
+  data.submitted_at = new Date().toISOString();
+
+  // Save to localStorage as backup
+  try {
+    var saved = JSON.parse(localStorage.getItem('nl_submissions') || '[]');
+    saved.push(data);
+    localStorage.setItem('nl_submissions', JSON.stringify(saved));
+  } catch(_){}
+
+  // Submit to Web3Forms
+  try {
+    var res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    var json = await res.json();
+    if(json.success){
+      form.style.display = 'none';
+      successEl.style.display = 'block';
+    } else {
+      throw new Error(json.message);
+    }
+  } catch(err){
+    btn.disabled = false;
+    btn.innerHTML = 'Submit Request <span class="arrow">→</span>';
+    errorEl.style.display = 'block';
+  }
 }
 
 // ============================================================
