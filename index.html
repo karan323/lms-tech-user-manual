@@ -791,7 +791,7 @@ nav.scrolled{box-shadow:var(--shadow)}
    ABOUT
    ========================================= */
 #about{padding:88px 0;background:var(--white)}
-.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem}
+.about-layout{display:grid;grid-template-columns:1fr;align-items:start;margin-top:3rem;max-width:780px;margin-left:auto;margin-right:auto}
 @media(max-width:860px){.about-layout{grid-template-columns:1fr}}
 .about-text p{font-size:.95rem;color:var(--slate-600);line-height:1.8;margin-bottom:1rem}
 .about-values{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
@@ -801,27 +801,6 @@ nav.scrolled{box-shadow:var(--shadow)}
 .value-item:hover{border-color:var(--blue)}
 .value-item h4{font-size:.88rem;font-weight:700;margin-bottom:.3rem;color:var(--slate-900)}
 .value-item p{font-size:.8rem;color:var(--slate-500);line-height:1.55}
-.about-sidebar{display:flex;flex-direction:column;gap:1.5rem}
-.about-stat-block{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.about-stat{background:var(--navy);color:#fff;border-radius:var(--radius-lg);
-  padding:1.5rem;text-align:center}
-.as-val{font-size:2rem;font-weight:800;color:#fff}
-.as-label{font-size:.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-.team-strip{border:1px solid var(--slate-200);border-radius:var(--radius-xl);overflow:hidden}
-.team-hdr{background:var(--slate-50);padding:14px 16px;border-bottom:1px solid var(--slate-200)}
-.team-hdr-label{font-size:.75rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--slate-500)}
-.team-list{padding:8px 0}
-.team-row{display:flex;align-items:center;gap:.75rem;padding:10px 16px;
-  border-bottom:1px solid var(--slate-100);transition:.15s}
-.team-row:last-child{border:0}
-.team-row:hover{background:var(--slate-50)}
-.tr-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-weight:700;font-size:.8rem;color:#fff;flex-shrink:0}
-.tr-name{font-size:.87rem;font-weight:600;color:var(--slate-900)}
-.tr-role{font-size:.75rem;color:var(--slate-500)}
-.tr-badge{margin-left:auto;font-size:.65rem;font-weight:600;padding:2px 8px;
-  background:rgba(26,86,219,.1);color:var(--blue);border-radius:20px;white-space:nowrap}
 
 /* =========================================
    TECH STACK
@@ -982,8 +961,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
 
   /* About */
   .about-layout{grid-template-columns:1fr}
-  .about-stat-block{grid-template-columns:repeat(4,1fr)}
-
   /* Contact */
   .contact-grid{grid-template-columns:1fr}
 
@@ -1057,7 +1034,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
 
   /* About */
   .about-values{grid-template-columns:1fr}
-  .about-stat-block{grid-template-columns:repeat(2,1fr)}
 
   /* Team strip rows */
   .tr-badge{display:none}
@@ -1097,7 +1073,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
   .hiw-grid{grid-template-columns:1fr}
   .modules-grid{grid-template-columns:1fr}
   .module-tile.mod-feat{grid-column:span 1}
-  .about-stat-block{grid-template-columns:repeat(2,1fr)}
   .case-metrics{gap:.25rem}
   .cm-val{font-size:1.1rem}
 }
@@ -1851,41 +1826,6 @@ footer{background:var(--slate-900);color:rgba(255,255,255,.6);padding:3.5rem 0 1
           <div class="value-item">
             <h4>Global Capability</h4>
             <p>Multi-language support in 18 languages with culturally adapted content for regional audiences.</p>
-          </div>
-        </div>
-      </div>
-      <div class="about-sidebar reveal-r">
-        <div class="about-stat-block">
-          <div class="about-stat"><div class="as-val">200+</div><div class="as-label">Projects Delivered</div></div>
-          <div class="about-stat"><div class="as-val">25</div><div class="as-label">Countries Served</div></div>
-          <div class="about-stat"><div class="as-val">98%</div><div class="as-label">Client Satisfaction</div></div>
-          <div class="about-stat"><div class="as-val">7 yrs</div><div class="as-label">In Business</div></div>
-        </div>
-        <div class="team-strip">
-          <div class="team-hdr"><span class="team-hdr-label">Leadership Team</span></div>
-          <div class="team-list">
-            <div class="team-row">
-              <div class="tr-avatar" style="background:#1d4ed8">AM</div>
-              <div><div class="tr-name">Aisha Menon</div><div class="tr-role">CEO &amp; Co-Founder</div></div>
-              <span class="tr-badge">Founder</span>
-            </div>
-            <div class="team-row">
-              <div class="tr-avatar" style="background:#059669">DK</div>
-              <div><div class="tr-name">David Kim</div><div class="tr-role">CTO &amp; Co-Founder</div></div>
-              <span class="tr-badge">Founder</span>
-            </div>
-            <div class="team-row">
-              <div class="tr-avatar" style="background:#0891b2">SR</div>
-              <div><div class="tr-name">Sofia Reyes</div><div class="tr-role">Head of Instructional Design</div></div>
-            </div>
-            <div class="team-row">
-              <div class="tr-avatar" style="background:#7c3aed">JP</div>
-              <div><div class="tr-name">James Park</div><div class="tr-role">VP Engineering</div></div>
-            </div>
-            <div class="team-row">
-              <div class="tr-avatar" style="background:#d97706">LN</div>
-              <div><div class="tr-name">Lena Novak</div><div class="tr-role">Head of Technical Writing</div></div>
-            </div>
           </div>
         </div>
       </div>
